@@ -5,9 +5,9 @@ using Domain;
 using System.Text.Json.Serialization;
 
 
-namespace Application.UseCases.Teachers.Commands.CreateTeacher
+namespace Application.UseCases.Teachers.Commands.UpdateTeacher
 {
-    public class CreateTeacherVm :
+    public class UpdateTeacherVm :
         BasicVm,
         IMapFrom<Teacher>
     {
@@ -22,12 +22,13 @@ namespace Application.UseCases.Teachers.Commands.CreateTeacher
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Teacher, CreateTeacherVm>()
+            profile.CreateMap<Teacher, UpdateTeacherVm>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id))
                 .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
                 .ForMember(d => d.Firstname, m => m.MapFrom(o => o.Firstname))
                 .ForMember(d => d.Lastname, m => m.MapFrom(o => o.Lastname))
-                .ForMember(d => d.CreatedAt, m => m.MapFrom(o => o.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")));
+                .ForMember(d => d.CreatedAt, m => m.MapFrom(o => o.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")))
+                .ForMember(d => d.ModifiedAt, m => m.MapFrom(o => o.ModifiedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")));
         }
     }
 }

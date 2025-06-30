@@ -15,20 +15,12 @@
     <Folder Include="UseCases\Enrollment\Commands\DeleteEnrollment\" />
     <Folder Include="UseCases\Enrollment\Queries\GetStudentsByTeacherCode\" />
     <Folder Include="UseCases\Enrollment\Queries\GetSchoolsByTeacherCode\" />
-    <Folder Include="UseCases\School\Commands\CreateSchool\" />
-    <Folder Include="UseCases\School\Commands\DeleteSchool\" />
-    <Folder Include="UseCases\School\Commands\UpdateSchool\" />
     <Folder Include="UseCases\School\Queries\GetSchoolById\" />
     <Folder Include="UseCases\School\Queries\GetSchoolByCode\" />
     <Folder Include="UseCases\School\Queries\SearchSchools\" />
-    <Folder Include="UseCases\Student\Commands\CreateStudent\" />
-    <Folder Include="UseCases\Student\Commands\DeleteStudent\" />
-    <Folder Include="UseCases\Student\Commands\UpdateStudent\" />
     <Folder Include="UseCases\Student\Queries\GetStudentByCode\" />
     <Folder Include="UseCases\Student\Queries\GetStudentById\" />
     <Folder Include="UseCases\Student\Queries\SearchStudents\" />
-    <Folder Include="UseCases\Teachers\Commands\DeleteTeacher\" />
-    <Folder Include="UseCases\Teachers\Commands\UpdateTeacher\" />
     <Folder Include="UseCases\Teachers\Queries\GetTeacherByCode\" />
     <Folder Include="UseCases\Teachers\Queries\GetTeacherById\" />
     <Folder Include="UseCases\Teachers\Queries\SearchTeachers\" />
@@ -38,6 +30,7 @@
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.3.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.6" />
   </ItemGroup>
 

@@ -17,9 +17,9 @@ namespace Persistence.Repositories
 
         public virtual async Task<T> CreateAsync(T entity)
         {
-            if (entity is BaseEntityWithId basicEntity)
+            if (entity is BaseEntityWithId tracked)
             {
-                basicEntity.CreatedAt = DateTime.UtcNow;
+                tracked.CreatedAt = DateTime.UtcNow;
             }
             var entry = await _sqlServerDbContext.Set<T>().AddAsync(entity);
             await _sqlServerDbContext.SaveChangesAsync();
@@ -27,19 +27,31 @@ namespace Persistence.Repositories
             return entry.Entity;
         }
 
-        public virtual async Task<bool> DeleteAsync(int id)
+        public virtual async Task<int> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _sqlServerDbContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+            _sqlServerDbContext.Set<T>().Remove(entity);
+            var affectedRows = await _sqlServerDbContext.SaveChangesAsync();
+
+            return affectedRows;
         }
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            if (entity is BaseEntityWithId tracked)
+            {
+                tracked.CreatedAt = entity.CreatedAt;
+                tracked.ModifiedAt = DateTime.UtcNow;
+            }
+            _sqlServerDbContext.Set<T>().Update(entity);
+            await _sqlServerDbContext.SaveChangesAsync();
+
+            return entity;
         }
 
         public virtual async Task<T?> GetByIdAsync(int id)
         {
-            var entity = await _sqlServerDbContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+            var entity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == id);
 
             return entity;
         }
