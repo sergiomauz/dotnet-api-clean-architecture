@@ -2,7 +2,6 @@
 using Application.UseCases.Teachers.Commands.CreateTeacher;
 
 
-
 namespace Api.Controllers
 {
     [Route("api/teachers")]

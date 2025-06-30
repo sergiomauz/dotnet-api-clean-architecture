@@ -1,6 +1,6 @@
 ﻿namespace Domain
 {
-    public class Enrollment : BasicEntity
+    public class Enrollment : BaseEntityWithId
     {
         #region ====== RELATIONSHIPS: BELONGS TO ======
         public int? SchoolId { get; set; }

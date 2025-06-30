@@ -1,6 +1,6 @@
 ﻿namespace Domain
 {
-    public class BasicEntity
+    public abstract class BaseEntityWithId
     {
         public int? Id { get; set; }
         public DateTime? CreatedAt { get; set; }

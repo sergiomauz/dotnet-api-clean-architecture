@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Repositories;
+using Application.Infrastructure.Persistence;
 
 
 namespace Persistence
@@ -20,6 +22,10 @@ namespace Persistence
 
             // Add db context
             services.AddDbContext<SqlServerDbContext>(options => options.UseSqlServer(connectionStrings.DefaultConnection));
+
+            //
+            services.AddTransient<ITeachersRepository, TeachersRepository>();
+            services.AddTransient<TeachersRepository>();
 
             return services;
         }
