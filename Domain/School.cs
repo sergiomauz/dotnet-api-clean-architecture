@@ -2,6 +2,10 @@
 {
     public class School : BasicEntity
     {
+        #region ====== RELATIONSHIPS: ONE TO MANY - HAS MANY ======
+        public IEnumerable<Enrollment> Enrollments { get; set; }
+        #endregion
+
         #region ====== RELATIONSHIPS: BELONGS TO ======
         public int? TeacherId { get; set; }
         public Teacher? Teacher { get; set; }

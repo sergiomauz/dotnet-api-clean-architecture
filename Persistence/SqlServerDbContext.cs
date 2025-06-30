@@ -1,0 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Domain;
+using Persistence.Mapping;
+
+
+namespace Persistence
+{
+    public class SqlServerDbContext : DbContext
+    {
+        public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options) : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            _ = new StudentMap(modelBuilder.Entity<Student>());
+            _ = new TeacherMap(modelBuilder.Entity<Teacher>());
+            _ = new SchoolMap(modelBuilder.Entity<School>());
+            _ = new EnrollmentMap(modelBuilder.Entity<Enrollment>());
+        }
+    }
+}
