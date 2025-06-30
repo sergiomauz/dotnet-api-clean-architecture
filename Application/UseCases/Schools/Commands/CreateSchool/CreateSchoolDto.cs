@@ -5,6 +5,9 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
 {
     public class CreateSchoolDto
     {
+        [JsonPropertyName("teacher_id")]
+        public int? TeacherId { get; set; }
+
         [JsonPropertyName("code")]
         public string? Code { get; set; }
 

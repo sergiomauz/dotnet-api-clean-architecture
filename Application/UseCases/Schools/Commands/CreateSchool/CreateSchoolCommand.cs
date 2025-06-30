@@ -11,9 +11,10 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
         IMapFrom<CreateSchoolDto>,
         IRequest<CreateSchoolVm>
     {
-        public string? Code { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
+        public int TeacherId { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)
@@ -22,6 +23,7 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<CreateSchoolDto, CreateSchoolCommand>()
+                .ForMember(d => d.TeacherId, m => m.MapFrom(o => o.TeacherId.Value))
                 .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
                 .ForMember(d => d.Name, m => m.MapFrom(o => o.Name))
                 .ForMember(d => d.Description, m => m.MapFrom(o => o.Description));

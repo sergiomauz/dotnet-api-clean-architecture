@@ -13,15 +13,18 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
         private readonly ILogger<CreateSchoolHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ISchoolsRepository _schoolsRepository;
+        private readonly ITeachersRepository _teachersRepository;
 
         public CreateSchoolHandler(
             ILogger<CreateSchoolHandler> logger,
             IMapper mapper,
-            ISchoolsRepository schoolsRepository)
+            ISchoolsRepository schoolsRepository,
+            ITeachersRepository teachersRepository)
         {
             _logger = logger;
             _mapper = mapper;
             _schoolsRepository = schoolsRepository;
+            _teachersRepository = teachersRepository;
         }
 
         public async Task<CreateSchoolVm> Handle(CreateSchoolCommand command, CancellationToken cancellationToken)
@@ -33,10 +36,18 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
                 throw new Exception("Error. School already exists.");
             }
 
+            // Verify if teacher exists
+            var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId);
+            if (existingSchool != null)
+            {
+                throw new Exception("Error. Teacher does not exist.");
+            }
+
             // Save school information
             var newSchool = await _schoolsRepository.CreateAsync(
                 new School
                 {
+                    TeacherId = command.TeacherId,
                     Code = command.Code,
                     Name = command.Name,
                     Description = command.Description

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Application.Commons.VMs;
 using Application.UseCases.Students.Commands.CreateStudent;
-//using Application.UseCases.Students.Commands.DeleteStudent;
+using Application.UseCases.Students.Commands.DeleteStudent;
 //using Application.UseCases.Students.Commands.UpdateStudent;
 
 
@@ -19,5 +20,18 @@ namespace Api.Controllers
 
             return Ok(vm);
         }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<WereDeletedVm>> DeleteStudent([FromRoute] DeleteStudentRoute route)
+        {
+            var command = Mapper.Map<DeleteStudentCommand>(route);
+            Mapper.Map(Request, command);
+
+            var vm = await Mediator.Send(command);
+
+            return Ok(vm);
+        }
+
     }
 }

@@ -1,6 +1,11 @@
-﻿namespace Application.UseCases.Schools.Commands.DeleteSchool
+﻿using Microsoft.AspNetCore.Mvc;
+
+
+namespace Application.UseCases.Schools.Commands.DeleteSchool
 {
-    internal class DeleteSchoolRoute
+    public class DeleteSchoolRoute
     {
+        [FromRoute(Name = "id")]
+        public int? Id { get; set; }
     }
 }

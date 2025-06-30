@@ -10,7 +10,6 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeacher
     public class DeleteTeacherHandler :
         IRequestHandler<DeleteTeacherCommand, WereDeletedVm>
     {
-
         private readonly ILogger<DeleteTeacherHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ITeachersRepository _teachersRepository;
