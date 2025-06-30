@@ -1,8 +1,8 @@
-﻿using Application.Commons.Mapping;
-using Application.Commons.VMs;
+﻿using System.Text.Json.Serialization;
 using AutoMapper;
 using Domain;
-using System.Text.Json.Serialization;
+using Application.Commons.Mapping;
+using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Commands.UpdateTeacher

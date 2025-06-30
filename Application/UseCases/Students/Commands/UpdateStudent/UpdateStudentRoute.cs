@@ -1,6 +1,11 @@
-﻿namespace Application.UseCases.Students.Commands.UpdateStudent
+﻿using Microsoft.AspNetCore.Mvc;
+
+
+namespace Application.UseCases.Students.Commands.UpdateStudent
 {
-    internal class UpdateStudentRoute
+    public class UpdateStudentRoute
     {
+        [FromRoute(Name = "id")]
+        public int? Id { get; set; }
     }
 }

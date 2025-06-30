@@ -2,7 +2,7 @@
 using Application.Commons.VMs;
 using Application.UseCases.Students.Commands.CreateStudent;
 using Application.UseCases.Students.Commands.DeleteStudent;
-//using Application.UseCases.Students.Commands.UpdateStudent;
+using Application.UseCases.Students.Commands.UpdateStudent;
 
 
 namespace Api.Controllers
@@ -21,7 +21,6 @@ namespace Api.Controllers
             return Ok(vm);
         }
 
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<WereDeletedVm>> DeleteStudent([FromRoute] DeleteStudentRoute route)
         {
@@ -33,5 +32,16 @@ namespace Api.Controllers
             return Ok(vm);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UpdateStudentVm>> UpdateStudent([FromRoute] UpdateStudentRoute route, [FromBody] UpdateStudentDto body)
+        {
+            var command = Mapper.Map<UpdateStudentCommand>(route);
+            Mapper.Map(body, command);
+            Mapper.Map(Request, command);
+
+            var vm = await Mediator.Send(command);
+
+            return Ok(vm);
+        }
     }
 }

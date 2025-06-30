@@ -14,7 +14,6 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
         private readonly IMapper _mapper;
         private readonly ITeachersRepository _teachersRepository;
 
-
         public UpdateTeacherHandler(
             ILogger<UpdateTeacherHandler> logger,
             IMapper mapper,
@@ -52,6 +51,7 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
             var newTeacher = await _teachersRepository.UpdateAsync(
                 new Teacher
                 {
+                    Id = existingTeacher.Id,
                     Code = existingTeacher.Code,
                     Firstname = existingTeacher.Firstname,
                     Lastname = existingTeacher.Lastname,

@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.Students.Commands.UpdateStudent
 {
-    internal class UpdateStudentCommandValidator
+    public class UpdateStudentCommandValidator
     {
     }
 }

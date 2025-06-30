@@ -29,7 +29,7 @@ namespace Persistence.Repositories
 
         public virtual async Task<int> DeleteAsync(int id)
         {
-            var entity = await _sqlServerDbContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+            var entity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
             _sqlServerDbContext.Set<T>().Remove(entity);
             var affectedRows = await _sqlServerDbContext.SaveChangesAsync();
 
@@ -38,15 +38,14 @@ namespace Persistence.Repositories
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            if (entity is BaseEntityWithId tracked)
-            {
-                tracked.CreatedAt = entity.CreatedAt;
-                tracked.ModifiedAt = DateTime.UtcNow;
-            }
-            _sqlServerDbContext.Set<T>().Update(entity);
+            var existingEntity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == entity.Id);
+            if (existingEntity == null)
+                return null;
+
+            _sqlServerDbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
             await _sqlServerDbContext.SaveChangesAsync();
 
-            return entity;
+            return existingEntity;
         }
 
         public virtual async Task<T?> GetByIdAsync(int id)
