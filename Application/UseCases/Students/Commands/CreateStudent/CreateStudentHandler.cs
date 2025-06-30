@@ -27,10 +27,10 @@ namespace Application.UseCases.Students.Commands.CreateStudent
         public async Task<CreateStudentVm> Handle(CreateStudentCommand command, CancellationToken cancellationToken)
         {
             // Verify if student exists
-            var existingTeacher = await _studentsRepository.GetByCodeAsync(command.Code);
-            if (existingTeacher != null)
+            var existingStudent = await _studentsRepository.GetByCodeAsync(command.Code);
+            if (existingStudent != null)
             {
-                throw new Exception("Error. Teacher already exists.");
+                throw new Exception("Error. Student already exists.");
             }
 
             // Save student information

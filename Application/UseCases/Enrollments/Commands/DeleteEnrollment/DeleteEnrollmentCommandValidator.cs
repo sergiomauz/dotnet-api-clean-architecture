@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
 {
-    internal class DeleteEnrollmentCommandValidator
+    public class DeleteEnrollmentCommandValidator
     {
     }
 }

@@ -1,6 +1,11 @@
-﻿namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
+﻿using Microsoft.AspNetCore.Mvc;
+
+
+namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
 {
-    internal class DeleteEnrollmentRoute
+    public class DeleteEnrollmentRoute
     {
+        [FromRoute(Name = "id")]
+        public int? Id { get; set; }
     }
 }

@@ -38,7 +38,7 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
 
             // Verify if teacher exists
             var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId);
-            if (existingSchool != null)
+            if (existingTeacher == null)
             {
                 throw new Exception("Error. Teacher does not exist.");
             }
