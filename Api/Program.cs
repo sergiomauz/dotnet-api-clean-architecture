@@ -1,4 +1,5 @@
 using Persistence;
+using Application;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Inject dependencies
 var persistenceConfiguration = builder.Configuration.GetSection("Persistence");
 builder.Services.AddPersistence(persistenceConfiguration);
+builder.Services.AddAplication();
 
 //
 builder.Services.AddControllers();
