@@ -1,8 +1,8 @@
-﻿using Application.Commons.VMs;
+﻿using Microsoft.AspNetCore.Mvc;
+using Application.Commons.VMs;
 using Application.UseCases.Teachers.Commands.CreateTeacher;
 using Application.UseCases.Teachers.Commands.DeleteTeacher;
 using Application.UseCases.Teachers.Commands.UpdateTeacher;
-using Microsoft.AspNetCore.Mvc;
 
 
 namespace Api.Controllers
