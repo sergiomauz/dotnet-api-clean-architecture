@@ -11,4 +11,29 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enrollment\Commands\CreateEnrollment\" />
+    <Folder Include="Enrollment\Commands\DeleteEnrollment\" />
+    <Folder Include="Enrollment\Queries\GetStudentsByTeacherCode\" />
+    <Folder Include="Enrollment\Queries\GetSchoolsByTeacherCode\" />
+    <Folder Include="School\Commands\CreateSchool\" />
+    <Folder Include="School\Commands\DeleteSchool\" />
+    <Folder Include="School\Commands\UpdateSchool\" />
+    <Folder Include="School\Queries\GetSchoolById\" />
+    <Folder Include="School\Queries\GetSchoolByCode\" />
+    <Folder Include="School\Queries\SearchSchools\" />
+    <Folder Include="Student\Commands\CreateStudent\" />
+    <Folder Include="Student\Commands\DeleteStudent\" />
+    <Folder Include="Student\Commands\UpdateStudent\" />
+    <Folder Include="Student\Queries\GetStudentByCode\" />
+    <Folder Include="Student\Queries\GetStudentById\" />
+    <Folder Include="Student\Queries\SearchStudents\" />
+    <Folder Include="Teacher\Commands\CreateTeacher\" />
+    <Folder Include="Teacher\Commands\DeleteTeacher\" />
+    <Folder Include="Teacher\Commands\UpdateTeacher\" />
+    <Folder Include="Teacher\Queries\GetTeacherByCode\" />
+    <Folder Include="Teacher\Queries\GetTeacherById\" />
+    <Folder Include="Teacher\Queries\SearchTeachers\" />
+  </ItemGroup>
+
 </Project>
