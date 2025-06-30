@@ -1,13 +1,10 @@
 .vs/
 
-Presentation/bin/
-Presentation/obj/
+Api/bin/
+Api/obj/
 
 Application/bin/
 Application/obj/
-
-Common/bin/
-Common/obj/
 
 Domain/bin/
 Domain/obj/
