@@ -27,6 +27,17 @@ namespace Persistence
             services.AddTransient<ITeachersRepository, TeachersRepository>();
             services.AddTransient<TeachersRepository>();
 
+            //
+            services.AddTransient<IStudentsRepository, StudentsRepository>();
+            services.AddTransient<StudentsRepository>();
+
+            //
+            services.AddTransient<ISchoolsRepository, SchoolsRepository>();
+            services.AddTransient<SchoolsRepository>();
+
+            //
+            services.AddTransient<IEnrollmentsRepository, EnrollmentsRepository>();
+            services.AddTransient<EnrollmentsRepository>();
             return services;
         }
     }

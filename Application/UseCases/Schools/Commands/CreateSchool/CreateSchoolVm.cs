@@ -5,28 +5,28 @@ using Application.Commons.Mapping;
 using Application.Commons.VMs;
 
 
-namespace Application.UseCases.Teachers.Commands.CreateTeacher
+namespace Application.UseCases.Schools.Commands.CreateSchool
 {
-    public class CreateTeacherVm :
+    public class CreateSchoolVm :
         BasicVm,
-        IMapFrom<Teacher>
+        IMapFrom<School>
     {
         [JsonPropertyName("code")]
         public string Code { get; set; }
 
-        [JsonPropertyName("firstname")]
-        public string Firstname { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
 
-        [JsonPropertyName("lastname")]
-        public string Lastname { get; set; }
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Teacher, CreateTeacherVm>()
+            profile.CreateMap<School, CreateSchoolVm>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id))
                 .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
-                .ForMember(d => d.Firstname, m => m.MapFrom(o => o.Firstname))
-                .ForMember(d => d.Lastname, m => m.MapFrom(o => o.Lastname))
+                .ForMember(d => d.Name, m => m.MapFrom(o => o.Name))
+                .ForMember(d => d.Description, m => m.MapFrom(o => o.Description))
                 .ForMember(d => d.CreatedAt, m => m.MapFrom(o => o.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")));
         }
     }

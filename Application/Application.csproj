@@ -11,16 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Enrollment\Commands\CreateEnrollment\" />
-    <Folder Include="UseCases\Enrollment\Commands\DeleteEnrollment\" />
-    <Folder Include="UseCases\Enrollment\Queries\GetStudentsByTeacherCode\" />
-    <Folder Include="UseCases\Enrollment\Queries\GetSchoolsByTeacherCode\" />
-    <Folder Include="UseCases\School\Queries\GetSchoolById\" />
-    <Folder Include="UseCases\School\Queries\GetSchoolByCode\" />
-    <Folder Include="UseCases\School\Queries\SearchSchools\" />
-    <Folder Include="UseCases\Student\Queries\GetStudentByCode\" />
-    <Folder Include="UseCases\Student\Queries\GetStudentById\" />
-    <Folder Include="UseCases\Student\Queries\SearchStudents\" />
+    <Folder Include="UseCases\Enrollments\Queries\GetStudentsByTeacherCode\" />
+    <Folder Include="UseCases\Enrollments\Queries\GetSchoolsByTeacherCode\" />
+    <Folder Include="UseCases\Schools\Queries\GetSchoolById\" />
+    <Folder Include="UseCases\Schools\Queries\GetSchoolByCode\" />
+    <Folder Include="UseCases\Schools\Queries\SearchSchools\" />
+    <Folder Include="UseCases\Students\Queries\GetStudentByCode\" />
+    <Folder Include="UseCases\Students\Queries\GetStudentById\" />
+    <Folder Include="UseCases\Students\Queries\SearchStudents\" />
     <Folder Include="UseCases\Teachers\Queries\GetTeacherByCode\" />
     <Folder Include="UseCases\Teachers\Queries\GetTeacherById\" />
     <Folder Include="UseCases\Teachers\Queries\SearchTeachers\" />
