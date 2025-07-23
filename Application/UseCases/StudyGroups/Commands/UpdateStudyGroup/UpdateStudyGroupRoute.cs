@@ -1,6 +1,11 @@
-﻿namespace Application.UseCases.StudyGroups.Commands.UpdateStudyGroup
+﻿using Microsoft.AspNetCore.Mvc;
+
+
+namespace Application.UseCases.StudyGroups.Commands.UpdateStudyGroup
 {
-    internal class UpdateStudyGroupRoute
+    public class UpdateStudyGroupRoute
     {
+        [FromRoute(Name = "id")]
+        public int? Id { get; set; }
     }
 }

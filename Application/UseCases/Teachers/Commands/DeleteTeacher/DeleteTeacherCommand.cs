@@ -2,7 +2,6 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
-using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Commands.DeleteTeacher
@@ -10,7 +9,7 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeacher
     public class DeleteTeacherCommand :
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteTeacherRoute>,
-        IRequest<WereDeletedVm>
+        IRequest<DeleteTeacherVm>
     {
         public int Id { get; set; }
 

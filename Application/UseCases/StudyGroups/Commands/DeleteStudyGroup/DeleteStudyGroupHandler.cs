@@ -1,14 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
-using Application.Commons.VMs;
 using Application.Infrastructure.Persistence;
 
 
 namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
 {
     public class DeleteStudyGroupHandler :
-        IRequestHandler<DeleteStudyGroupCommand, WereDeletedVm>
+        IRequestHandler<DeleteStudyGroupCommand, DeleteStudyGroupVm>
     {
         private readonly ILogger<DeleteStudyGroupHandler> _logger;
         private readonly IMapper _mapper;
@@ -24,7 +23,7 @@ namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
             _studyGroupsRepository = studyGroupsRepository;
         }
 
-        public async Task<WereDeletedVm> Handle(DeleteStudyGroupCommand command, CancellationToken cancellationToken)
+        public async Task<DeleteStudyGroupVm> Handle(DeleteStudyGroupCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
             var affected = await _studyGroupsRepository.DeleteAsync(command.Id);
@@ -32,14 +31,14 @@ namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
             // Map rows affected
             if (affected > 0)
             {
-                return new WereDeletedVm
+                return new DeleteStudyGroupVm
                 {
                     WereDeleted = true,
                     TotalAffected = affected
                 };
             }
 
-            return new WereDeletedVm
+            return new DeleteStudyGroupVm
             {
                 WereDeleted = false,
                 TotalAffected = 0

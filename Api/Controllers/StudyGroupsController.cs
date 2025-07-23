@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Application.Commons.VMs;
 using Application.UseCases.StudyGroups.Commands.CreateStudyGroup;
 using Application.UseCases.StudyGroups.Commands.DeleteStudyGroup;
-//using Application.UseCases.Teachers.Commands.UpdateTeacher;
+using Application.UseCases.StudyGroups.Commands.UpdateStudyGroup;
 
 
 namespace Api.Controllers
@@ -22,9 +21,21 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<WereDeletedVm>> DeleteStudyGroup([FromRoute] DeleteStudyGroupRoute route)
+        public async Task<ActionResult<DeleteStudyGroupVm>> DeleteStudyGroup([FromRoute] DeleteStudyGroupRoute route)
         {
             var command = Mapper.Map<DeleteStudyGroupCommand>(route);
+            Mapper.Map(Request, command);
+
+            var vm = await Mediator.Send(command);
+
+            return Ok(vm);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UpdateStudyGroupVm>> UpdateTeacher([FromRoute] UpdateStudyGroupRoute route, [FromBody] UpdateStudyGroupDto body)
+        {
+            var command = Mapper.Map<UpdateStudyGroupCommand>(route);
+            Mapper.Map(body, command);
             Mapper.Map(Request, command);
 
             var vm = await Mediator.Send(command);

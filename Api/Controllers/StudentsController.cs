@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Application.Commons.VMs;
 using Application.UseCases.Students.Commands.CreateStudent;
 using Application.UseCases.Students.Commands.DeleteStudent;
 using Application.UseCases.Students.Commands.UpdateStudent;
@@ -22,7 +21,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<WereDeletedVm>> DeleteStudent([FromRoute] DeleteStudentRoute route)
+        public async Task<ActionResult<DeleteStudentVm>> DeleteStudent([FromRoute] DeleteStudentRoute route)
         {
             var command = Mapper.Map<DeleteStudentCommand>(route);
             Mapper.Map(Request, command);

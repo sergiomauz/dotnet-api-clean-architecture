@@ -2,7 +2,6 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
-using Application.Commons.VMs;
 
 
 namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
@@ -10,7 +9,7 @@ namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
     public class DeleteStudyGroupCommand :
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteStudyGroupRoute>,
-        IRequest<WereDeletedVm>
+        IRequest<DeleteStudyGroupVm>
     {
         public int Id { get; set; }
 

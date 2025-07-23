@@ -2,7 +2,6 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
-using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
@@ -10,7 +9,7 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
     public class DeleteEnrollmentCommand :
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteEnrollmentRoute>,
-        IRequest<WereDeletedVm>
+        IRequest<DeleteEnrollmentVm>
     {
         public int Id { get; set; }
 

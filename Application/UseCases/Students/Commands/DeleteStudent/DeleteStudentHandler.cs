@@ -1,14 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
-using Application.Commons.VMs;
 using Application.Infrastructure.Persistence;
 
 
 namespace Application.UseCases.Students.Commands.DeleteStudent
 {
     public class DeleteStudentHandler :
-        IRequestHandler<DeleteStudentCommand, WereDeletedVm>
+        IRequestHandler<DeleteStudentCommand, DeleteStudentVm>
     {
         private readonly ILogger<DeleteStudentHandler> _logger;
         private readonly IMapper _mapper;
@@ -24,7 +23,7 @@ namespace Application.UseCases.Students.Commands.DeleteStudent
             _studentsRepository = studentsRepository;
         }
 
-        public async Task<WereDeletedVm> Handle(DeleteStudentCommand command, CancellationToken cancellationToken)
+        public async Task<DeleteStudentVm> Handle(DeleteStudentCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
             var affected = await _studentsRepository.DeleteAsync(command.Id);
@@ -32,14 +31,14 @@ namespace Application.UseCases.Students.Commands.DeleteStudent
             // Map rows affected
             if (affected > 0)
             {
-                return new WereDeletedVm
+                return new DeleteStudentVm
                 {
                     WereDeleted = true,
                     TotalAffected = affected
                 };
             }
 
-            return new WereDeletedVm
+            return new DeleteStudentVm
             {
                 WereDeleted = false,
                 TotalAffected = 0
