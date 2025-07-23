@@ -5,7 +5,7 @@ using Application.Commons.Mapping;
 using Application.Commons.VMs;
 
 
-namespace Application.UseCases.StudyGroups.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateStudyGroup
 {
     public class CreateStudyGroupVm :
         BasicVm,

@@ -4,7 +4,7 @@ using MediatR;
 using Application.Commons.Mapping;
 
 
-namespace Application.UseCases.StudyGroups.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateStudyGroup
 {
     public class CreateStudyGroupCommand :
         IMapFrom<HttpRequest>,

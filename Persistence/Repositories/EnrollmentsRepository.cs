@@ -14,9 +14,9 @@ namespace Persistence.Repositories
             _sqlServerDbContext = sqlServerDbContext;
         }
 
-        public virtual async Task<Enrollment?> GetEnrollmentByStudentIdAsync(int schoolId, int studentId)
+        public virtual async Task<Enrollment?> GetEnrollmentByStudentIdAsync(int studyGroupId, int studentId)
         {
-            var entity = await _sqlServerDbContext.Set<Enrollment>().SingleOrDefaultAsync(t => t.StudyGroupId == schoolId && t.StudentId == studentId);
+            var entity = await _sqlServerDbContext.Set<Enrollment>().SingleOrDefaultAsync(t => t.StudyGroupId == studyGroupId && t.StudentId == studentId);
 
             return entity;
         }

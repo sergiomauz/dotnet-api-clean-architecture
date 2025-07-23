@@ -5,35 +5,35 @@ using Domain;
 using Application.Infrastructure.Persistence;
 
 
-namespace Application.UseCases.StudyGroups.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateStudyGroup
 {
     public class CreateStudyGroupHandler :
         IRequestHandler<CreateStudyGroupCommand, CreateStudyGroupVm>
     {
         private readonly ILogger<CreateStudyGroupHandler> _logger;
         private readonly IMapper _mapper;
-        private readonly IStudyGroupsRepository _schoolsRepository;
+        private readonly IStudyGroupsRepository _studyGroupsRepository;
         private readonly ITeachersRepository _teachersRepository;
 
         public CreateStudyGroupHandler(
             ILogger<CreateStudyGroupHandler> logger,
             IMapper mapper,
-            IStudyGroupsRepository schoolsRepository,
+            IStudyGroupsRepository studyGroupsRepository,
             ITeachersRepository teachersRepository)
         {
             _logger = logger;
             _mapper = mapper;
-            _schoolsRepository = schoolsRepository;
+            _studyGroupsRepository = studyGroupsRepository;
             _teachersRepository = teachersRepository;
         }
 
         public async Task<CreateStudyGroupVm> Handle(CreateStudyGroupCommand command, CancellationToken cancellationToken)
         {
-            // Verify if school exists
-            var existingSchool = await _schoolsRepository.GetByCodeAsync(command.Code);
-            if (existingSchool != null)
+            // Verify if study group exists
+            var existingStudyGroup = await _studyGroupsRepository.GetByCodeAsync(command.Code);
+            if (existingStudyGroup != null)
             {
-                throw new Exception("Error. School already exists.");
+                throw new Exception("Error. Study group already exists.");
             }
 
             // Verify if teacher exists
@@ -43,8 +43,8 @@ namespace Application.UseCases.StudyGroups.Commands.CreateSchool
                 throw new Exception("Error. Teacher does not exist.");
             }
 
-            // Save school information
-            var newSchool = await _schoolsRepository.CreateAsync(
+            // Save study group information
+            var newStudyGroup = await _studyGroupsRepository.CreateAsync(
                 new StudyGroup
                 {
                     TeacherId = command.TeacherId,
@@ -55,7 +55,7 @@ namespace Application.UseCases.StudyGroups.Commands.CreateSchool
             );
 
             // Map newData to response
-            var response = _mapper.Map<CreateStudyGroupVm>(newSchool);
+            var response = _mapper.Map<CreateStudyGroupVm>(newStudyGroup);
 
             // Return
             return response;

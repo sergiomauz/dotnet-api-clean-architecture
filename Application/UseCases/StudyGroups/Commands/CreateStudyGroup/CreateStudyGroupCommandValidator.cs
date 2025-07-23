@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.StudyGroups.Commands.CreateSchool
+﻿namespace Application.UseCases.StudyGroups.Commands.CreateStudyGroup
 {
     internal class CreateStudyGroupCommandValidator
     {

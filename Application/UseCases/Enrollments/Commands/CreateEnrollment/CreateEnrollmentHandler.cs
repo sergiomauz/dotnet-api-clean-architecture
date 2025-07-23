@@ -32,11 +32,11 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
 
         public async Task<CreateEnrollmentVm> Handle(CreateEnrollmentCommand command, CancellationToken cancellationToken)
         {
-            // Verify if school exists
-            var existingSchool = await _studyGroupsRepository.GetByIdAsync(command.SchoolId);
-            if (existingSchool == null)
+            // Verify if study group exists
+            var existingStudyGroup = await _studyGroupsRepository.GetByIdAsync(command.StudyGroupId);
+            if (existingStudyGroup == null)
             {
-                throw new Exception("Error. School does not exist.");
+                throw new Exception("Error. Study group does not exist.");
             }
 
             // Verify if student exists
@@ -47,7 +47,7 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             }
 
             // Verify if enrollment exists
-            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentByStudentIdAsync(command.SchoolId, command.StudentId);
+            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentByStudentIdAsync(command.StudyGroupId, command.StudentId);
             if (existingEnrollment != null)
             {
                 throw new Exception("Error. Enrollment already exists.");
@@ -57,7 +57,7 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             var newTeacher = await _enrollmentsRepository.CreateAsync(
                 new Enrollment
                 {
-                    StudyGroupId = command.SchoolId,
+                    StudyGroupId = command.StudyGroupId,
                     StudentId = command.StudentId
                 }
             );

@@ -5,9 +5,9 @@ using Domain;
 
 namespace Persistence.Mapping
 {
-    public class SchoolMap
+    public class StudyGroupMap
     {
-        public SchoolMap(EntityTypeBuilder<StudyGroup> entityBuilder)
+        public StudyGroupMap(EntityTypeBuilder<StudyGroup> entityBuilder)
         {
             entityBuilder.ToTable(name: "StudyGroups");
 

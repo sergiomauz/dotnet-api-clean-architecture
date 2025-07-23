@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 
-namespace Application.UseCases.StudyGroups.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateStudyGroup
 {
     public class CreateStudyGroupDto
     {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 
-namespace Application.UseCases.StudyGroups.Commands.DeleteSchool
+namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
 {
-    public class DeleteSchoolRoute
+    public class DeleteStudyGroupRoute
     {
         [FromRoute(Name = "id")]
         public int? Id { get; set; }

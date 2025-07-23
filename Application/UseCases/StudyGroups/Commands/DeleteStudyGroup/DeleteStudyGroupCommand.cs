@@ -5,11 +5,11 @@ using Application.Commons.Mapping;
 using Application.Commons.VMs;
 
 
-namespace Application.UseCases.StudyGroups.Commands.DeleteSchool
+namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
 {
-    public class DeleteSchoolCommand :
+    public class DeleteStudyGroupCommand :
         IMapFrom<HttpRequest>,
-        IMapFrom<DeleteSchoolRoute>,
+        IMapFrom<DeleteStudyGroupRoute>,
         IRequest<WereDeletedVm>
     {
         public int Id { get; set; }
@@ -18,10 +18,10 @@ namespace Application.UseCases.StudyGroups.Commands.DeleteSchool
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<HttpRequest, DeleteSchoolCommand>()
+            profile.CreateMap<HttpRequest, DeleteStudyGroupCommand>()
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
-            profile.CreateMap<DeleteSchoolRoute, DeleteSchoolCommand>()
+            profile.CreateMap<DeleteStudyGroupRoute, DeleteStudyGroupCommand>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id.Value));
         }
     }
