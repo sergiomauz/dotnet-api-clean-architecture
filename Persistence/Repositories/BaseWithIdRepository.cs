@@ -15,7 +15,7 @@ namespace Persistence.Repositories
             _sqlServerDbContext = sqlServerDbContext;
         }
 
-        public virtual async Task<T> CreateAsync(T entity)
+        public virtual async Task<T?> CreateAsync(T entity)
         {
             if (entity is BaseEntityWithId tracked)
             {
@@ -36,12 +36,13 @@ namespace Persistence.Repositories
             return affectedRows;
         }
 
-        public virtual async Task<T> UpdateAsync(T entity)
+        public virtual async Task<T?> UpdateAsync(T entity)
         {
             var existingEntity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == entity.Id);
             if (existingEntity == null)
                 return null;
 
+            entity.ModifiedAt = DateTime.UtcNow;
             _sqlServerDbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
             await _sqlServerDbContext.SaveChangesAsync();
 

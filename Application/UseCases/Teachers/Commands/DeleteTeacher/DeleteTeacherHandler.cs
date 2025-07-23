@@ -1,8 +1,8 @@
-﻿using Application.Commons.VMs;
-using Application.Infrastructure.Persistence;
+﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
-using Microsoft.Extensions.Logging;
+using Application.Commons.VMs;
+using Application.Infrastructure.Persistence;
 
 
 namespace Application.UseCases.Teachers.Commands.DeleteTeacher

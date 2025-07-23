@@ -5,9 +5,9 @@ namespace Application.Infrastructure.Persistence
 {
     public interface IBaseWithIdRepository<T> where T : BaseEntityWithId
     {
-        Task<T> CreateAsync(T entity);
+        Task<T?> CreateAsync(T entity);
         Task<int> DeleteAsync(int id);
-        Task<T> UpdateAsync(T entity);
+        Task<T?> UpdateAsync(T entity);
         Task<T?> GetByIdAsync(int id);
     }
 }

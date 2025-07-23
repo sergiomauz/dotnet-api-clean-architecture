@@ -26,7 +26,7 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
 
         public async Task<UpdateStudentVm> Handle(UpdateStudentCommand command, CancellationToken cancellationToken)
         {
-            // Verify if teacher exists
+            // Verify if student exists
             var existingStudent = await _studentsRepository.GetByIdAsync(command.Id);
             if (existingStudent == null)
             {
@@ -36,6 +36,15 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
             // Verify which fields to update
             if (!string.IsNullOrEmpty(command.Code))
             {
+                // Verify if a valid student code exists and if this is the same to update
+                var existingStudentWithCode = await _studentsRepository.GetByCodeAsync(command.Code);
+                if (existingStudentWithCode != null)
+                {
+                    if (existingStudent.Id != existingStudentWithCode.Id)
+                    {
+                        throw new Exception("Error. Student code already exists.");
+                    }
+                }
                 existingStudent.Code = command.Code;
             }
             if (!string.IsNullOrEmpty(command.Firstname))

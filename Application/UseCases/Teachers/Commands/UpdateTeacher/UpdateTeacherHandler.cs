@@ -36,6 +36,15 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
             // Verify which fields to update
             if (!string.IsNullOrEmpty(command.Code))
             {
+                // Verify if a valid teacher code exists and if this is the same to update
+                var existingTeacherWithCode = await _teachersRepository.GetByCodeAsync(command.Code);
+                if (existingTeacherWithCode != null)
+                {
+                    if (existingTeacher.Id != existingTeacherWithCode.Id)
+                    {
+                        throw new Exception("Error. Teacher code already exists.");
+                    }
+                }
                 existingTeacher.Code = command.Code;
             }
             if (!string.IsNullOrEmpty(command.Firstname))
