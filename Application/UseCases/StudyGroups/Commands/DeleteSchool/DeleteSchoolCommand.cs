@@ -5,7 +5,7 @@ using Application.Commons.Mapping;
 using Application.Commons.VMs;
 
 
-namespace Application.UseCases.Schools.Commands.DeleteSchool
+namespace Application.UseCases.StudyGroups.Commands.DeleteSchool
 {
     public class DeleteSchoolCommand :
         IMapFrom<HttpRequest>,

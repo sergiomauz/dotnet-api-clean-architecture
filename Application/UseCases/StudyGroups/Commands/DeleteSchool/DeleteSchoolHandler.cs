@@ -5,19 +5,19 @@ using Application.Commons.VMs;
 using Application.Infrastructure.Persistence;
 
 
-namespace Application.UseCases.Schools.Commands.DeleteSchool
+namespace Application.UseCases.StudyGroups.Commands.DeleteSchool
 {
     public class DeleteSchoolHandler :
         IRequestHandler<DeleteSchoolCommand, WereDeletedVm>
     {
         private readonly ILogger<DeleteSchoolHandler> _logger;
         private readonly IMapper _mapper;
-        private readonly ISchoolsRepository _schoolsRepository;
+        private readonly IStudyGroupsRepository _schoolsRepository;
 
         public DeleteSchoolHandler(
             ILogger<DeleteSchoolHandler> logger,
             IMapper mapper,
-            ISchoolsRepository schoolsRepository)
+            IStudyGroupsRepository schoolsRepository)
         {
             _logger = logger;
             _mapper = mapper;

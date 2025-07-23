@@ -12,10 +12,10 @@
 
   <ItemGroup>
     <Folder Include="UseCases\Enrollments\Queries\GetStudentsByTeacherCode\" />
-    <Folder Include="UseCases\Enrollments\Queries\GetSchoolsByTeacherCode\" />
-    <Folder Include="UseCases\Schools\Queries\GetSchoolById\" />
-    <Folder Include="UseCases\Schools\Queries\GetSchoolByCode\" />
-    <Folder Include="UseCases\Schools\Queries\SearchSchools\" />
+    <Folder Include="UseCases\Enrollments\Queries\GetStudyGroupsByTeacherCode\" />
+    <Folder Include="UseCases\StudyGroups\Queries\GetStudyGroupById\" />
+    <Folder Include="UseCases\StudyGroups\Queries\GetStudyGroupByCode\" />
+    <Folder Include="UseCases\StudyGroups\Queries\SearchStudyGroups\" />
     <Folder Include="UseCases\Students\Queries\GetStudentByCode\" />
     <Folder Include="UseCases\Students\Queries\GetStudentById\" />
     <Folder Include="UseCases\Students\Queries\SearchStudents\" />

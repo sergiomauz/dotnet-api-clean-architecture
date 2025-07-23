@@ -4,12 +4,12 @@ using MediatR;
 using Application.Commons.Mapping;
 
 
-namespace Application.UseCases.Schools.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateSchool
 {
-    public class CreateSchoolCommand :
+    public class CreateStudyGroupCommand :
         IMapFrom<HttpRequest>,
-        IMapFrom<CreateSchoolDto>,
-        IRequest<CreateSchoolVm>
+        IMapFrom<CreateStudyGroupDto>,
+        IRequest<CreateStudyGroupVm>
     {
         public int TeacherId { get; set; }
         public string Code { get; set; }
@@ -19,10 +19,10 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<HttpRequest, CreateSchoolCommand>()
+            profile.CreateMap<HttpRequest, CreateStudyGroupCommand>()
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
-            profile.CreateMap<CreateSchoolDto, CreateSchoolCommand>()
+            profile.CreateMap<CreateStudyGroupDto, CreateStudyGroupCommand>()
                 .ForMember(d => d.TeacherId, m => m.MapFrom(o => o.TeacherId.Value))
                 .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
                 .ForMember(d => d.Name, m => m.MapFrom(o => o.Name))

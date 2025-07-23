@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
 
-namespace Application.UseCases.Schools.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateSchool
 {
-    public class CreateSchoolDto
+    public class CreateStudyGroupDto
     {
         [JsonPropertyName("teacher_id")]
         public int? TeacherId { get; set; }

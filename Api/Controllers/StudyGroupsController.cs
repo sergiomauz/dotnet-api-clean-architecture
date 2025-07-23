@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Commons.VMs;
-using Application.UseCases.Schools.Commands.CreateSchool;
-using Application.UseCases.Schools.Commands.DeleteSchool;
+using Application.UseCases.StudyGroups.Commands.CreateSchool;
+using Application.UseCases.StudyGroups.Commands.DeleteSchool;
 //using Application.UseCases.Teachers.Commands.UpdateTeacher;
 
 
 namespace Api.Controllers
 {
-    [Route("api/schools")]
-    public class SchoolsController : CustomControllerBase
+    [Route("api/study-groups")]
+    public class StudyGroupsController : CustomControllerBase
     {
         [HttpPost("")]
-        public async Task<ActionResult<CreateSchoolVm>> CreateSchool([FromBody] CreateSchoolDto body)
+        public async Task<ActionResult<CreateStudyGroupVm>> CreateSchool([FromBody] CreateStudyGroupDto body)
         {
-            var command = Mapper.Map<CreateSchoolCommand>(body);
+            var command = Mapper.Map<CreateStudyGroupCommand>(body);
             Mapper.Map(Request, command);
 
             var vm = await Mediator.Send(command);

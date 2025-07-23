@@ -7,9 +7,9 @@ namespace Persistence.Mapping
 {
     public class SchoolMap
     {
-        public SchoolMap(EntityTypeBuilder<School> entityBuilder)
+        public SchoolMap(EntityTypeBuilder<StudyGroup> entityBuilder)
         {
-            entityBuilder.ToTable(name: "Schools", schema: "school");
+            entityBuilder.ToTable(name: "StudyGroups");
 
             #region ======== PRIMARY KEYS ========
             entityBuilder.HasKey(t => t.Id);
@@ -21,8 +21,8 @@ namespace Persistence.Mapping
             #region ======== RELATIONSHIPS: HAS MANY ========
             entityBuilder
                 .HasMany(d => d.Enrollments)
-                .WithOne(o => o.School)
-                .HasForeignKey(to => to.SchoolId)
+                .WithOne(o => o.StudyGroup)
+                .HasForeignKey(to => to.StudyGroupId)
                 .OnDelete(DeleteBehavior.Cascade);
             #endregion
 

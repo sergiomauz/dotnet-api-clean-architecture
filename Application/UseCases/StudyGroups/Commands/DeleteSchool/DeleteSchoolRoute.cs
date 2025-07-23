@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 
-namespace Application.UseCases.Schools.Commands.DeleteSchool
+namespace Application.UseCases.StudyGroups.Commands.DeleteSchool
 {
     public class DeleteSchoolRoute
     {

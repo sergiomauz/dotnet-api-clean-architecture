@@ -1,8 +1,8 @@
-﻿using Application.Infrastructure.Persistence;
+﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Domain;
 using MediatR;
-using Microsoft.Extensions.Logging;
+using Application.Infrastructure.Persistence;
 
 
 namespace Application.UseCases.Students.Commands.UpdateStudent

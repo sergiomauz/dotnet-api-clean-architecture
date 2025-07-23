@@ -32,8 +32,8 @@ namespace Persistence
             services.AddTransient<StudentsRepository>();
 
             //
-            services.AddTransient<ISchoolsRepository, SchoolsRepository>();
-            services.AddTransient<SchoolsRepository>();
+            services.AddTransient<IStudyGroupsRepository, StudyGroupsRepository>();
+            services.AddTransient<StudyGroupsRepository>();
 
             //
             services.AddTransient<IEnrollmentsRepository, EnrollmentsRepository>();

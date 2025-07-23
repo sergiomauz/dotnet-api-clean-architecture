@@ -9,7 +9,7 @@ namespace Persistence.Mapping
     {
         public StudentMap(EntityTypeBuilder<Student> entityBuilder)
         {
-            entityBuilder.ToTable(name: "Students", schema: "school");
+            entityBuilder.ToTable(name: "Students");
 
             #region ======== PRIMARY KEYS ========
             entityBuilder.HasKey(t => t.Id);

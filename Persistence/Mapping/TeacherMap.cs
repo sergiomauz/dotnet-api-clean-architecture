@@ -9,7 +9,7 @@ namespace Persistence.Mapping
     {
         public TeacherMap(EntityTypeBuilder<Teacher> entityBuilder)
         {
-            entityBuilder.ToTable(name: "Teachers", schema: "school");
+            entityBuilder.ToTable(name: "Teachers");
 
             #region ======== PRIMARY KEYS ========
             entityBuilder.HasKey(t => t.Id);
@@ -20,7 +20,7 @@ namespace Persistence.Mapping
 
             #region ======== RELATIONSHIPS: HAS MANY ========
             entityBuilder
-                .HasMany(d => d.Schools)
+                .HasMany(d => d.StudyGroups)
                 .WithOne(o => o.Teacher)
                 .HasForeignKey(to => to.TeacherId)
                 .OnDelete(DeleteBehavior.SetNull);

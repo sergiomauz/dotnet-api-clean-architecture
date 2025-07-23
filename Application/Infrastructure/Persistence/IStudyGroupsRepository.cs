@@ -3,7 +3,7 @@
 
 namespace Application.Infrastructure.Persistence
 {
-    public interface ISchoolsRepository : IBaseWithCodeRepository<School>
+    public interface IStudyGroupsRepository : IBaseWithCodeRepository<StudyGroup>
     {
     }
 }

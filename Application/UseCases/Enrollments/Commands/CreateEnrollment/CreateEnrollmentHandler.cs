@@ -13,27 +13,27 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
         private readonly ILogger<CreateEnrollmentHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IEnrollmentsRepository _enrollmentsRepository;
-        private readonly ISchoolsRepository _schoolsRepository;
+        private readonly IStudyGroupsRepository _studyGroupsRepository;
         private readonly IStudentsRepository _studentsRepository;
 
         public CreateEnrollmentHandler(
             ILogger<CreateEnrollmentHandler> logger,
             IMapper mapper,
             IEnrollmentsRepository enrollmentsRepository,
-            ISchoolsRepository schoolsRepository,
+            IStudyGroupsRepository studyGroupsRepository,
             IStudentsRepository studentsRepository)
         {
             _logger = logger;
             _mapper = mapper;
             _enrollmentsRepository = enrollmentsRepository;
-            _schoolsRepository = schoolsRepository;
+            _studyGroupsRepository = studyGroupsRepository;
             _studentsRepository = studentsRepository;
         }
 
         public async Task<CreateEnrollmentVm> Handle(CreateEnrollmentCommand command, CancellationToken cancellationToken)
         {
             // Verify if school exists
-            var existingSchool = await _schoolsRepository.GetByIdAsync(command.SchoolId);
+            var existingSchool = await _studyGroupsRepository.GetByIdAsync(command.SchoolId);
             if (existingSchool == null)
             {
                 throw new Exception("Error. School does not exist.");
@@ -57,7 +57,7 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             var newTeacher = await _enrollmentsRepository.CreateAsync(
                 new Enrollment
                 {
-                    SchoolId = command.SchoolId,
+                    StudyGroupId = command.SchoolId,
                     StudentId = command.StudentId
                 }
             );

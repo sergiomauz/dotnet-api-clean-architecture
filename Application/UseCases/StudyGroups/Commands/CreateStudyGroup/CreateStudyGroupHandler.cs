@@ -5,20 +5,20 @@ using Domain;
 using Application.Infrastructure.Persistence;
 
 
-namespace Application.UseCases.Schools.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateSchool
 {
-    public class CreateSchoolHandler :
-        IRequestHandler<CreateSchoolCommand, CreateSchoolVm>
+    public class CreateStudyGroupHandler :
+        IRequestHandler<CreateStudyGroupCommand, CreateStudyGroupVm>
     {
-        private readonly ILogger<CreateSchoolHandler> _logger;
+        private readonly ILogger<CreateStudyGroupHandler> _logger;
         private readonly IMapper _mapper;
-        private readonly ISchoolsRepository _schoolsRepository;
+        private readonly IStudyGroupsRepository _schoolsRepository;
         private readonly ITeachersRepository _teachersRepository;
 
-        public CreateSchoolHandler(
-            ILogger<CreateSchoolHandler> logger,
+        public CreateStudyGroupHandler(
+            ILogger<CreateStudyGroupHandler> logger,
             IMapper mapper,
-            ISchoolsRepository schoolsRepository,
+            IStudyGroupsRepository schoolsRepository,
             ITeachersRepository teachersRepository)
         {
             _logger = logger;
@@ -27,7 +27,7 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
             _teachersRepository = teachersRepository;
         }
 
-        public async Task<CreateSchoolVm> Handle(CreateSchoolCommand command, CancellationToken cancellationToken)
+        public async Task<CreateStudyGroupVm> Handle(CreateStudyGroupCommand command, CancellationToken cancellationToken)
         {
             // Verify if school exists
             var existingSchool = await _schoolsRepository.GetByCodeAsync(command.Code);
@@ -45,7 +45,7 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
 
             // Save school information
             var newSchool = await _schoolsRepository.CreateAsync(
-                new School
+                new StudyGroup
                 {
                     TeacherId = command.TeacherId,
                     Code = command.Code,
@@ -55,7 +55,7 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
             );
 
             // Map newData to response
-            var response = _mapper.Map<CreateSchoolVm>(newSchool);
+            var response = _mapper.Map<CreateStudyGroupVm>(newSchool);
 
             // Return
             return response;

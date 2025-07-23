@@ -1,6 +1,6 @@
 ﻿namespace Domain
 {
-    public class School : BaseEntityWithCode
+    public class StudyGroup : BaseEntityWithCode
     {
         #region ====== RELATIONSHIPS: ONE TO MANY - HAS MANY ======
         public IEnumerable<Enrollment> Enrollments { get; set; }

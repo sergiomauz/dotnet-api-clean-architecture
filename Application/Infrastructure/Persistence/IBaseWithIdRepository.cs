@@ -9,7 +9,5 @@ namespace Application.Infrastructure.Persistence
         Task<int> DeleteAsync(int id);
         Task<T> UpdateAsync(T entity);
         Task<T?> GetByIdAsync(int id);
-
-        //Task<IEnumerable<T>> SearchSchools();
     }
 }

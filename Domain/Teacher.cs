@@ -3,7 +3,7 @@
     public class Teacher : BaseEntityWithCode
     {
         #region ====== RELATIONSHIPS: ONE TO MANY - HAS MANY ======
-        public IEnumerable<School> Schools { get; set; }
+        public IEnumerable<StudyGroup> StudyGroups { get; set; }
         #endregion
 
         public string? Firstname { get; set; }

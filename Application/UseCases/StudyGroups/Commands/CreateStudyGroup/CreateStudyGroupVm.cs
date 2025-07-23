@@ -5,11 +5,11 @@ using Application.Commons.Mapping;
 using Application.Commons.VMs;
 
 
-namespace Application.UseCases.Schools.Commands.CreateSchool
+namespace Application.UseCases.StudyGroups.Commands.CreateSchool
 {
-    public class CreateSchoolVm :
+    public class CreateStudyGroupVm :
         BasicVm,
-        IMapFrom<School>
+        IMapFrom<StudyGroup>
     {
         [JsonPropertyName("code")]
         public string Code { get; set; }
@@ -22,7 +22,7 @@ namespace Application.UseCases.Schools.Commands.CreateSchool
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<School, CreateSchoolVm>()
+            profile.CreateMap<StudyGroup, CreateStudyGroupVm>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id))
                 .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
                 .ForMember(d => d.Name, m => m.MapFrom(o => o.Name))
