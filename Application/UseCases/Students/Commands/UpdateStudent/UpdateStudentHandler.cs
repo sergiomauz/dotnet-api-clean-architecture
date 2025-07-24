@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
-using Domain;
 using MediatR;
 using Application.Infrastructure.Persistence;
 
@@ -61,17 +60,7 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
             }
 
             // Save student information
-            var newStudent = await _studentsRepository.UpdateAsync(
-                new Student
-                {
-                    Id = existingStudent.Id,
-                    Code = existingStudent.Code,
-                    Firstname = existingStudent.Firstname,
-                    Lastname = existingStudent.Lastname,
-                    BirthDate = existingStudent.BirthDate,
-                    CreatedAt = existingStudent.CreatedAt
-                }
-            );
+            var newStudent = await _studentsRepository.UpdateAsync(existingStudent);
 
             // Map newData to response
             var response = _mapper.Map<UpdateStudentVm>(newStudent);

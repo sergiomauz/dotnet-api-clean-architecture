@@ -42,7 +42,10 @@ namespace Persistence.Repositories
             if (existingEntity == null)
                 return null;
 
-            entity.ModifiedAt = DateTime.UtcNow;
+            if (entity is BaseEntityWithId tracked)
+            {
+                tracked.ModifiedAt = DateTime.UtcNow;
+            }
             _sqlServerDbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
             await _sqlServerDbContext.SaveChangesAsync();
 

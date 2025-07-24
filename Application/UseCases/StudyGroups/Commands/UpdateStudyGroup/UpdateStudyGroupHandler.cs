@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
-using Domain;
 using Application.Infrastructure.Persistence;
 
 
@@ -30,29 +29,47 @@ namespace Application.UseCases.StudyGroups.Commands.UpdateStudyGroup
         public async Task<UpdateStudyGroupVm> Handle(UpdateStudyGroupCommand command, CancellationToken cancellationToken)
         {
             // Verify if study group exists
-            var existingStudyGroup = await _studyGroupsRepository.GetByCodeAsync(command.Code);
-            if (existingStudyGroup != null)
+            var existingStudyGroup = await _studyGroupsRepository.GetByIdAsync(command.Id);
+            if (existingStudyGroup == null)
             {
-                throw new Exception("Error. Study group already exists.");
+                throw new Exception("Error. Study group does not exist.");
             }
 
-            // Verify if teacher exists
-            var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId);
-            if (existingTeacher == null)
+            // Verify which fields to update
+            if (!string.IsNullOrEmpty(command.Code))
             {
-                throw new Exception("Error. Teacher does not exist.");
+                // Verify if a valid study group code exists and if this is the same to update
+                var existingStudyGroupWithCode = await _studyGroupsRepository.GetByCodeAsync(command.Code);
+                if (existingStudyGroupWithCode != null)
+                {
+                    if (existingStudyGroup.Id != existingStudyGroupWithCode.Id)
+                    {
+                        throw new Exception("Error. Study group code already exists.");
+                    }
+                }
+                existingStudyGroup.Code = command.Code;
+            }
+            if (command.TeacherId.HasValue)
+            {
+                // Verify if teacher exists
+                var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
+                if (existingTeacher == null)
+                {
+                    throw new Exception("Error. Teacher does not exist.");
+                }
+                existingStudyGroup.TeacherId = command.TeacherId;
+            }
+            if (!string.IsNullOrEmpty(command.Name))
+            {
+                existingStudyGroup.Name = command.Name;
+            }
+            if (!string.IsNullOrEmpty(command.Name))
+            {
+                existingStudyGroup.Name = command.Name;
             }
 
             // Save study group information
-            var newStudyGroup = await _studyGroupsRepository.UpdateAsync(
-                new StudyGroup
-                {
-                    TeacherId = command.TeacherId,
-                    Code = command.Code,
-                    Name = command.Name,
-                    Description = command.Description
-                }
-            );
+            var newStudyGroup = await _studyGroupsRepository.UpdateAsync(existingStudyGroup);
 
             // Map newData to response
             var response = _mapper.Map<UpdateStudyGroupVm>(newStudyGroup);

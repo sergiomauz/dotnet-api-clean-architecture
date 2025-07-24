@@ -1,7 +1,7 @@
-﻿using Application.Commons.Mapping;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Application.Commons.Mapping;
 
 
 namespace Application.UseCases.StudyGroups.Commands.UpdateStudyGroup
@@ -13,10 +13,10 @@ namespace Application.UseCases.StudyGroups.Commands.UpdateStudyGroup
         IRequest<UpdateStudyGroupVm>
     {
         public int Id { get; set; }
-        public int TeacherId { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int? TeacherId { get; set; }
+        public string? Code { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.StudyGroups.Commands.UpdateStudyGroup
 {
-    internal class UpdateStudyGroupCommandValidator
+    public class UpdateStudyGroupCommandValidator
     {
     }
 }
