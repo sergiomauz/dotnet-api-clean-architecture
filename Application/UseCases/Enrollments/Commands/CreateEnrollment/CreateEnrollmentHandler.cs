@@ -32,6 +32,13 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
 
         public async Task<CreateEnrollmentVm> Handle(CreateEnrollmentCommand command, CancellationToken cancellationToken)
         {
+            // Verify if enrollment exists
+            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentByStudentIdAsync(command.StudyGroupId, command.StudentId);
+            if (existingEnrollment != null)
+            {
+                throw new Exception("Error. Enrollment already exists.");
+            }
+
             // Verify if study group exists
             var existingStudyGroup = await _studyGroupsRepository.GetByIdAsync(command.StudyGroupId);
             if (existingStudyGroup == null)
@@ -46,15 +53,8 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
                 throw new Exception("Error. Student does not exist.");
             }
 
-            // Verify if enrollment exists
-            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentByStudentIdAsync(command.StudyGroupId, command.StudentId);
-            if (existingEnrollment != null)
-            {
-                throw new Exception("Error. Enrollment already exists.");
-            }
-
             // Save teacher information
-            var newTeacher = await _enrollmentsRepository.CreateAsync(
+            var newEnrollment = await _enrollmentsRepository.CreateAsync(
                 new Enrollment
                 {
                     StudyGroupId = command.StudyGroupId,
@@ -63,7 +63,7 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             );
 
             // Map newData to response
-            var response = _mapper.Map<CreateEnrollmentVm>(newTeacher);
+            var response = _mapper.Map<CreateEnrollmentVm>(newEnrollment);
 
             // Return
             return response;

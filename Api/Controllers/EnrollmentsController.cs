@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.UseCases.Enrollments.Commands.CreateEnrollment;
 using Application.UseCases.Enrollments.Commands.DeleteEnrollment;
-//using Application.UseCases.Teachers.Commands.UpdateTeacher;
 
 
 namespace Api.Controllers
