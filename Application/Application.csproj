@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Enrollments\Queries\GetStudentsByTeacherCode\" />
-    <Folder Include="UseCases\Enrollments\Queries\GetStudyGroupsByTeacherCode\" />
+    <Folder Include="UseCases\Students\Queries\GetCoursesByStudentId\" />
+    <Folder Include="UseCases\Teachers\Queries\GetStudentsByTeacherId\" />
+    <Folder Include="UseCases\Teachers\Queries\GetStudyGroupsByTeacherId\" />
     <Folder Include="UseCases\StudyGroups\Queries\SearchStudyGroups\" />
     <Folder Include="UseCases\Students\Queries\SearchStudents\" />
     <Folder Include="UseCases\Teachers\Queries\SearchTeachers\" />
