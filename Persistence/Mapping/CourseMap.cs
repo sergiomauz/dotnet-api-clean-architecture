@@ -5,11 +5,11 @@ using Domain;
 
 namespace Persistence.Mapping
 {
-    public class TeacherMap
+    public class CourseMap
     {
-        public TeacherMap(EntityTypeBuilder<Teacher> entityBuilder)
+        public CourseMap(EntityTypeBuilder<Course> entityBuilder)
         {
-            entityBuilder.ToTable(name: "Teachers");
+            entityBuilder.ToTable(name: "Courses");
 
             #region ======== PRIMARY KEYS ========
             entityBuilder.HasKey(t => t.Id);
@@ -20,10 +20,10 @@ namespace Persistence.Mapping
 
             #region ======== RELATIONSHIPS: HAS MANY ========
             entityBuilder
-                .HasMany(d => d.Courses)
-                .WithOne(o => o.Teacher)
-                .HasForeignKey(to => to.TeacherId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .HasMany(d => d.Enrollments)
+                .WithOne(o => o.Course)
+                .HasForeignKey(to => to.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
             #endregion
 
             entityBuilder
@@ -35,14 +35,14 @@ namespace Persistence.Mapping
                 .IsUnique();
 
             entityBuilder
-                .Property(t => t.Firstname)
+                .Property(t => t.Name)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(150);
 
             entityBuilder
-                .Property(t => t.Lastname)
+                .Property(t => t.Description)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(400);
 
             #region ======== AUDIT COLUMNS ========
             entityBuilder

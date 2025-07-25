@@ -15,7 +15,7 @@ namespace Persistence
         {
             _ = new StudentMap(modelBuilder.Entity<Student>());
             _ = new TeacherMap(modelBuilder.Entity<Teacher>());
-            _ = new StudyGroupMap(modelBuilder.Entity<StudyGroup>());
+            _ = new CourseMap(modelBuilder.Entity<Course>());
             _ = new EnrollmentMap(modelBuilder.Entity<Enrollment>());
         }
     }

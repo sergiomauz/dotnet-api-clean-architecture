@@ -1,0 +1,17 @@
+﻿namespace Domain
+{
+    public class Course : BaseEntityWithCode
+    {
+        #region ====== RELATIONSHIPS: ONE TO MANY - HAS MANY ======
+        public IEnumerable<Enrollment> Enrollments { get; set; }
+        #endregion
+
+        #region ====== RELATIONSHIPS: BELONGS TO ======
+        public int? TeacherId { get; set; }
+        public Teacher? Teacher { get; set; }
+        #endregion
+
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+    }
+}

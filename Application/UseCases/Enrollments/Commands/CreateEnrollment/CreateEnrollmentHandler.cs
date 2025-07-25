@@ -13,37 +13,37 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
         private readonly ILogger<CreateEnrollmentHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IEnrollmentsRepository _enrollmentsRepository;
-        private readonly IStudyGroupsRepository _studyGroupsRepository;
+        private readonly ICoursesRepository _coursesRepository;
         private readonly IStudentsRepository _studentsRepository;
 
         public CreateEnrollmentHandler(
             ILogger<CreateEnrollmentHandler> logger,
             IMapper mapper,
             IEnrollmentsRepository enrollmentsRepository,
-            IStudyGroupsRepository studyGroupsRepository,
+            ICoursesRepository coursesRepository,
             IStudentsRepository studentsRepository)
         {
             _logger = logger;
             _mapper = mapper;
             _enrollmentsRepository = enrollmentsRepository;
-            _studyGroupsRepository = studyGroupsRepository;
+            _coursesRepository = coursesRepository;
             _studentsRepository = studentsRepository;
         }
 
         public async Task<CreateEnrollmentVm> Handle(CreateEnrollmentCommand command, CancellationToken cancellationToken)
         {
             // Verify if enrollment exists
-            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentByStudentIdAsync(command.StudyGroupId, command.StudentId);
+            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentsByStudentIdAsync(command.CourseId, command.StudentId);
             if (existingEnrollment != null)
             {
                 throw new Exception("Error. Enrollment already exists.");
             }
 
-            // Verify if study group exists
-            var existingStudyGroup = await _studyGroupsRepository.GetByIdAsync(command.StudyGroupId);
-            if (existingStudyGroup == null)
+            // Verify if course exists
+            var existingCourse = await _coursesRepository.GetByIdAsync(command.CourseId);
+            if (existingCourse == null)
             {
-                throw new Exception("Error. Study group does not exist.");
+                throw new Exception("Error. Course does not exist.");
             }
 
             // Verify if student exists
@@ -57,7 +57,7 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             var newEnrollment = await _enrollmentsRepository.CreateAsync(
                 new Enrollment
                 {
-                    StudyGroupId = command.StudyGroupId,
+                    CourseId = command.CourseId,
                     StudentId = command.StudentId
                 }
             );

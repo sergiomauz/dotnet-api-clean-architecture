@@ -11,7 +11,7 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
         IMapFrom<CreateEnrollmentDto>,
         IRequest<CreateEnrollmentVm>
     {
-        public int StudyGroupId { get; set; }
+        public int CourseId { get; set; }
         public int StudentId { get; set; }
         public HttpRequest? Request { get; set; }
 
@@ -21,7 +21,7 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<CreateEnrollmentDto, CreateEnrollmentCommand>()
-                .ForMember(d => d.StudyGroupId, m => m.MapFrom(o => o.StudyGroupId.Value))
+                .ForMember(d => d.CourseId, m => m.MapFrom(o => o.CourseId.Value))
                 .ForMember(d => d.StudentId, m => m.MapFrom(o => o.StudentId.Value));
         }
     }
