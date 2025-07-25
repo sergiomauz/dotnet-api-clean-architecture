@@ -9,5 +9,7 @@ namespace Application.Infrastructure.Persistence
         Task<int> DeleteAsync(int id);
         Task<T?> UpdateAsync(T entity);
         Task<T?> GetByIdAsync(int id);
+        //IEnumerable<T> SearchByFilterParameters(string filterValue, int currentPage, int pageSize);
+        //Task<int> TotalCountAsync(string filterValue);
     }
 }

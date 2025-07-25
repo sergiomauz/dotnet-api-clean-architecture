@@ -12,28 +12,28 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
     {
         private readonly ILogger<CreateCourseHandler> _logger;
         private readonly IMapper _mapper;
-        private readonly ICoursesRepository _studyGroupsRepository;
+        private readonly ICoursesRepository _coursesRepository;
         private readonly ITeachersRepository _teachersRepository;
 
         public CreateCourseHandler(
             ILogger<CreateCourseHandler> logger,
             IMapper mapper,
-            ICoursesRepository studyGroupsRepository,
+            ICoursesRepository coursesRepository,
             ITeachersRepository teachersRepository)
         {
             _logger = logger;
             _mapper = mapper;
-            _studyGroupsRepository = studyGroupsRepository;
+            _coursesRepository = coursesRepository;
             _teachersRepository = teachersRepository;
         }
 
         public async Task<CreateCourseVm> Handle(CreateCourseCommand command, CancellationToken cancellationToken)
         {
-            // Verify if study group exists
-            var existingStudyGroup = await _studyGroupsRepository.GetByCodeAsync(command.Code);
-            if (existingStudyGroup != null)
+            // Verify if course exists
+            var existingCourse = await _coursesRepository.GetByCodeAsync(command.Code);
+            if (existingCourse != null)
             {
-                throw new Exception("Error. Study group already exists.");
+                throw new Exception("Error. Course already exists.");
             }
 
             // Verify if teacher exists
@@ -43,8 +43,8 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
                 throw new Exception("Error. Teacher does not exist.");
             }
 
-            // Save study group information
-            var newStudyGroup = await _studyGroupsRepository.CreateAsync(
+            // Save course information
+            var newCourse = await _coursesRepository.CreateAsync(
                 new Course
                 {
                     TeacherId = command.TeacherId,
@@ -55,7 +55,7 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             );
 
             // Map newData to response
-            var response = _mapper.Map<CreateCourseVm>(newStudyGroup);
+            var response = _mapper.Map<CreateCourseVm>(newCourse);
 
             // Return
             return response;
