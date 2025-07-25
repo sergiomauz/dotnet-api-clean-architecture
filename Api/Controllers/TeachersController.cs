@@ -3,7 +3,6 @@ using Application.UseCases.Teachers.Commands.CreateTeacher;
 using Application.UseCases.Teachers.Commands.DeleteTeacher;
 using Application.UseCases.Teachers.Commands.UpdateTeacher;
 using Application.UseCases.Teachers.Queries.GetTeacherById;
-using Application.UseCases.Teachers.Queries.GetTeacherByCode;
 
 
 namespace Api.Controllers
@@ -49,17 +48,6 @@ namespace Api.Controllers
         public async Task<ActionResult<GetTeacherByIdVm>> GetTeacherById([FromRoute] GetTeacherByIdRoute route)
         {
             var query = Mapper.Map<GetTeacherByIdQuery>(route);
-            Mapper.Map(Request, query);
-
-            var vm = await Mediator.Send(query);
-
-            return Ok(vm);
-        }
-
-        [HttpGet("get-by-code/{code}")]
-        public async Task<ActionResult<GetTeacherByCodeVm>> GetTeacherByCode([FromRoute] GetTeacherByCodeRoute route)
-        {
-            var query = Mapper.Map<GetTeacherByCodeQuery>(route);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

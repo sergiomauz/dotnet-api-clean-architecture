@@ -3,7 +3,6 @@ using Application.UseCases.Courses.Commands.CreateCourse;
 using Application.UseCases.Courses.Commands.DeleteCourse;
 using Application.UseCases.Courses.Commands.UpdateCourse;
 using Application.UseCases.Courses.Queries.GetCourseById;
-using Application.UseCases.Courses.Queries.GetCourseByCode;
 
 
 namespace Api.Controllers
@@ -45,22 +44,10 @@ namespace Api.Controllers
             return Ok(vm);
         }
 
-
         [HttpGet("{id}")]
         public async Task<ActionResult<GetCourseByIdVm>> GetCourseById([FromRoute] GetCourseByIdRoute route)
         {
             var query = Mapper.Map<GetCourseByIdQuery>(route);
-            Mapper.Map(Request, query);
-
-            var vm = await Mediator.Send(query);
-
-            return Ok(vm);
-        }
-
-        [HttpGet("get-by-code/{code}")]
-        public async Task<ActionResult<GetCourseByCodeVm>> GetCourseByCode([FromRoute] GetCourseByCodeRoute route)
-        {
-            var query = Mapper.Map<GetCourseByCodeQuery>(route);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);
