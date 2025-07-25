@@ -4,23 +4,22 @@ using MediatR;
 using Application.Commons.Mapping;
 
 
-namespace Application.UseCases.Teachers.Commands.DeleteTeacher
+namespace Application.UseCases.Teachers.Queries.GetTeacherById
 {
-    public class DeleteTeacherCommand :
+    public class GetTeacherByIdQuery :
         IMapFrom<HttpRequest>,
-        IMapFrom<DeleteTeacherRoute>,
-        IRequest<DeleteTeacherVm>
+        IMapFrom<GetTeacherByIdRoute>,
+        IRequest<GetTeacherByIdVm>
     {
-        public int Id { get; set; }
-
+        public string? Id { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<HttpRequest, DeleteTeacherCommand>()
+            profile.CreateMap<HttpRequest, GetTeacherByIdQuery>()
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
-            profile.CreateMap<DeleteTeacherRoute, DeleteTeacherCommand>()
+            profile.CreateMap<GetTeacherByIdRoute, GetTeacherByIdQuery>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
         }
     }

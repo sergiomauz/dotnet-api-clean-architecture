@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 
-namespace Application.UseCases.Students.Commands.UpdateStudent
+namespace Application.UseCases.Teachers.Queries.GetTeacherById
 {
-    public class UpdateStudentRoute
+    public class GetTeacherByIdRoute
     {
         [FromRoute(Name = "id")]
         public string? Id { get; set; }

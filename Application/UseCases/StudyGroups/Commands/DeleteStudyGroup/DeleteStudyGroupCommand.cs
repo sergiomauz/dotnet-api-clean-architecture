@@ -21,7 +21,7 @@ namespace Application.UseCases.StudyGroups.Commands.DeleteStudyGroup
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<DeleteStudyGroupRoute, DeleteStudyGroupCommand>()
-                .ForMember(d => d.Id, m => m.MapFrom(o => o.Id.Value));
+                .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
         }
     }
 }

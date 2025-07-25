@@ -13,14 +13,8 @@
   <ItemGroup>
     <Folder Include="UseCases\Enrollments\Queries\GetStudentsByTeacherCode\" />
     <Folder Include="UseCases\Enrollments\Queries\GetStudyGroupsByTeacherCode\" />
-    <Folder Include="UseCases\StudyGroups\Queries\GetStudyGroupById\" />
-    <Folder Include="UseCases\StudyGroups\Queries\GetStudyGroupByCode\" />
     <Folder Include="UseCases\StudyGroups\Queries\SearchStudyGroups\" />
-    <Folder Include="UseCases\Students\Queries\GetStudentByCode\" />
-    <Folder Include="UseCases\Students\Queries\GetStudentById\" />
     <Folder Include="UseCases\Students\Queries\SearchStudents\" />
-    <Folder Include="UseCases\Teachers\Queries\GetTeacherByCode\" />
-    <Folder Include="UseCases\Teachers\Queries\GetTeacherById\" />
     <Folder Include="UseCases\Teachers\Queries\SearchTeachers\" />
   </ItemGroup>
 

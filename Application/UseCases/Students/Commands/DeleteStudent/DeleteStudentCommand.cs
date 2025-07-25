@@ -21,7 +21,7 @@ namespace Application.UseCases.Students.Commands.DeleteStudent
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<DeleteStudentRoute, DeleteStudentCommand>()
-                .ForMember(d => d.Id, m => m.MapFrom(o => o.Id.Value));
+                .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
         }
     }
 }

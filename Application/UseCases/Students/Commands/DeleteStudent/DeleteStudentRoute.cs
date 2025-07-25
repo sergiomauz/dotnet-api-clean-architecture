@@ -6,6 +6,6 @@ namespace Application.UseCases.Students.Commands.DeleteStudent
     public class DeleteStudentRoute
     {
         [FromRoute(Name = "id")]
-        public int? Id { get; set; }
+        public string? Id { get; set; }
     }
 }
