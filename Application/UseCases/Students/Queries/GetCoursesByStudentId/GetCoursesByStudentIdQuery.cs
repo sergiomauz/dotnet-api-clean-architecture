@@ -8,7 +8,7 @@ using Application.Commons.VMs;
 namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
 {
     public class GetCoursesByStudentIdQuery :
-        GetCoursesByStudentIdParams,
+        GetCoursesByStudentIdRequestParams,
         IMapFrom<HttpRequest>,
         IMapFrom<GetCoursesByStudentIdRoute>,
         IRequest<PagerVm<GetCoursesByStudentIdVm>>
@@ -24,7 +24,7 @@ namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
             profile.CreateMap<GetCoursesByStudentIdRoute, GetCoursesByStudentIdQuery>()
                 .ForMember(d => d.StudentId, m => m.MapFrom(o => o.StudentId));
 
-            profile.CreateMap<GetCoursesByStudentIdParams, GetCoursesByStudentIdQuery>()
+            profile.CreateMap<GetCoursesByStudentIdRequestParams, GetCoursesByStudentIdQuery>()
                 .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage))
                 .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize));
         }

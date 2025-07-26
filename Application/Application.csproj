@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Courses\Queries\SearchCourses\" />
-    <Folder Include="UseCases\Students\Queries\SearchStudents\" />
-    <Folder Include="UseCases\Teachers\Queries\SearchTeachers\" />
+    <Folder Include="UseCases\Courses\Queries\SearchCoursesByObject\" />
+    <Folder Include="UseCases\Students\Queries\SearchStudentsByObject\" />
+    <Folder Include="UseCases\Teachers\Queries\SearchTeachersByObject\" />
   </ItemGroup>
 
   <ItemGroup>

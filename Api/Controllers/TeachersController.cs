@@ -59,7 +59,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{teacher_id}/get-courses")]
-        public async Task<ActionResult<PagerVm<GetCoursesByTeacherIdVm>>> GetCoursesByTeacherId([FromRoute] GetCoursesByTeacherIdRoute route, [FromQuery] GetCoursesByTeacherIdParams queryParams)
+        public async Task<ActionResult<PagerVm<GetCoursesByTeacherIdVm>>> GetCoursesByTeacherId([FromRoute] GetCoursesByTeacherIdRoute route, [FromQuery] GetCoursesByTeacherIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetCoursesByTeacherIdQuery>(route);
             Mapper.Map(queryParams, query);
@@ -71,7 +71,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{teacher_id}/get-students")]
-        public async Task<ActionResult<PagerVm<GetStudentsByTeacherIdVm>>> GetStudentsByTeacherId([FromRoute] GetStudentsByTeacherIdRoute route, [FromQuery] GetStudentsByTeacherIdParams queryParams)
+        public async Task<ActionResult<PagerVm<GetStudentsByTeacherIdVm>>> GetStudentsByTeacherId([FromRoute] GetStudentsByTeacherIdRoute route, [FromQuery] GetStudentsByTeacherIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetStudentsByTeacherIdQuery>(route);
             Mapper.Map(queryParams, query);

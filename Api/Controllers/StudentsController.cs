@@ -58,7 +58,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{student_id}/get-courses")]
-        public async Task<ActionResult<PagerVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute route, [FromQuery] GetCoursesByStudentIdParams queryParams)
+        public async Task<ActionResult<PagerVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute route, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetCoursesByStudentIdQuery>(route);
             Mapper.Map(queryParams, query);
