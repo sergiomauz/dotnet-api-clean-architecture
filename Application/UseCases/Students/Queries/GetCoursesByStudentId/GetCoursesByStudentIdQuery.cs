@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
 using Application.Commons.RequestParams;
+using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
@@ -11,7 +12,7 @@ namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
         PaginationRequestParams,
         IMapFrom<HttpRequest>,
         IMapFrom<GetCoursesByStudentIdRoute>,
-        IRequest<GetCoursesByStudentIdVm>
+        IRequest<PagerVm<GetCoursesByStudentIdVm>>
     {
         public string? StudentId { get; set; }
         public HttpRequest? Request { get; set; }

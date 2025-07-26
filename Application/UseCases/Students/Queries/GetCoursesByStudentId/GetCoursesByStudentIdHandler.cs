@@ -13,16 +13,16 @@ namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
     {
         private readonly ILogger<GetCoursesByStudentIdHandler> _logger;
         private readonly IMapper _mapper;
-        private readonly IStudentsRepository _studentsRepository;
+        private readonly IEnrollmentsRepository _enrollmentsRepository;
 
         public GetCoursesByStudentIdHandler(
             ILogger<GetCoursesByStudentIdHandler> logger,
             IMapper mapper,
-            IStudentsRepository studentsRepository)
+            IEnrollmentsRepository enrollmentsRepository)
         {
             _logger = logger;
             _mapper = mapper;
-            _studentsRepository = studentsRepository;
+            _enrollmentsRepository = enrollmentsRepository;
         }
 
         public async Task<PagerVm<GetCoursesByStudentIdVm>> Handle(GetCoursesByStudentIdQuery query, CancellationToken cancellationToken)
@@ -32,10 +32,10 @@ namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
             if (query.PageSize == null) query.PageSize = 20;
 
             // Get results
-            var dataList = await _studentsRepository.GetCoursesByStudentId(Convert.ToInt32(query.StudentId),
+            var dataList = await _enrollmentsRepository.GetCoursesByStudentId(Convert.ToInt32(query.StudentId),
                                                                      query.CurrentPage.Value,
                                                                      query.PageSize.Value);
-            var totalCount = await _studentsRepository.TotalCountCoursesByStudentIdAsync(Convert.ToInt32(query.StudentId));
+            var totalCount = await _enrollmentsRepository.TotalCountCoursesByStudentIdAsync(Convert.ToInt32(query.StudentId));
 
             // Map reult to response
             var items = _mapper.Map<IEnumerable<Enrollment>, IEnumerable<GetCoursesByStudentIdVm>>(dataList);
