@@ -21,7 +21,7 @@ namespace Persistence.Repositories
             return entity;
         }
 
-        public async Task<List<Enrollment>> GetCoursesByStudentId(int studentId, int currentPage, int pageSize)
+        public async Task<List<Enrollment>> GetCoursesByStudentIdAsync(int studentId, int currentPage, int pageSize)
         {
             var enrollments = await (from co in _sqlServerDbContext.Set<Course>()
                                      join en in _sqlServerDbContext.Set<Enrollment>() on co.Id equals en.CourseId
@@ -53,6 +53,44 @@ namespace Persistence.Repositories
         {
             var count = await (from en in _sqlServerDbContext.Set<Enrollment>()
                                where en.StudentId == studentId
+                               select en)
+                               .CountAsync();
+
+            return count;
+        }
+
+        public async Task<List<Enrollment>> GetStudentsByTeacherIdAsync(int teacherId, int currentPage, int pageSize)
+        {
+            var enrollments = await (from co in _sqlServerDbContext.Set<Course>()
+                                     join en in _sqlServerDbContext.Set<Enrollment>() on co.Id equals en.CourseId
+                                     join st in _sqlServerDbContext.Set<Student>() on en.StudentId equals st.Id
+                                     where co.TeacherId == teacherId
+                                     orderby en.CreatedAt descending
+                                     select new Enrollment
+                                     {
+                                         Course = new Course
+                                         {
+                                             Name = co.Name
+                                         },
+                                         Student = new Student
+                                         {
+                                             Code = st.Code,
+                                             Firstname = st.Firstname,
+                                             Lastname = st.Lastname
+                                         }
+                                     })
+                                   .Skip(Convert.ToInt32(pageSize) * (Convert.ToInt32(currentPage) - 1))
+                                   .Take(Convert.ToInt32(pageSize))
+                                   .ToListAsync();
+
+            return enrollments;
+        }
+
+        public async Task<int> TotalCountStudentsByTeacherIdAsync(int teacherId)
+        {
+            var count = await (from en in _sqlServerDbContext.Set<Enrollment>()
+                               join co in _sqlServerDbContext.Set<Course>() on en.CourseId equals co.Id
+                               where co.TeacherId == teacherId
                                select en)
                                .CountAsync();
 

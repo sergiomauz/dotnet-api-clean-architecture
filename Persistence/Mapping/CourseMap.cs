@@ -26,6 +26,11 @@ namespace Persistence.Mapping
                 .OnDelete(DeleteBehavior.Cascade);
             #endregion
 
+            #region ======== NOT MAPPED FIELDS ========
+            entityBuilder
+                .Ignore(t => t.NotMappedStudents);
+            #endregion
+
             entityBuilder
                 .Property(t => t.Code)
                 .IsRequired()

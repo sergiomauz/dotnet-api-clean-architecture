@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Application.Commons.VMs;
 using Application.UseCases.Teachers.Commands.CreateTeacher;
 using Application.UseCases.Teachers.Commands.DeleteTeacher;
 using Application.UseCases.Teachers.Commands.UpdateTeacher;
 using Application.UseCases.Teachers.Queries.GetTeacherById;
+using Application.UseCases.Teachers.Queries.GetCoursesByTeacherId;
+using Application.UseCases.Teachers.Queries.GetStudentsByTeacherId;
 
 
 namespace Api.Controllers
@@ -48,6 +51,30 @@ namespace Api.Controllers
         public async Task<ActionResult<GetTeacherByIdVm>> GetTeacherById([FromRoute] GetTeacherByIdRoute route)
         {
             var query = Mapper.Map<GetTeacherByIdQuery>(route);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpGet("{teacher_id}/get-courses")]
+        public async Task<ActionResult<PagerVm<GetCoursesByTeacherIdVm>>> GetCoursesByTeacherId([FromRoute] GetCoursesByTeacherIdRoute route, [FromQuery] GetCoursesByTeacherIdParams queryParams)
+        {
+            var query = Mapper.Map<GetCoursesByTeacherIdQuery>(route);
+            Mapper.Map(queryParams, query);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpGet("{teacher_id}/get-students")]
+        public async Task<ActionResult<PagerVm<GetStudentsByTeacherIdVm>>> GetStudentsByTeacherId([FromRoute] GetStudentsByTeacherIdRoute route, [FromQuery] GetStudentsByTeacherIdParams queryParams)
+        {
+            var query = Mapper.Map<GetStudentsByTeacherIdQuery>(route);
+            Mapper.Map(queryParams, query);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

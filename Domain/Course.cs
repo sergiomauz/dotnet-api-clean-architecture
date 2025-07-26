@@ -11,6 +11,10 @@
         public Teacher? Teacher { get; set; }
         #endregion
 
+        #region ====== RELATIONSHIPS AND NOT MAPPED ======
+        public int? NotMappedStudents { get; set; }
+        #endregion
+
         public string? Name { get; set; }
         public string? Description { get; set; }
     }
