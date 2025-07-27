@@ -5,6 +5,7 @@ using Application.UseCases.Students.Commands.DeleteStudent;
 using Application.UseCases.Students.Commands.UpdateStudent;
 using Application.UseCases.Students.Queries.GetCoursesByStudentId;
 using Application.UseCases.Students.Queries.GetStudentById;
+using Application.UseCases.Students.Queries.SearchStudentsByTextFilter;
 
 
 namespace Api.Controllers
@@ -58,10 +59,21 @@ namespace Api.Controllers
         }
 
         [HttpGet("{student_id}/get-courses")]
-        public async Task<ActionResult<PagerVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute route, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
+        public async Task<ActionResult<PaginationVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute route, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetCoursesByStudentIdQuery>(route);
             Mapper.Map(queryParams, query);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpGet("")]
+        public async Task<ActionResult<PaginationVm<SearchStudentsByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchStudentsByTextFilterRequestParams queryParams)
+        {
+            var query = Mapper.Map<SearchStudentsByTextFilterQuery>(queryParams);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

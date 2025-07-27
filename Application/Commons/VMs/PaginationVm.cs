@@ -4,7 +4,7 @@
 namespace Application.Commons.VMs
 {
 
-    public class PagerVm<T>
+    public class PaginationVm<T>
     {
         [JsonPropertyName("items")]
         public IEnumerable<T> Items { get; }
@@ -21,7 +21,7 @@ namespace Application.Commons.VMs
         [JsonPropertyName("total_pages")]
         public int TotalPages { get; }
 
-        public PagerVm(IEnumerable<T> items, int totalItems, int currentPage, int pageSize)
+        public PaginationVm(IEnumerable<T> items, int totalItems, int currentPage, int pageSize)
         {
             TotalItems = totalItems;
             CurrentPage = currentPage;

@@ -11,7 +11,8 @@ namespace Application.UseCases.Teachers.Queries.GetStudentsByTeacherId
         GetStudentsByTeacherIdRequestParams,
         IMapFrom<HttpRequest>,
         IMapFrom<GetStudentsByTeacherIdRoute>,
-        IRequest<PagerVm<GetStudentsByTeacherIdVm>>
+        IMapFrom<GetStudentsByTeacherIdRequestParams>,
+        IRequest<PaginationVm<GetStudentsByTeacherIdVm>>
     {
         public string? TeacherId { get; set; }
         public HttpRequest? Request { get; set; }

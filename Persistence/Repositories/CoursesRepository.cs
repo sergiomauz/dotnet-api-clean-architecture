@@ -1,6 +1,7 @@
-﻿using Application.Infrastructure.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
 using Domain;
-using Microsoft.EntityFrameworkCore;
+using Application.Infrastructure.Persistence;
+
 
 namespace Persistence.Repositories
 {
@@ -47,6 +48,39 @@ namespace Persistence.Repositories
                                where en.TeacherId == teacherId
                                select en)
                               .CountAsync();
+
+            return count;
+        }
+
+        public async Task<List<Course>> SearchCoursesByTextFilterAsync(string textFilter, int currentPage, int pageSize)
+        {
+            var courses = await (from co in _sqlServerDbContext.Set<Course>()
+                                 where co.Code.Contains(textFilter) || co.Name.Contains(textFilter)
+                                        || co.Description.Contains(textFilter)
+                                 orderby co.CreatedAt descending
+                                 select new Course
+                                 {
+                                     Id = co.Id,
+                                     Code = co.Code,
+                                     Name = co.Name,
+                                     Description = co.Description,
+                                     CreatedAt = co.CreatedAt,
+                                     ModifiedAt = co.ModifiedAt
+                                 })
+                                .Skip(Convert.ToInt32(pageSize) * (Convert.ToInt32(currentPage) - 1))
+                                .Take(Convert.ToInt32(pageSize))
+                                .ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<int> TotalCountCoursesByTextFilterAsync(string textFilter)
+        {
+            var count = await (from co in _sqlServerDbContext.Set<Course>()
+                               where co.Code.Contains(textFilter) || co.Name.Contains(textFilter)
+                                      || co.Description.Contains(textFilter)
+                               select co)
+                               .CountAsync();
 
             return count;
         }

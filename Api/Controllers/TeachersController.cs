@@ -6,6 +6,7 @@ using Application.UseCases.Teachers.Commands.UpdateTeacher;
 using Application.UseCases.Teachers.Queries.GetTeacherById;
 using Application.UseCases.Teachers.Queries.GetCoursesByTeacherId;
 using Application.UseCases.Teachers.Queries.GetStudentsByTeacherId;
+using Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter;
 
 
 namespace Api.Controllers
@@ -59,7 +60,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{teacher_id}/get-courses")]
-        public async Task<ActionResult<PagerVm<GetCoursesByTeacherIdVm>>> GetCoursesByTeacherId([FromRoute] GetCoursesByTeacherIdRoute route, [FromQuery] GetCoursesByTeacherIdRequestParams queryParams)
+        public async Task<ActionResult<PaginationVm<GetCoursesByTeacherIdVm>>> GetCoursesByTeacherId([FromRoute] GetCoursesByTeacherIdRoute route, [FromQuery] GetCoursesByTeacherIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetCoursesByTeacherIdQuery>(route);
             Mapper.Map(queryParams, query);
@@ -71,10 +72,21 @@ namespace Api.Controllers
         }
 
         [HttpGet("{teacher_id}/get-students")]
-        public async Task<ActionResult<PagerVm<GetStudentsByTeacherIdVm>>> GetStudentsByTeacherId([FromRoute] GetStudentsByTeacherIdRoute route, [FromQuery] GetStudentsByTeacherIdRequestParams queryParams)
+        public async Task<ActionResult<PaginationVm<GetStudentsByTeacherIdVm>>> GetStudentsByTeacherId([FromRoute] GetStudentsByTeacherIdRoute route, [FromQuery] GetStudentsByTeacherIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetStudentsByTeacherIdQuery>(route);
             Mapper.Map(queryParams, query);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpGet("")]
+        public async Task<ActionResult<PaginationVm<SearchTeachersByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchTeachersByTextFilterRequestParams queryParams)
+        {
+            var query = Mapper.Map<SearchTeachersByTextFilterQuery>(queryParams);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

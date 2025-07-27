@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Application.Commons.VMs;
 using Application.UseCases.Courses.Commands.CreateCourse;
 using Application.UseCases.Courses.Commands.DeleteCourse;
 using Application.UseCases.Courses.Commands.UpdateCourse;
 using Application.UseCases.Courses.Queries.GetCourseById;
+using Application.UseCases.Courses.Queries.SearchCoursesByTextFilter;
 
 
 namespace Api.Controllers
@@ -48,6 +50,17 @@ namespace Api.Controllers
         public async Task<ActionResult<GetCourseByIdVm>> GetCourseById([FromRoute] GetCourseByIdRoute route)
         {
             var query = Mapper.Map<GetCourseByIdQuery>(route);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpGet("")]
+        public async Task<ActionResult<PaginationVm<SearchCoursesByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchCoursesByTextFilterRequestParams queryParams)
+        {
+            var query = Mapper.Map<SearchCoursesByTextFilterQuery>(queryParams);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

@@ -9,7 +9,7 @@ using Application.Infrastructure.Persistence;
 namespace Application.UseCases.Teachers.Queries.GetStudentsByTeacherId
 {
     public class GetStudentsByTeacherIdHandler :
-        IRequestHandler<GetStudentsByTeacherIdQuery, PagerVm<GetStudentsByTeacherIdVm>>
+        IRequestHandler<GetStudentsByTeacherIdQuery, PaginationVm<GetStudentsByTeacherIdVm>>
     {
         private readonly ILogger<GetStudentsByTeacherIdHandler> _logger;
         private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace Application.UseCases.Teachers.Queries.GetStudentsByTeacherId
             _enrollmentsRepository = enrollmentsRepository;
         }
 
-        public async Task<PagerVm<GetStudentsByTeacherIdVm>> Handle(GetStudentsByTeacherIdQuery query, CancellationToken cancellationToken)
+        public async Task<PaginationVm<GetStudentsByTeacherIdVm>> Handle(GetStudentsByTeacherIdQuery query, CancellationToken cancellationToken)
         {
             // Set default values for searching
             if (query.CurrentPage == null) query.CurrentPage = 1;
@@ -41,7 +41,7 @@ namespace Application.UseCases.Teachers.Queries.GetStudentsByTeacherId
             var items = _mapper.Map<IEnumerable<Enrollment>, IEnumerable<GetStudentsByTeacherIdVm>>(dataList);
 
             // Format search results
-            var response = new PagerVm<GetStudentsByTeacherIdVm>(
+            var response = new PaginationVm<GetStudentsByTeacherIdVm>(
                     items,
                     totalCount,
                     query.CurrentPage.Value,

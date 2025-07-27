@@ -9,7 +9,7 @@ using Application.Infrastructure.Persistence;
 namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
 {
     public class GetCoursesByTeacherIdHandler :
-        IRequestHandler<GetCoursesByTeacherIdQuery, PagerVm<GetCoursesByTeacherIdVm>>
+        IRequestHandler<GetCoursesByTeacherIdQuery, PaginationVm<GetCoursesByTeacherIdVm>>
     {
         private readonly ILogger<GetCoursesByTeacherIdHandler> _logger;
         private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
             _coursesRepository = coursesRepository;
         }
 
-        public async Task<PagerVm<GetCoursesByTeacherIdVm>> Handle(GetCoursesByTeacherIdQuery query, CancellationToken cancellationToken)
+        public async Task<PaginationVm<GetCoursesByTeacherIdVm>> Handle(GetCoursesByTeacherIdQuery query, CancellationToken cancellationToken)
         {
             // Set default values for searching
             if (query.CurrentPage == null) query.CurrentPage = 1;
@@ -41,7 +41,7 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
             var items = _mapper.Map<IEnumerable<Course>, IEnumerable<GetCoursesByTeacherIdVm>>(dataList);
 
             // Format search results
-            var response = new PagerVm<GetCoursesByTeacherIdVm>(
+            var response = new PaginationVm<GetCoursesByTeacherIdVm>(
                     items,
                     totalCount,
                     query.CurrentPage.Value,

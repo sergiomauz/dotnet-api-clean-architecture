@@ -1,6 +1,29 @@
-﻿namespace Application.UseCases.Courses.Queries.SearchCoursesByTextFilter
+﻿using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using MediatR;
+using Application.Commons.Mapping;
+using Application.Commons.VMs;
+
+
+namespace Application.UseCases.Courses.Queries.SearchCoursesByTextFilter
 {
-    public class SearchCoursesByTextFilterQuery
+    public class SearchCoursesByTextFilterQuery :
+        SearchCoursesByTextFilterRequestParams,
+        IMapFrom<HttpRequest>,
+        IMapFrom<SearchCoursesByTextFilterRequestParams>,
+        IRequest<PaginationVm<SearchCoursesByTextFilterVm>>
     {
+        public HttpRequest? Request { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<HttpRequest, SearchCoursesByTextFilterQuery>()
+                .ForMember(d => d.Request, m => m.MapFrom(o => o));
+
+            profile.CreateMap<SearchCoursesByTextFilterRequestParams, SearchCoursesByTextFilterQuery>()
+                .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage))
+                .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize))
+                .ForMember(d => d.TextFilter, m => m.MapFrom(o => o.TextFilter));
+        }
     }
 }
