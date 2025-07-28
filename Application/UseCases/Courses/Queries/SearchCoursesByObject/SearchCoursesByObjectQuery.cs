@@ -1,32 +1,33 @@
 ﻿using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using MediatR;
+using Commons.Enums;
 using Application.Commons.Mapping;
 using Application.Commons.Queries;
-using Application.Commons.RequestParams;
+using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
 {
     public class SearchCoursesByObjectFilteringQuery
     {
-        public FilteringCriterion? Code { get; set; }
-        public FilteringCriterion? Name { get; set; }
-        public FilteringCriterion? Description { get; set; }
+        public FilteringCriterionQuery? Code { get; set; }
+        public FilteringCriterionQuery? Name { get; set; }
+        public FilteringCriterionQuery? Description { get; set; }
     }
 
     public class SearchCoursesByObjectOrderingQuery
     {
-        public string? Code { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
+        public OrderOperator? Code { get; set; }
+        public OrderOperator? Name { get; set; }
+        public OrderOperator? Description { get; set; }
     }
 
     public class SearchCoursesByObjectQuery :
         PaginationQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<SearchCoursesByObjectDto>,
-        IRequest<SearchCoursesByObjectVm>
+        IRequest<PaginationVm<SearchCoursesByObjectVm>>
     {
         public SearchCoursesByObjectFilteringQuery? FilteringCriteria { get; set; }
         public SearchCoursesByObjectOrderingQuery? OrderingCriteria { get; set; }

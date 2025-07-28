@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Domain;
+using Domain.Entities;
+using Domain.QueryObjects;
 using Application.Infrastructure.Persistence;
 
 
@@ -12,6 +13,16 @@ namespace Persistence.Repositories
         public CoursesRepository(SqlServerDbContext sqlServerDbContext) : base(sqlServerDbContext)
         {
             _sqlServerDbContext = sqlServerDbContext;
+        }
+
+        public async Task<int> TotalCoursesByTeacherIdAsync(int teacherId)
+        {
+            var count = await (from en in _sqlServerDbContext.Set<Course>()
+                               where en.TeacherId == teacherId
+                               select en)
+                              .CountAsync();
+
+            return count;
         }
 
         public async Task<List<Course>> GetCoursesByTeacherIdAsync(int teacherId, int currentPage, int pageSize)
@@ -42,12 +53,13 @@ namespace Persistence.Repositories
             return courses;
         }
 
-        public async Task<int> TotalCoursesByTeacherIdAsync(int teacherId)
+        public async Task<int> TotalCountCoursesByTextFilterAsync(string textFilter)
         {
-            var count = await (from en in _sqlServerDbContext.Set<Course>()
-                               where en.TeacherId == teacherId
-                               select en)
-                              .CountAsync();
+            var count = await (from co in _sqlServerDbContext.Set<Course>()
+                               where co.Code.Contains(textFilter) || co.Name.Contains(textFilter)
+                                      || co.Description.Contains(textFilter)
+                               select co)
+                               .CountAsync();
 
             return count;
         }
@@ -74,15 +86,14 @@ namespace Persistence.Repositories
             return courses;
         }
 
-        public async Task<int> TotalCountCoursesByTextFilterAsync(string textFilter)
+        public async Task<int> TotalCountCoursesByObjectAsync(CoursesQuery coursesQuery)
         {
-            var count = await (from co in _sqlServerDbContext.Set<Course>()
-                               where co.Code.Contains(textFilter) || co.Name.Contains(textFilter)
-                                      || co.Description.Contains(textFilter)
-                               select co)
-                               .CountAsync();
+            throw new NotImplementedException();
+        }
 
-            return count;
+        public async Task<List<Course>> SearchCoursesByObjectAsync(CoursesPaginatedQuery coursesPaginatedQuery)
+        {
+            throw new NotImplementedException();
         }
     }
 }

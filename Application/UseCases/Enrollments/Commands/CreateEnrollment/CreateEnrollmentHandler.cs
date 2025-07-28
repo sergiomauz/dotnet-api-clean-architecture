@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
-using Domain;
+using Domain.Entities;
 using Application.Infrastructure.Persistence;
 
 

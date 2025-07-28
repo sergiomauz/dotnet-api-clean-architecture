@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
-using Domain;
 using Application.Commons.VMs;
 using Application.Infrastructure.Persistence;
+using Domain.Entities;
 
 
 namespace Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter

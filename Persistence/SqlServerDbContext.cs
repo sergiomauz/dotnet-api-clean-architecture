@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Domain;
 using Persistence.Mapping;
+using Domain.Entities;
 
 
 namespace Persistence

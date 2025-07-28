@@ -7,13 +7,13 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
     public class SearchCoursesByObjectFilteringDto
     {
         [JsonPropertyName("code")]
-        public FilteringCriterion? Code { get; set; }
+        public FilteringCriterionRequestParams? Code { get; set; }
 
         [JsonPropertyName("name")]
-        public FilteringCriterion? Name { get; set; }
+        public FilteringCriterionRequestParams? Name { get; set; }
 
         [JsonPropertyName("description")]
-        public FilteringCriterion? Description { get; set; }
+        public FilteringCriterionRequestParams? Description { get; set; }
     }
 
     public class SearchCoursesByObjectOrderingDto

@@ -3,7 +3,7 @@
 
 namespace Application.Commons.RequestParams
 {
-    public class FilteringCriterion
+    public class FilteringCriterionRequestParams
     {
         [JsonPropertyName("operator")]
         public string Operator { get; set; }
