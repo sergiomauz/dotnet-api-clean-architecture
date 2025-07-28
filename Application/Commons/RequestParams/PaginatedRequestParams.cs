@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Commons.RequestParams
 {
-    public class PaginationRequestParams
+    public class PaginatedRequestParams
     {
         [FromQuery(Name = "current_page"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("current_page")]

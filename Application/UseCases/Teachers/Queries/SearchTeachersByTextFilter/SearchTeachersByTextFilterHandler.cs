@@ -9,7 +9,7 @@ using Domain.Entities;
 namespace Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter
 {
     public class SearchTeachersByTextFilterHandler :
-        IRequestHandler<SearchTeachersByTextFilterQuery, PaginationVm<SearchTeachersByTextFilterVm>>
+        IRequestHandler<SearchTeachersByTextFilterQuery, PaginatedVm<SearchTeachersByTextFilterVm>>
     {
         private readonly ILogger<SearchTeachersByTextFilterHandler> _logger;
         private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter
             _teachersRepository = teachersRepository;
         }
 
-        public async Task<PaginationVm<SearchTeachersByTextFilterVm>> Handle(SearchTeachersByTextFilterQuery query, CancellationToken cancellationToken)
+        public async Task<PaginatedVm<SearchTeachersByTextFilterVm>> Handle(SearchTeachersByTextFilterQuery query, CancellationToken cancellationToken)
         {
             // Set default values for searching
             if (query.CurrentPage == null) query.CurrentPage = 1;
@@ -41,7 +41,7 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter
             var items = _mapper.Map<IEnumerable<Teacher>, IEnumerable<SearchTeachersByTextFilterVm>>(dataList);
 
             // Format search results
-            var response = new PaginationVm<SearchTeachersByTextFilterVm>(
+            var response = new PaginatedVm<SearchTeachersByTextFilterVm>(
                     items,
                     totalCount,
                     query.CurrentPage.Value,

@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
 {
-    public class GetCoursesByTeacherIdRequestParams : PaginationRequestParams
+    public class GetCoursesByTeacherIdRequestParams : PaginatedRequestParams
     {
     }
 }

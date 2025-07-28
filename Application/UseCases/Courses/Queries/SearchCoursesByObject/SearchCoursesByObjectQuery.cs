@@ -24,10 +24,10 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
     }
 
     public class SearchCoursesByObjectQuery :
-        PaginationQuery,
+        PaginatedQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<SearchCoursesByObjectDto>,
-        IRequest<PaginationVm<SearchCoursesByObjectVm>>
+        IRequest<PaginatedVm<SearchCoursesByObjectVm>>
     {
         public SearchCoursesByObjectFilteringQuery? FilteringCriteria { get; set; }
         public SearchCoursesByObjectOrderingQuery? OrderingCriteria { get; set; }

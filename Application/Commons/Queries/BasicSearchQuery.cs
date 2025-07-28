@@ -1,6 +1,6 @@
 ﻿namespace Application.Commons.Queries
 {
-    public class BasicSearchQuery : PaginationQuery
+    public class BasicSearchQuery : PaginatedQuery
     {
         public string? TextFilter { get; set; }
     }

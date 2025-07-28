@@ -11,7 +11,7 @@ using Application.Infrastructure.Persistence;
 namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
 {
     public class SearchCoursesByObjectHandler :
-        IRequestHandler<SearchCoursesByObjectQuery, PaginationVm<SearchCoursesByObjectVm>>
+        IRequestHandler<SearchCoursesByObjectQuery, PaginatedVm<SearchCoursesByObjectVm>>
     {
 
         private readonly ILogger<SearchCoursesByObjectHandler> _logger;
@@ -28,7 +28,7 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
             _coursesRepository = coursesRepository;
         }
 
-        public async Task<PaginationVm<SearchCoursesByObjectVm>> Handle(SearchCoursesByObjectQuery query, CancellationToken cancellationToken)
+        public async Task<PaginatedVm<SearchCoursesByObjectVm>> Handle(SearchCoursesByObjectQuery query, CancellationToken cancellationToken)
         {
             // Set default values for searching
             if (query.CurrentPage == null) query.CurrentPage = 1;
@@ -98,7 +98,7 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
             var items = _mapper.Map<IEnumerable<Course>, IEnumerable<SearchCoursesByObjectVm>>(dataList);
 
             // Format search results
-            var response = new PaginationVm<SearchCoursesByObjectVm>(
+            var response = new PaginatedVm<SearchCoursesByObjectVm>(
                     items,
                     totalCount,
                     query.CurrentPage.Value,

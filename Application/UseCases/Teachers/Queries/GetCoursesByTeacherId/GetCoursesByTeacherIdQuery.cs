@@ -9,11 +9,11 @@ using Application.Commons.VMs;
 namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
 {
     public class GetCoursesByTeacherIdQuery :
-        PaginationQuery,
+        PaginatedQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<GetCoursesByTeacherIdRoute>,
         IMapFrom<GetCoursesByTeacherIdRequestParams>,
-        IRequest<PaginationVm<GetCoursesByTeacherIdVm>>
+        IRequest<PaginatedVm<GetCoursesByTeacherIdVm>>
     {
         public string? TeacherId { get; set; }
         public HttpRequest? Request { get; set; }

@@ -59,7 +59,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<PaginationVm<SearchCoursesByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchCoursesByTextFilterRequestParams queryParams)
+        public async Task<ActionResult<PaginatedVm<SearchCoursesByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchCoursesByTextFilterRequestParams queryParams)
         {
             var query = Mapper.Map<SearchCoursesByTextFilterQuery>(queryParams);
             Mapper.Map(Request, query);
@@ -70,7 +70,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("search")]
-        public async Task<ActionResult<PaginationVm<SearchCoursesByObjectVm>>> SearchCoursesByObject([FromBody] SearchCoursesByObjectDto queryParams)
+        public async Task<ActionResult<PaginatedVm<SearchCoursesByObjectVm>>> SearchCoursesByObject([FromBody] SearchCoursesByObjectDto queryParams)
         {
             var query = Mapper.Map<SearchCoursesByObjectQuery>(queryParams);
             Mapper.Map(Request, query);

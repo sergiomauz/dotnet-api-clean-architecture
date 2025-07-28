@@ -12,7 +12,7 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByTextFilter
         BasicSearchQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<SearchStudentsByTextFilterRequestParams>,
-        IRequest<PaginationVm<SearchStudentsByTextFilterVm>>
+        IRequest<PaginatedVm<SearchStudentsByTextFilterVm>>
     {
         public HttpRequest? Request { get; set; }
 

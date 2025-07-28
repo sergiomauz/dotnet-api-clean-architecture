@@ -3,7 +3,7 @@
 
 namespace Application.Commons.RequestParams
 {
-    public class ObjectRequestParams<TFiltering, TOrdering> : PaginationRequestParams
+    public class ObjectRequestParams<TFiltering, TOrdering> : PaginatedRequestParams
     {
         [JsonPropertyName("filtering_criteria")]
         public TFiltering? FilteringCriteria { get; set; }

@@ -59,7 +59,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{student_id}/get-courses")]
-        public async Task<ActionResult<PaginationVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute route, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
+        public async Task<ActionResult<PaginatedVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute route, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetCoursesByStudentIdQuery>(route);
             Mapper.Map(queryParams, query);
@@ -71,7 +71,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<PaginationVm<SearchStudentsByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchStudentsByTextFilterRequestParams queryParams)
+        public async Task<ActionResult<PaginatedVm<SearchStudentsByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchStudentsByTextFilterRequestParams queryParams)
         {
             var query = Mapper.Map<SearchStudentsByTextFilterQuery>(queryParams);
             Mapper.Map(Request, query);
