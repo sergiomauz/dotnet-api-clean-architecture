@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities
+﻿namespace Domain.Entities.Bases
 {
     public abstract class BaseEntityWithCode : BaseEntityWithId
     {

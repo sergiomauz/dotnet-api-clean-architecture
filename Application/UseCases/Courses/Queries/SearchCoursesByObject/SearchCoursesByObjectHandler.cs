@@ -1,10 +1,11 @@
-﻿using Application.Commons.VMs;
-using Application.Infrastructure.Persistence;
+﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
+using MediatR;
 using Domain.Entities;
 using Domain.QueryObjects;
-using MediatR;
-using Microsoft.Extensions.Logging;
+using Domain.QueryObjects.Utils;
+using Application.Commons.VMs;
+using Application.Infrastructure.Persistence;
 
 
 namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
@@ -37,10 +38,60 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
             var dataList = await _coursesRepository.SearchCoursesByObjectAsync(
                 new CoursesPaginatedQuery
                 {
+                    FilteringCriteria = new CoursesQueryFilter
+                    {
+                        Code = new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.Code.Operator,
+                            Value = query.FilteringCriteria.Code.Value
+                        },
+                        Name = new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.Name.Operator,
+                            Value = query.FilteringCriteria.Name.Value
+                        },
+                        Description = new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.Description.Operator,
+                            Value = query.FilteringCriteria.Description.Value
+                        }
+                    },
+                    OrderingCriteria = new CoursesQueryOrder
+                    {
+                        Code = query.OrderingCriteria.Code,
+                        Name = query.OrderingCriteria.Name,
+                        Description = query.OrderingCriteria.Description
+                    },
+                    CurrentPage = query.CurrentPage,
+                    PageSize = query.PageSize
                 });
             var totalCount = await _coursesRepository.TotalCountCoursesByObjectAsync(
                 new CoursesQuery
                 {
+                    FilteringCriteria = new CoursesQueryFilter
+                    {
+                        Code = new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.Code.Operator,
+                            Value = query.FilteringCriteria.Code.Value
+                        },
+                        Name = new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.Name.Operator,
+                            Value = query.FilteringCriteria.Name.Value
+                        },
+                        Description = new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.Description.Operator,
+                            Value = query.FilteringCriteria.Description.Value
+                        }
+                    },
+                    OrderingCriteria = new CoursesQueryOrder
+                    {
+                        Code = query.OrderingCriteria.Code,
+                        Name = query.OrderingCriteria.Name,
+                        Description = query.OrderingCriteria.Description
+                    }
                 });
 
             // Map result to response
@@ -56,6 +107,5 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
 
             return response;
         }
-
     }
 }
