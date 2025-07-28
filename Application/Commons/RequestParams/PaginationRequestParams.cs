@@ -7,9 +7,11 @@ namespace Application.Commons.RequestParams
     public class PaginationRequestParams
     {
         [FromQuery(Name = "current_page"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("current_page")]
         public int? CurrentPage { get; set; }
 
         [FromQuery(Name = "page_size"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("page_size")]
         public int? PageSize { get; set; }
     }
 }

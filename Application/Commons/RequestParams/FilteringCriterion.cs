@@ -1,0 +1,14 @@
+﻿using System.Text.Json.Serialization;
+
+
+namespace Application.Commons.RequestParams
+{
+    public class FilteringCriterion
+    {
+        [JsonPropertyName("operator")]
+        public string Operator { get; set; }
+
+        [JsonPropertyName("value")]
+        public object? Value { get; set; }
+    }
+}

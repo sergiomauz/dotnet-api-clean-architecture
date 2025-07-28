@@ -5,6 +5,7 @@ using Application.UseCases.Courses.Commands.DeleteCourse;
 using Application.UseCases.Courses.Commands.UpdateCourse;
 using Application.UseCases.Courses.Queries.GetCourseById;
 using Application.UseCases.Courses.Queries.SearchCoursesByTextFilter;
+using Application.UseCases.Courses.Queries.SearchCoursesByObject;
 
 
 namespace Api.Controllers
@@ -61,6 +62,17 @@ namespace Api.Controllers
         public async Task<ActionResult<PaginationVm<SearchCoursesByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchCoursesByTextFilterRequestParams queryParams)
         {
             var query = Mapper.Map<SearchCoursesByTextFilterQuery>(queryParams);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpPost("search")]
+        public async Task<ActionResult<PaginationVm<SearchCoursesByObjectVm>>> SearchCoursesByObject([FromBody] SearchCoursesByObjectDto queryParams)
+        {
+            var query = Mapper.Map<SearchCoursesByObjectQuery>(queryParams);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

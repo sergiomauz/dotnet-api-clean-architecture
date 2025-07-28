@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Commons\Commons.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Courses\Queries\SearchCoursesByObject\" />
+    <Folder Include="Commons\Queries\" />
     <Folder Include="UseCases\Students\Queries\SearchStudentsByObject\" />
     <Folder Include="UseCases\Teachers\Queries\SearchTeachersByObject\" />
   </ItemGroup>
