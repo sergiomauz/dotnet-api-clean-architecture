@@ -2,13 +2,14 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Courses.Queries.SearchCoursesByTextFilter
 {
     public class SearchCoursesByTextFilterQuery :
-        SearchCoursesByTextFilterRequestParams,
+        BasicSearchQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<SearchCoursesByTextFilterRequestParams>,
         IRequest<PaginationVm<SearchCoursesByTextFilterVm>>

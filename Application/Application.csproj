@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commons\Queries\" />
     <Folder Include="UseCases\Students\Queries\SearchStudentsByObject\" />
     <Folder Include="UseCases\Teachers\Queries\SearchTeachersByObject\" />
   </ItemGroup>

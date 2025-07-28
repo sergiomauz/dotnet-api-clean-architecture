@@ -2,6 +2,7 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 using Application.Commons.RequestParams;
 
 
@@ -22,14 +23,13 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
     }
 
     public class SearchCoursesByObjectQuery :
+        PaginationQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<SearchCoursesByObjectDto>,
         IRequest<SearchCoursesByObjectVm>
     {
         public SearchCoursesByObjectFilteringQuery? FilteringCriteria { get; set; }
         public SearchCoursesByObjectOrderingQuery? OrderingCriteria { get; set; }
-        public int? CurrentPage { get; set; }
-        public int? PageSize { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

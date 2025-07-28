@@ -2,13 +2,14 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Queries.GetStudentsByTeacherId
 {
     public class GetStudentsByTeacherIdQuery :
-        GetStudentsByTeacherIdRequestParams,
+        PaginationQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<GetStudentsByTeacherIdRoute>,
         IMapFrom<GetStudentsByTeacherIdRequestParams>,

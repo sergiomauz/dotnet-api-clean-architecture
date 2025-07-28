@@ -2,13 +2,14 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
 {
     public class GetCoursesByStudentIdQuery :
-        GetCoursesByStudentIdRequestParams,
+        PaginationQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<GetCoursesByStudentIdRoute>,
         IMapFrom<GetCoursesByStudentIdRequestParams>,

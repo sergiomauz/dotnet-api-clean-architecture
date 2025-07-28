@@ -2,13 +2,14 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Students.Queries.SearchStudentsByTextFilter
 {
     public class SearchStudentsByTextFilterQuery :
-        SearchStudentsByTextFilterRequestParams,
+        BasicSearchQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<SearchStudentsByTextFilterRequestParams>,
         IRequest<PaginationVm<SearchStudentsByTextFilterVm>>
