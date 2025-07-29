@@ -5,6 +5,7 @@ using Commons.Enums;
 using Domain.Entities;
 using Domain.QueryObjects;
 using Application.Infrastructure.Persistence;
+using Persistence.Repositories.Bases;
 
 
 namespace Persistence.Repositories

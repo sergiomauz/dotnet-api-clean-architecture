@@ -4,10 +4,10 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Commons.Enums;
 using Domain.Entities.Bases;
-using Application.Infrastructure.Persistence;
+using Application.Infrastructure.Persistence.Bases;
 
 
-namespace Persistence.Repositories
+namespace Persistence.Repositories.Bases
 {
     public abstract class BaseWithIdRepository<T> : IBaseWithIdRepository<T> where T : BaseEntityWithId
     {

@@ -1,7 +1,7 @@
 ﻿using Domain.Entities.Bases;
 
 
-namespace Application.Infrastructure.Persistence
+namespace Application.Infrastructure.Persistence.Bases
 {
     public interface IBaseWithIdRepository<T> where T : BaseEntityWithId
     {

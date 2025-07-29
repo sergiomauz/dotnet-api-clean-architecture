@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Application.Infrastructure.Persistence;
 using Domain.Entities.Bases;
+using Application.Infrastructure.Persistence.Bases;
 
 
-namespace Persistence.Repositories
+namespace Persistence.Repositories.Bases
 {
     public abstract class BaseWithCodeRepository<T> : BaseWithIdRepository<T>, IBaseWithCodeRepository<T>
         where T : BaseEntityWithCode
