@@ -3,12 +3,12 @@
 
 namespace Application.Commons.RequestParams
 {
-    public class ObjectRequestParams<TFiltering, TOrdering> : PaginatedRequestParams
+    public class ObjectRequestParams<TFilter, TOrder> : PaginatedRequestParams
     {
         [JsonPropertyName("filtering_criteria")]
-        public TFiltering? FilteringCriteria { get; set; }
+        public TFilter? FilteringCriteria { get; set; }
 
         [JsonPropertyName("ordering_criteria")]
-        public TOrdering? OrderingCriteria { get; set; }
+        public TOrder? OrderingCriteria { get; set; }
     }
 }
