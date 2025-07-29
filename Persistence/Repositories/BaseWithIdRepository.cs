@@ -31,15 +31,7 @@ namespace Persistence.Repositories
 
         public string ConvertOperatorToSQL(FilterOperator op)
         {
-            if (op == FilterOperator.Contains)
-            {
-                return "LIKE";
-            }
-            else if (op == FilterOperator.StartsWith)
-            {
-                return "LIKE";
-            }
-            else if (op == FilterOperator.EndsWith)
+            if (op == FilterOperator.Contains || op == FilterOperator.StartsWith || op == FilterOperator.EndsWith)
             {
                 return "LIKE";
             }

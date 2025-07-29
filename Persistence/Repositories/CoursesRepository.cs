@@ -1,10 +1,10 @@
-﻿using Application.Infrastructure.Persistence;
-using Commons.Enums;
+﻿using System.Data;
+using Microsoft.EntityFrameworkCore;
 using Dapper;
+using Commons.Enums;
 using Domain.Entities;
 using Domain.QueryObjects;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
+using Application.Infrastructure.Persistence;
 
 
 namespace Persistence.Repositories
