@@ -14,6 +14,9 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
 
         [JsonPropertyName("description")]
         public FilteringCriterionRequestParams? Description { get; set; }
+
+        [JsonPropertyName("created_at")]
+        public FilteringCriterionRequestParams? CreatedAt { get; set; }
     }
 
     public class SearchCoursesByObjectOrderingDto
@@ -26,6 +29,9 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
 
         [JsonPropertyName("description")]
         public string? Description { get; set; }
+
+        [JsonPropertyName("created_at")]
+        public string? CreatedAt { get; set; }
     }
 
     public class SearchCoursesByObjectDto :

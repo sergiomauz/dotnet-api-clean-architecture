@@ -33,9 +33,6 @@ namespace Commons.Enums
         EndsWith = 8,
 
         [Description("in")]
-        In = 9,
-
-        [Description("between")]
-        Between = 10
+        In = 9
     }
 }

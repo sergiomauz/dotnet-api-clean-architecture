@@ -13,7 +13,6 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
     public class SearchCoursesByObjectHandler :
         IRequestHandler<SearchCoursesByObjectQuery, PaginatedVm<SearchCoursesByObjectVm>>
     {
-
         private readonly ILogger<SearchCoursesByObjectHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICoursesRepository _coursesRepository;
@@ -38,60 +37,72 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
             var dataList = await _coursesRepository.SearchCoursesByObjectAsync(
                 new CoursesPaginatedQuery
                 {
-                    FilteringCriteria = new CoursesQueryFilter
+                    FilteringCriteria = query.FilteringCriteria != null ? new CoursesQueryFilter
                     {
-                        Code = new FilteringCriterion
+                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
                         {
                             Operator = query.FilteringCriteria.Code.Operator,
                             Value = query.FilteringCriteria.Code.Value
-                        },
-                        Name = new FilteringCriterion
+                        } : null,
+                        Name = query.FilteringCriteria.Name != null ? new FilteringCriterion
                         {
                             Operator = query.FilteringCriteria.Name.Operator,
                             Value = query.FilteringCriteria.Name.Value
-                        },
-                        Description = new FilteringCriterion
+                        } : null,
+                        Description = query.FilteringCriteria.Description != null ? new FilteringCriterion
                         {
                             Operator = query.FilteringCriteria.Description.Operator,
                             Value = query.FilteringCriteria.Description.Value
-                        }
-                    },
-                    OrderingCriteria = new CoursesQueryOrder
+                        } : null,
+                        CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.CreatedAt.Operator,
+                            Value = query.FilteringCriteria.CreatedAt.Value
+                        } : null
+                    } : null,
+                    OrderingCriteria = query.OrderingCriteria != null ? new CoursesQueryOrder
                     {
                         Code = query.OrderingCriteria.Code,
                         Name = query.OrderingCriteria.Name,
-                        Description = query.OrderingCriteria.Description
-                    },
+                        Description = query.OrderingCriteria.Description,
+                        CreatedAt = query.OrderingCriteria.CreatedAt
+                    } : null,
                     CurrentPage = query.CurrentPage,
                     PageSize = query.PageSize
                 });
             var totalCount = await _coursesRepository.TotalCountCoursesByObjectAsync(
                 new CoursesQuery
                 {
-                    FilteringCriteria = new CoursesQueryFilter
+                    FilteringCriteria = query.FilteringCriteria != null ? new CoursesQueryFilter
                     {
-                        Code = new FilteringCriterion
+                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
                         {
                             Operator = query.FilteringCriteria.Code.Operator,
                             Value = query.FilteringCriteria.Code.Value
-                        },
-                        Name = new FilteringCriterion
+                        } : null,
+                        Name = query.FilteringCriteria.Name != null ? new FilteringCriterion
                         {
                             Operator = query.FilteringCriteria.Name.Operator,
                             Value = query.FilteringCriteria.Name.Value
-                        },
-                        Description = new FilteringCriterion
+                        } : null,
+                        Description = query.FilteringCriteria.Description != null ? new FilteringCriterion
                         {
                             Operator = query.FilteringCriteria.Description.Operator,
                             Value = query.FilteringCriteria.Description.Value
-                        }
-                    },
-                    OrderingCriteria = new CoursesQueryOrder
+                        } : null,
+                        CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
+                        {
+                            Operator = query.FilteringCriteria.CreatedAt.Operator,
+                            Value = query.FilteringCriteria.CreatedAt.Value
+                        } : null
+                    } : null,
+                    OrderingCriteria = query.OrderingCriteria != null ? new CoursesQueryOrder
                     {
                         Code = query.OrderingCriteria.Code,
                         Name = query.OrderingCriteria.Name,
-                        Description = query.OrderingCriteria.Description
-                    }
+                        Description = query.OrderingCriteria.Description,
+                        CreatedAt = query.OrderingCriteria.CreatedAt
+                    } : null
                 });
 
             // Map result to response

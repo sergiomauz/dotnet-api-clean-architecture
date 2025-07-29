@@ -9,6 +9,7 @@ namespace Domain.QueryObjects
         public FilteringCriterion? Code { get; set; }
         public FilteringCriterion? Name { get; set; }
         public FilteringCriterion? Description { get; set; }
+        public FilteringCriterion? CreatedAt { get; set; }
     }
 
     public class CoursesQueryOrder
@@ -16,6 +17,7 @@ namespace Domain.QueryObjects
         public OrderOperator? Code { get; set; }
         public OrderOperator? Name { get; set; }
         public OrderOperator? Description { get; set; }
+        public OrderOperator? CreatedAt { get; set; }
     }
 
     public class CoursesQuery : QueryTemplate<CoursesQueryFilter, CoursesQueryOrder>

@@ -1,6 +1,8 @@
 ﻿using System.Data;
 using System.Data.Common;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Commons.Enums;
 using Domain.Entities.Bases;
 using Application.Infrastructure.Persistence;
 
@@ -27,32 +29,79 @@ namespace Persistence.Repositories
             return connection;
         }
 
-        public string ConvertToSQL(object? value)
+        public string ConvertOperatorToSQL(FilterOperator op)
+        {
+            if (op == FilterOperator.Contains)
+            {
+                return "LIKE";
+            }
+            else if (op == FilterOperator.StartsWith)
+            {
+                return "LIKE";
+            }
+            else if (op == FilterOperator.EndsWith)
+            {
+                return "LIKE";
+            }
+
+            return op.GetEnumDescription();
+        }
+
+        public string ConvertValueToSQL(FilterOperator op, object? value)
         {
             if (value == null)
             {
                 return "NULL";
             }
 
-            if (value is string s)
+            if (value is JsonElement json)
             {
-                return $"'{s.Replace("'", "''")}'";
-            }
+                if (json.ValueKind == JsonValueKind.String)
+                {
+                    var str = json.GetString();
 
-            if (value is DateTime dt)
-            {
-                return $"'{dt:yyyy-MM-dd HH:mm:ss}'";
-            }
+                    // For datetime
+                    if (DateTime.TryParse(str, out DateTime dt))
+                    {
+                        return $"'{dt:yyyy-MM-dd HH:mm:ss.fffffff}'";
+                    }
 
-            if (value is bool b)
-            {
-                return b ? "1" : "0";
-            }
+                    // For normal strings
+                    if (op == FilterOperator.Contains)
+                    {
+                        return $"'%{str?.Replace("'", "''")}%'";
+                    }
+                    else if (op == FilterOperator.StartsWith)
+                    {
+                        return $"'{str?.Replace("'", "''")}%'";
+                    }
+                    else if (op == FilterOperator.EndsWith)
+                    {
+                        return $"'%{str?.Replace("'", "''")}'";
+                    }
 
-            if (value is IEnumerable<object> enumerable && value is not string)
-            {
-                var items = enumerable.Select(ConvertToSQL);
-                return $"({string.Join(", ", items)})";
+                    return $"'{str?.Replace("'", "''")}'";
+                }
+
+                // For number
+                if (json.ValueKind == JsonValueKind.Number)
+                {
+                    return json.GetRawText();
+                }
+
+                // For booleans
+                if (json.ValueKind == JsonValueKind.True || json.ValueKind == JsonValueKind.False)
+                {
+                    return json.GetBoolean() ? "1" : "0";
+                }
+
+                // For arrays
+                if (json.ValueKind == JsonValueKind.Array)
+                {
+                    var items = json.EnumerateArray().Select(element => ConvertValueToSQL(FilterOperator.Equals, element));
+
+                    return $"({string.Join(", ", items)})";
+                }
             }
 
             return value.ToString() ?? "NULL";

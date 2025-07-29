@@ -92,31 +92,48 @@ namespace Persistence.Repositories
         public async Task<int> TotalCountCoursesByObjectAsync(CoursesQuery coursesQuery)
         {
             var connection = await EnsureConnectionOpenAsync(_sqlServerDbContext);
-            var sql = "SELECT COUNT(co.Id) FROM Courses co WHERE 1=1 ";
+            var sql = "SELECT COUNT(*) FROM Courses co ";
             var sqlFilters = "";
 
             if (coursesQuery.FilteringCriteria != null)
             {
                 if (coursesQuery.FilteringCriteria.Code != null)
                 {
-                    sqlFilters += @$"AND co.Code 
-                                    {coursesQuery.FilteringCriteria.Code.Operator.GetEnumDescription()} 
-                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Code.Value)} ";
+                    var codeOperator = coursesQuery.FilteringCriteria.Code.Operator;
+                    var codeValue = coursesQuery.FilteringCriteria.Code.Value;
+                    sqlFilters += @$"co.Code 
+                                    {ConvertOperatorToSQL(codeOperator)} 
+                                    {ConvertValueToSQL(codeOperator, codeValue)} AND ";
                 }
 
                 if (coursesQuery.FilteringCriteria.Name != null)
                 {
-                    sqlFilters += @$"AND co.Name 
-                                    {coursesQuery.FilteringCriteria.Name.Operator.GetEnumDescription()} 
-                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Name.Value)} ";
+                    var nameOperator = coursesQuery.FilteringCriteria.Name.Operator;
+                    var nameValue = coursesQuery.FilteringCriteria.Name.Value;
+                    sqlFilters += @$"co.Name 
+                                    {ConvertOperatorToSQL(nameOperator)} 
+                                    {ConvertValueToSQL(nameOperator, nameValue)} AND ";
                 }
 
                 if (coursesQuery.FilteringCriteria.Description != null)
                 {
-                    sqlFilters += @$"AND co.Description 
-                                    {coursesQuery.FilteringCriteria.Description.Operator.GetEnumDescription()} 
-                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Description.Value)} ";
+                    var descriptionOperator = coursesQuery.FilteringCriteria.Description.Operator;
+                    var descriptionValue = coursesQuery.FilteringCriteria.Description.Value;
+                    sqlFilters += @$"co.Description 
+                                    {ConvertOperatorToSQL(descriptionOperator)} 
+                                    {ConvertValueToSQL(descriptionOperator, descriptionValue)} AND ";
                 }
+
+                if (coursesQuery.FilteringCriteria.CreatedAt != null)
+                {
+                    var createdAtOperator = coursesQuery.FilteringCriteria.CreatedAt.Operator;
+                    var createdAtValue = coursesQuery.FilteringCriteria.CreatedAt.Value;
+                    sqlFilters += @$"co.CreatedAt 
+                                    {ConvertOperatorToSQL(createdAtOperator)} 
+                                    {ConvertValueToSQL(createdAtOperator, createdAtValue)} AND ";
+                }
+
+                sqlFilters = $"WHERE {sqlFilters.Substring(0, sqlFilters.Length - 5)} ";
 
                 sql += sqlFilters;
             }
@@ -129,32 +146,51 @@ namespace Persistence.Repositories
         public async Task<IEnumerable<Course>> SearchCoursesByObjectAsync(CoursesPaginatedQuery coursesQuery)
         {
             var connection = await EnsureConnectionOpenAsync(_sqlServerDbContext);
-            var sql = "SELECT * FROM Courses co WHERE 1=1 ";
+            var sql = "SELECT * FROM Courses co ";
             var sqlFilters = "";
             var sqlOrders = "";
+            var sqlCurrentPage = $"OFFSET {coursesQuery.CurrentPage.Value - 1} ROWS ";
+            var sqlPageSize = $"FETCH NEXT {coursesQuery.PageSize} ROWS ONLY ";
 
             if (coursesQuery.FilteringCriteria != null)
             {
                 if (coursesQuery.FilteringCriteria.Code != null)
                 {
-                    sqlFilters += @$"AND co.Code 
-                                    {coursesQuery.FilteringCriteria.Code.Operator.GetEnumDescription()} 
-                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Code.Value)} ";
+                    var codeOperator = coursesQuery.FilteringCriteria.Code.Operator;
+                    var codeValue = coursesQuery.FilteringCriteria.Code.Value;
+                    sqlFilters += @$"co.Code 
+                                    {ConvertOperatorToSQL(codeOperator)} 
+                                    {ConvertValueToSQL(codeOperator, codeValue)} AND ";
                 }
 
                 if (coursesQuery.FilteringCriteria.Name != null)
                 {
-                    sqlFilters += @$"AND co.Name 
-                                    {coursesQuery.FilteringCriteria.Name.Operator.GetEnumDescription()} 
-                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Name.Value)} ";
+                    var nameOperator = coursesQuery.FilteringCriteria.Name.Operator;
+                    var nameValue = coursesQuery.FilteringCriteria.Name.Value;
+                    sqlFilters += @$"co.Name 
+                                    {ConvertOperatorToSQL(nameOperator)} 
+                                    {ConvertValueToSQL(nameOperator, nameValue)} AND ";
                 }
 
                 if (coursesQuery.FilteringCriteria.Description != null)
                 {
-                    sqlFilters += @$"AND co.Description 
-                                    {coursesQuery.FilteringCriteria.Description.Operator.GetEnumDescription()} 
-                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Description.Value)} ";
+                    var descriptionOperator = coursesQuery.FilteringCriteria.Description.Operator;
+                    var descriptionValue = coursesQuery.FilteringCriteria.Description.Value;
+                    sqlFilters += @$"co.Description 
+                                    {ConvertOperatorToSQL(descriptionOperator)} 
+                                    {ConvertValueToSQL(descriptionOperator, descriptionValue)} AND ";
                 }
+
+                if (coursesQuery.FilteringCriteria.CreatedAt != null)
+                {
+                    var createdAtOperator = coursesQuery.FilteringCriteria.CreatedAt.Operator;
+                    var createdAtValue = coursesQuery.FilteringCriteria.CreatedAt.Value;
+                    sqlFilters += @$"co.CreatedAt 
+                                    {ConvertOperatorToSQL(createdAtOperator)} 
+                                    {ConvertValueToSQL(createdAtOperator, createdAtValue)} AND ";
+                }
+
+                sqlFilters = $"WHERE {sqlFilters.Substring(0, sqlFilters.Length - 5)} ";
 
                 sql += sqlFilters;
             }
@@ -176,10 +212,18 @@ namespace Persistence.Repositories
                     sqlOrders += $"co.Description {coursesQuery.OrderingCriteria.Description.Value.GetEnumDescription()}, ";
                 }
 
-                sqlOrders = $"ORDER BY {sqlOrders.TrimEnd(',', ' ')}";
+                if (coursesQuery.OrderingCriteria.CreatedAt.HasValue)
+                {
+                    sqlOrders += $"co.CreatedAt {coursesQuery.OrderingCriteria.CreatedAt.Value.GetEnumDescription()}, ";
+                }
+
+                sqlOrders = $"ORDER BY {sqlOrders.TrimEnd(',', ' ')} ";
 
                 sql += sqlOrders;
             }
+
+            sql += sqlCurrentPage;
+            sql += sqlPageSize;
 
             var result = await connection.QueryAsync<Course>(sql);
 
