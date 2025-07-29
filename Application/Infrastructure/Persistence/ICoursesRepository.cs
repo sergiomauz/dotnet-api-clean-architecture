@@ -1,6 +1,6 @@
-﻿using Application.Infrastructure.Persistence.Bases;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.QueryObjects;
+using Application.Infrastructure.Persistence.Bases;
 
 
 namespace Application.Infrastructure.Persistence

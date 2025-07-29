@@ -7,6 +7,7 @@ using Application.UseCases.Teachers.Queries.GetTeacherById;
 using Application.UseCases.Teachers.Queries.GetCoursesByTeacherId;
 using Application.UseCases.Teachers.Queries.GetStudentsByTeacherId;
 using Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter;
+using Application.UseCases.Teachers.Queries.SearchTeachersByObject;
 
 
 namespace Api.Controllers
@@ -87,6 +88,17 @@ namespace Api.Controllers
         public async Task<ActionResult<PaginatedVm<SearchTeachersByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchTeachersByTextFilterRequestParams queryParams)
         {
             var query = Mapper.Map<SearchTeachersByTextFilterQuery>(queryParams);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpPost("search")]
+        public async Task<ActionResult<PaginatedVm<SearchTeachersByObjectVm>>> SearchCoursesByObject([FromBody] SearchTeachersByObjectDto queryParams)
+        {
+            var query = Mapper.Map<SearchTeachersByObjectQuery>(queryParams);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

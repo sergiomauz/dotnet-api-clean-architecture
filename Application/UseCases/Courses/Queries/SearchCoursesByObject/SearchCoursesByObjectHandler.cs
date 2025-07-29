@@ -95,13 +95,6 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
                             Operator = query.FilteringCriteria.CreatedAt.Operator,
                             Value = query.FilteringCriteria.CreatedAt.Value
                         } : null
-                    } : null,
-                    OrderingCriteria = query.OrderingCriteria != null ? new CoursesQueryOrder
-                    {
-                        Code = query.OrderingCriteria.Code,
-                        Name = query.OrderingCriteria.Name,
-                        Description = query.OrderingCriteria.Description,
-                        CreatedAt = query.OrderingCriteria.CreatedAt
                     } : null
                 });
 

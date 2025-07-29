@@ -1,7 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data;
+using Microsoft.EntityFrameworkCore;
+//using Dapper;
+//using Commons.Enums;
 using Domain.Entities;
-using Application.Infrastructure.Persistence;
+using Domain.QueryObjects;
 using Persistence.Repositories.Bases;
+using Application.Infrastructure.Persistence;
 
 
 namespace Persistence.Repositories
@@ -46,6 +50,16 @@ namespace Persistence.Repositories
                                .CountAsync();
 
             return count;
+        }
+
+        public async Task<int> TotalCountTeachersByObjectAsync(TeachersQuery teachersQuery)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Teacher>> SearchTeachersByObjectAsync(TeachersPaginatedQuery teachersPaginatedQuery)
+        {
+            throw new NotImplementedException();
         }
     }
 }

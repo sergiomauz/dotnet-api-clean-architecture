@@ -6,6 +6,7 @@ using Application.UseCases.Students.Commands.UpdateStudent;
 using Application.UseCases.Students.Queries.GetCoursesByStudentId;
 using Application.UseCases.Students.Queries.GetStudentById;
 using Application.UseCases.Students.Queries.SearchStudentsByTextFilter;
+using Application.UseCases.Students.Queries.SearchStudentsByObject;
 
 
 namespace Api.Controllers
@@ -74,6 +75,17 @@ namespace Api.Controllers
         public async Task<ActionResult<PaginatedVm<SearchStudentsByTextFilterVm>>> SearchCoursesByTextFilter([FromQuery] SearchStudentsByTextFilterRequestParams queryParams)
         {
             var query = Mapper.Map<SearchStudentsByTextFilterQuery>(queryParams);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpPost("search")]
+        public async Task<ActionResult<PaginatedVm<SearchStudentsByObjectVm>>> SearchCoursesByObject([FromBody] SearchStudentsByObjectDto queryParams)
+        {
+            var query = Mapper.Map<SearchStudentsByObjectQuery>(queryParams);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);
