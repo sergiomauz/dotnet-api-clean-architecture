@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application.Infrastructure.Persistence;
+using Commons.Enums;
+using Dapper;
 using Domain.Entities;
 using Domain.QueryObjects;
-using Application.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 
 namespace Persistence.Repositories
@@ -88,12 +91,99 @@ namespace Persistence.Repositories
 
         public async Task<int> TotalCountCoursesByObjectAsync(CoursesQuery coursesQuery)
         {
-            throw new NotImplementedException();
+            var connection = await EnsureConnectionOpenAsync(_sqlServerDbContext);
+            var sql = "SELECT COUNT(co.Id) FROM Courses co WHERE 1=1 ";
+            var sqlFilters = "";
+
+            if (coursesQuery.FilteringCriteria != null)
+            {
+                if (coursesQuery.FilteringCriteria.Code != null)
+                {
+                    sqlFilters += @$"AND co.Code 
+                                    {coursesQuery.FilteringCriteria.Code.Operator.GetEnumDescription()} 
+                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Code.Value)} ";
+                }
+
+                if (coursesQuery.FilteringCriteria.Name != null)
+                {
+                    sqlFilters += @$"AND co.Name 
+                                    {coursesQuery.FilteringCriteria.Name.Operator.GetEnumDescription()} 
+                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Name.Value)} ";
+                }
+
+                if (coursesQuery.FilteringCriteria.Description != null)
+                {
+                    sqlFilters += @$"AND co.Description 
+                                    {coursesQuery.FilteringCriteria.Description.Operator.GetEnumDescription()} 
+                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Description.Value)} ";
+                }
+
+                sql += sqlFilters;
+            }
+
+            var result = await connection.ExecuteScalarAsync<int>(sql);
+
+            return result;
         }
 
-        public async Task<List<Course>> SearchCoursesByObjectAsync(CoursesPaginatedQuery coursesPaginatedQuery)
+        public async Task<IEnumerable<Course>> SearchCoursesByObjectAsync(CoursesPaginatedQuery coursesQuery)
         {
-            throw new NotImplementedException();
+            var connection = await EnsureConnectionOpenAsync(_sqlServerDbContext);
+            var sql = "SELECT * FROM Courses co WHERE 1=1 ";
+            var sqlFilters = "";
+            var sqlOrders = "";
+
+            if (coursesQuery.FilteringCriteria != null)
+            {
+                if (coursesQuery.FilteringCriteria.Code != null)
+                {
+                    sqlFilters += @$"AND co.Code 
+                                    {coursesQuery.FilteringCriteria.Code.Operator.GetEnumDescription()} 
+                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Code.Value)} ";
+                }
+
+                if (coursesQuery.FilteringCriteria.Name != null)
+                {
+                    sqlFilters += @$"AND co.Name 
+                                    {coursesQuery.FilteringCriteria.Name.Operator.GetEnumDescription()} 
+                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Name.Value)} ";
+                }
+
+                if (coursesQuery.FilteringCriteria.Description != null)
+                {
+                    sqlFilters += @$"AND co.Description 
+                                    {coursesQuery.FilteringCriteria.Description.Operator.GetEnumDescription()} 
+                                    {ConvertToSQL(coursesQuery.FilteringCriteria.Description.Value)} ";
+                }
+
+                sql += sqlFilters;
+            }
+
+            if (coursesQuery.OrderingCriteria != null)
+            {
+                if (coursesQuery.OrderingCriteria.Code.HasValue)
+                {
+                    sqlOrders += $"co.Code {coursesQuery.OrderingCriteria.Code.Value.GetEnumDescription()}, ";
+                }
+
+                if (coursesQuery.OrderingCriteria.Name.HasValue)
+                {
+                    sqlOrders += $"co.Name {coursesQuery.OrderingCriteria.Name.Value.GetEnumDescription()}, ";
+                }
+
+                if (coursesQuery.OrderingCriteria.Description.HasValue)
+                {
+                    sqlOrders += $"co.Description {coursesQuery.OrderingCriteria.Description.Value.GetEnumDescription()}, ";
+                }
+
+                sqlOrders = $"ORDER BY {sqlOrders.TrimEnd(',', ' ')}";
+
+                sql += sqlOrders;
+            }
+
+            var result = await connection.QueryAsync<Course>(sql);
+
+            return result;
         }
     }
 }

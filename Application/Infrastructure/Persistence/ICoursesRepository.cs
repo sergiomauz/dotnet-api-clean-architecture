@@ -13,6 +13,6 @@ namespace Application.Infrastructure.Persistence
         Task<List<Course>> SearchCoursesByTextFilterAsync(string textFilter, int currentPage, int pageSize);
 
         Task<int> TotalCountCoursesByObjectAsync(CoursesQuery coursesQuery);
-        Task<List<Course>> SearchCoursesByObjectAsync(CoursesPaginatedQuery coursesPaginatedQuery);
+        Task<IEnumerable<Course>> SearchCoursesByObjectAsync(CoursesPaginatedQuery coursesPaginatedQuery);
     }
 }

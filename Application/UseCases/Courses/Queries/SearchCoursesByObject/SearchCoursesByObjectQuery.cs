@@ -44,9 +44,9 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
                 .ForMember(d => d.Description, m => m.MapFrom(o => o.Description));
 
             profile.CreateMap<SearchCoursesByObjectOrderingDto, SearchCoursesByObjectOrderingQuery>()
-                .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
-                .ForMember(d => d.Name, m => m.MapFrom(o => o.Name))
-                .ForMember(d => d.Description, m => m.MapFrom(o => o.Description));
+                .ForMember(d => d.Code, m => m.MapFrom(o => EnumHelper.FromDescription<OrderOperator>(o.Code)))
+                .ForMember(d => d.Name, m => m.MapFrom(o => EnumHelper.FromDescription<OrderOperator>(o.Name)))
+                .ForMember(d => d.Description, m => m.MapFrom(o => EnumHelper.FromDescription<OrderOperator>(o.Description)));
 
             profile.CreateMap<SearchCoursesByObjectDto, SearchCoursesByObjectQuery>()
                 .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize))
