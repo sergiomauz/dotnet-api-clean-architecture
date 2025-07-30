@@ -2,17 +2,17 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 
 
 namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
 {
     public class DeleteEnrollmentCommand :
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteEnrollmentRoute>,
         IRequest<DeleteEnrollmentVm>
     {
-        public string? Id { get; set; }
-
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

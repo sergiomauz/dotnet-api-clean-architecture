@@ -32,7 +32,7 @@ namespace Application.UseCases.Courses.Queries.GetCourseByCode
                 throw new Exception($"Teacher with code '{query.Code}' does not exist");
             }
 
-            // Map reult to response
+            // Map result to response
             var response = _mapper.Map<GetCourseByCodeVm>(data);
 
             return response;

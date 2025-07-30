@@ -2,17 +2,18 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 
 
 namespace Application.UseCases.Students.Commands.UpdateStudent
 {
     public class UpdateStudentCommand :
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<UpdateStudentDto>,
         IMapFrom<UpdateStudentRoute>,
         IRequest<UpdateStudentVm>
     {
-        public string? Id { get; set; }
         public string? Code { get; set; }
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }

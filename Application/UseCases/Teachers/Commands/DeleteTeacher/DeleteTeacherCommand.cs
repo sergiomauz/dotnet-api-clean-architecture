@@ -2,17 +2,17 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 
 
 namespace Application.UseCases.Teachers.Commands.DeleteTeacher
 {
     public class DeleteTeacherCommand :
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteTeacherRoute>,
         IRequest<DeleteTeacherVm>
     {
-        public int? Id { get; set; }
-
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

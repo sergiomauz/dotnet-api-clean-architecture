@@ -32,10 +32,10 @@ namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
             if (query.PageSize == null) query.PageSize = 20;
 
             // Get results
-            var dataList = await _enrollmentsRepository.GetCoursesByStudentIdAsync(Convert.ToInt32(query.StudentId),
-                                                                     query.CurrentPage.Value,
-                                                                     query.PageSize.Value);
-            var totalCount = await _enrollmentsRepository.TotalCountCoursesByStudentIdAsync(Convert.ToInt32(query.StudentId));
+            var dataList = await _enrollmentsRepository.GetCoursesByStudentIdAsync(query.StudentId.Value,
+                                                                                    query.CurrentPage.Value,
+                                                                                    query.PageSize.Value);
+            var totalCount = await _enrollmentsRepository.TotalCountCoursesByStudentIdAsync(query.StudentId.Value);
 
             // Map result to response
             var items = _mapper.Map<IEnumerable<Enrollment>, IEnumerable<GetCoursesByStudentIdVm>>(dataList);

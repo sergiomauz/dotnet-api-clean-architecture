@@ -2,17 +2,17 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 
 
 namespace Application.UseCases.Courses.Commands.DeleteCourse
 {
     public class DeleteCourseCommand :
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteCourseRoute>,
         IRequest<DeleteCourseVm>
     {
-        public string? Id { get; set; }
-
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

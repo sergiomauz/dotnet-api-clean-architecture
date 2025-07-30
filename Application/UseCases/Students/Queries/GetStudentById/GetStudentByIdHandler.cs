@@ -26,13 +26,13 @@ namespace Application.UseCases.Students.Queries.GetStudentById
         public async Task<GetStudentByIdVm> Handle(GetStudentByIdQuery query, CancellationToken cancellationToken)
         {
             // Get data by ID, if it fails throw exception
-            var data = await _studentsRepository.GetByIdAsync(Convert.ToInt32(query.Id));
+            var data = await _studentsRepository.GetByIdAsync(query.Id.Value);
             if (data == null)
             {
                 throw new Exception($"Student with Id '{query.Id}' does not exist");
             }
 
-            // Map reult to response
+            // Map result to response
             var response = _mapper.Map<GetStudentByIdVm>(data);
 
             return response;

@@ -2,16 +2,17 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 
 
 namespace Application.UseCases.Students.Queries.GetStudentById
 {
     public class GetStudentByIdQuery :
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<GetStudentByIdRoute>,
         IRequest<GetStudentByIdVm>
     {
-        public string? Id { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

@@ -32,7 +32,7 @@ namespace Application.UseCases.Students.Queries.GetStudentByCode
                 throw new Exception($"Student with code '{query.Code}' does not exist");
             }
 
-            // Map reult to response
+            // Map result to response
             var response = _mapper.Map<GetStudentByCodeVm>(data);
 
             return response;

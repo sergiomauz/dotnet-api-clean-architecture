@@ -2,17 +2,18 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 
 
 namespace Application.UseCases.Courses.Commands.UpdateCourse
 {
     public class UpdateCourseCommand :
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<UpdateCourseDto>,
         IMapFrom<UpdateCourseRoute>,
         IRequest<UpdateCourseVm>
     {
-        public string? Id { get; set; }
         public string? TeacherId { get; set; }
         public string? Code { get; set; }
         public string? Name { get; set; }
@@ -28,7 +29,7 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
 
             profile.CreateMap<UpdateCourseDto, UpdateCourseCommand>()
-                .ForMember(d => d.TeacherId, m => m.MapFrom(o => o.TeacherId.Value))
+                .ForMember(d => d.TeacherId, m => m.MapFrom(o => o.TeacherId))
                 .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
                 .ForMember(d => d.Name, m => m.MapFrom(o => o.Name))
                 .ForMember(d => d.Description, m => m.MapFrom(o => o.Description));
