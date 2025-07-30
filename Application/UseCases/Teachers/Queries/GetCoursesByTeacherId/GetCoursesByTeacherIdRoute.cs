@@ -6,6 +6,6 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
     public class GetCoursesByTeacherIdRoute
     {
         [FromRoute(Name = "teacher_id")]
-        public string? TeacherId { get; set; }
+        public int? TeacherId { get; set; }
     }
 }

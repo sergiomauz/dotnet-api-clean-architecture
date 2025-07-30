@@ -7,7 +7,7 @@ namespace Application
     public static class DependencyInjection
     {
         /// <summary>
-        /// Initialize all the Infrastructure services
+        /// Initialize all the Application services
         /// </summary>
         /// <param name="services">Contract collection of service descriptor</param>
         /// <returns>Contract collection of service descriptor</returns>

@@ -1,5 +1,5 @@
-﻿using Application.Infrastructure.Persistence.Bases;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Application.Infrastructure.Persistence.Bases;
 
 
 namespace Application.Infrastructure.Persistence

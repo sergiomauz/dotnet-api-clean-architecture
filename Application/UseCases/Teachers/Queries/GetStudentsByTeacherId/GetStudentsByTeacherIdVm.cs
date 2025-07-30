@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using AutoMapper;
-using Application.Commons.Mapping;
 using Domain.Entities;
+using Application.Commons.Mapping;
 
 
 namespace Application.UseCases.Teachers.Queries.GetStudentsByTeacherId

@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using AutoMapper;
 using Application.Commons.Mapping;
-using Application.Commons.VMs;
 using Domain.Entities;
+using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Students.Commands.UpdateStudent

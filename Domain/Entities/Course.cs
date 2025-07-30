@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Bases;
 
+
 namespace Domain.Entities
 {
     public class Course : BaseEntityWithCode
