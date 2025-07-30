@@ -113,14 +113,18 @@ namespace Persistence.Repositories.Bases
 
         public virtual async Task<int> DeleteAsync(int id)
         {
+            var affectedRows = 0;
             var entity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
-            _sqlServerDbContext.Set<T>().Remove(entity);
-            var affectedRows = await _sqlServerDbContext.SaveChangesAsync();
+            if (entity != null)
+            {
+                _sqlServerDbContext.Set<T>().Remove(entity);
+                affectedRows = await _sqlServerDbContext.SaveChangesAsync();
+            }
 
             return affectedRows;
         }
 
-        public virtual async Task<int> DeleteAsync(IEnumerable<int> ids)
+        public virtual async Task<int> DeleteAsync(List<int> ids)
         {
             var entities = await _sqlServerDbContext.Set<T>().Where(e => ids.Contains(e.Id.Value)).ToListAsync();
             _sqlServerDbContext.Set<T>().RemoveRange(entities);

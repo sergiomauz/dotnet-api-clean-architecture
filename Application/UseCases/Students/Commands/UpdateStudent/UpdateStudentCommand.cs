@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
@@ -33,8 +34,8 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
                 .ForMember(d => d.Firstname, m => m.MapFrom(o => o.Firstname))
                 .ForMember(d => d.Lastname, m => m.MapFrom(o => o.Lastname))
                 .ForMember(d => d.BirthDate, m => m.MapFrom(o => string.IsNullOrEmpty(o.BirthDate)
-                                                                    ? (DateOnly?)null
-                                                                    : DateOnly.ParseExact(o.BirthDate, "yyyy-MM-dd")));
+                                                                    ? (DateTime?)null
+                                                                    : DateTime.ParseExact(o.BirthDate, "yyyy-MM-dd", CultureInfo.InvariantCulture)));
         }
     }
 }
