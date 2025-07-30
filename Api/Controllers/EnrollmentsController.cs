@@ -29,5 +29,16 @@ namespace Api.Controllers
 
             return Ok(vm);
         }
+
+        [HttpPost("delete")]
+        public async Task<ActionResult<DeleteEnrollmentsVm>> DeleteEnrollment([FromBody] DeleteEnrollmentsDto body)
+        {
+            var command = Mapper.Map<DeleteEnrollmentsCommand>(body);
+            Mapper.Map(Request, command);
+
+            var vm = await Mediator.Send(command);
+
+            return Ok(vm);
+        }
     }
 }

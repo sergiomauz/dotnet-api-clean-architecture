@@ -96,12 +96,23 @@ namespace Api.Controllers
         }
 
         [HttpPost("search")]
-        public async Task<ActionResult<PaginatedVm<SearchTeachersByObjectVm>>> SearchCoursesByObject([FromBody] SearchTeachersByObjectDto queryParams)
+        public async Task<ActionResult<PaginatedVm<SearchTeachersByObjectVm>>> SearchCoursesByObject([FromBody] SearchTeachersByObjectDto queryBody)
         {
-            var query = Mapper.Map<SearchTeachersByObjectQuery>(queryParams);
+            var query = Mapper.Map<SearchTeachersByObjectQuery>(queryBody);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpPost("delete")]
+        public async Task<ActionResult<DeleteTeachersVm>> DeleteTeacher([FromBody] DeleteTeachersDto body)
+        {
+            var command = Mapper.Map<DeleteTeachersCommand>(body);
+            Mapper.Map(Request, command);
+
+            var vm = await Mediator.Send(command);
 
             return Ok(vm);
         }

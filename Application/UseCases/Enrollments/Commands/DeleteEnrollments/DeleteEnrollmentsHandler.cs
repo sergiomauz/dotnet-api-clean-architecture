@@ -26,15 +26,23 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
         public async Task<DeleteEnrollmentsVm> Handle(DeleteEnrollmentsCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
-            var affected = await _enrollmentsRepository.DeleteAsync(Convert.ToInt32(command.Id));
+            var affectedRows = 0;
+            if (command.Id != null)
+            {
+                affectedRows = await _enrollmentsRepository.DeleteAsync(command.Id.Value);
+            }
+            else if (command.Ids != null)
+            {
+                affectedRows = await _enrollmentsRepository.DeleteAsync(command.Ids);
+            }
 
             // Map rows affected
-            if (affected > 0)
+            if (affectedRows > 0)
             {
                 return new DeleteEnrollmentsVm
                 {
                     WereDeleted = true,
-                    TotalAffected = affected
+                    TotalAffected = affectedRows
                 };
             }
 

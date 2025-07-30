@@ -26,15 +26,23 @@ namespace Application.UseCases.Courses.Commands.DeleteCourses
         public async Task<DeleteCoursesVm> Handle(DeleteCoursesCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
-            var affected = await _coursesRepository.DeleteAsync(Convert.ToInt32(command.Id));
+            var affectedRows = 0;
+            if (command.Id != null)
+            {
+                affectedRows = await _coursesRepository.DeleteAsync(command.Id.Value);
+            }
+            else if (command.Ids != null)
+            {
+                affectedRows = await _coursesRepository.DeleteAsync(command.Ids);
+            }
 
             // Map rows affected
-            if (affected > 0)
+            if (affectedRows > 0)
             {
                 return new DeleteCoursesVm
                 {
                     WereDeleted = true,
-                    TotalAffected = affected
+                    TotalAffected = affectedRows
                 };
             }
 

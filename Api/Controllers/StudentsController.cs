@@ -60,9 +60,9 @@ namespace Api.Controllers
         }
 
         [HttpGet("{student_id}/get-courses")]
-        public async Task<ActionResult<PaginatedVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute route, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
+        public async Task<ActionResult<PaginatedVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute studentRoute, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
         {
-            var query = Mapper.Map<GetCoursesByStudentIdQuery>(route);
+            var query = Mapper.Map<GetCoursesByStudentIdQuery>(studentRoute);
             Mapper.Map(queryParams, query);
             Mapper.Map(Request, query);
 
@@ -83,12 +83,23 @@ namespace Api.Controllers
         }
 
         [HttpPost("search")]
-        public async Task<ActionResult<PaginatedVm<SearchStudentsByObjectVm>>> SearchCoursesByObject([FromBody] SearchStudentsByObjectDto queryParams)
+        public async Task<ActionResult<PaginatedVm<SearchStudentsByObjectVm>>> SearchCoursesByObject([FromBody] SearchStudentsByObjectDto queryBody)
         {
-            var query = Mapper.Map<SearchStudentsByObjectQuery>(queryParams);
+            var query = Mapper.Map<SearchStudentsByObjectQuery>(queryBody);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpPost("delete")]
+        public async Task<ActionResult<DeleteStudentsVm>> DeleteStudent([FromBody] DeleteStudentsDto body)
+        {
+            var command = Mapper.Map<DeleteStudentsCommand>(body);
+            Mapper.Map(Request, command);
+
+            var vm = await Mediator.Send(command);
 
             return Ok(vm);
         }
