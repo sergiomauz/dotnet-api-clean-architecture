@@ -4,17 +4,17 @@ using MediatR;
 using Application.Infrastructure.Persistence;
 
 
-namespace Application.UseCases.Students.Commands.DeleteStudent
+namespace Application.UseCases.Students.Commands.DeleteStudents
 {
-    public class DeleteStudentHandler :
-        IRequestHandler<DeleteStudentCommand, DeleteStudentVm>
+    public class DeleteStudentsHandler :
+        IRequestHandler<DeleteStudentsCommand, DeleteStudentsVm>
     {
-        private readonly ILogger<DeleteStudentHandler> _logger;
+        private readonly ILogger<DeleteStudentsHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IStudentsRepository _studentsRepository;
 
-        public DeleteStudentHandler(
-            ILogger<DeleteStudentHandler> logger,
+        public DeleteStudentsHandler(
+            ILogger<DeleteStudentsHandler> logger,
             IMapper mapper,
             IStudentsRepository studentsRepository)
         {
@@ -23,7 +23,7 @@ namespace Application.UseCases.Students.Commands.DeleteStudent
             _studentsRepository = studentsRepository;
         }
 
-        public async Task<DeleteStudentVm> Handle(DeleteStudentCommand command, CancellationToken cancellationToken)
+        public async Task<DeleteStudentsVm> Handle(DeleteStudentsCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
             var affected = await _studentsRepository.DeleteAsync(command.Id.Value);
@@ -31,14 +31,14 @@ namespace Application.UseCases.Students.Commands.DeleteStudent
             // Map rows affected
             if (affected > 0)
             {
-                return new DeleteStudentVm
+                return new DeleteStudentsVm
                 {
                     WereDeleted = true,
                     TotalAffected = affected
                 };
             }
 
-            return new DeleteStudentVm
+            return new DeleteStudentsVm
             {
                 WereDeleted = false,
                 TotalAffected = 0

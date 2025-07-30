@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Commons.VMs;
 using Application.UseCases.Courses.Commands.CreateCourse;
-using Application.UseCases.Courses.Commands.DeleteCourse;
+using Application.UseCases.Courses.Commands.DeleteCourses;
 using Application.UseCases.Courses.Commands.UpdateCourse;
 using Application.UseCases.Courses.Queries.GetCourseById;
 using Application.UseCases.Courses.Queries.SearchCoursesByTextFilter;
@@ -25,9 +25,9 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<DeleteCourseVm>> DeleteCourse([FromRoute] DeleteCourseRoute route)
+        public async Task<ActionResult<DeleteCoursesVm>> DeleteCourse([FromRoute] DeleteCoursesRoute route)
         {
-            var command = Mapper.Map<DeleteCourseCommand>(route);
+            var command = Mapper.Map<DeleteCoursesCommand>(route);
             Mapper.Map(Request, command);
 
             var vm = await Mediator.Send(command);

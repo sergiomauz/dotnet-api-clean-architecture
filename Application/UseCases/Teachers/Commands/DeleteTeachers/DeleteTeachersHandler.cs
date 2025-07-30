@@ -4,17 +4,17 @@ using MediatR;
 using Application.Infrastructure.Persistence;
 
 
-namespace Application.UseCases.Teachers.Commands.DeleteTeacher
+namespace Application.UseCases.Teachers.Commands.DeleteTeachers
 {
-    public class DeleteTeacherHandler :
-        IRequestHandler<DeleteTeacherCommand, DeleteTeacherVm>
+    public class DeleteTeachersHandler :
+        IRequestHandler<DeleteTeachersCommand, DeleteTeachersVm>
     {
-        private readonly ILogger<DeleteTeacherHandler> _logger;
+        private readonly ILogger<DeleteTeachersHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ITeachersRepository _teachersRepository;
 
-        public DeleteTeacherHandler(
-            ILogger<DeleteTeacherHandler> logger,
+        public DeleteTeachersHandler(
+            ILogger<DeleteTeachersHandler> logger,
             IMapper mapper,
             ITeachersRepository teachersRepository)
         {
@@ -23,7 +23,7 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeacher
             _teachersRepository = teachersRepository;
         }
 
-        public async Task<DeleteTeacherVm> Handle(DeleteTeacherCommand command, CancellationToken cancellationToken)
+        public async Task<DeleteTeachersVm> Handle(DeleteTeachersCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
             var affected = await _teachersRepository.DeleteAsync(command.Id.Value);
@@ -31,14 +31,14 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeacher
             // Map rows affected
             if (affected > 0)
             {
-                return new DeleteTeacherVm
+                return new DeleteTeachersVm
                 {
                     WereDeleted = true,
                     TotalAffected = affected
                 };
             }
 
-            return new DeleteTeacherVm
+            return new DeleteTeachersVm
             {
                 WereDeleted = false,
                 TotalAffected = 0
