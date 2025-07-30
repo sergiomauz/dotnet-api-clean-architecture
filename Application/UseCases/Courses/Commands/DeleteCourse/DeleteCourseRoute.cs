@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Commons.RequestParams;
 
 
 namespace Application.UseCases.Courses.Commands.DeleteCourse
 {
-    public class DeleteCourseRoute
+    public class DeleteCourseRoute : IdRequestParam
     {
-        [FromRoute(Name = "id")]
-        public string? Id { get; set; }
     }
 }

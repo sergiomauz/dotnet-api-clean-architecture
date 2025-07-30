@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Commons.RequestParams;
 
 
 namespace Application.UseCases.Courses.Commands.UpdateCourse
 {
-    public class UpdateCourseRoute
+    public class UpdateCourseRoute : IdRequestParam
     {
-        [FromRoute(Name = "id")]
-        public string? Id { get; set; }
     }
 }

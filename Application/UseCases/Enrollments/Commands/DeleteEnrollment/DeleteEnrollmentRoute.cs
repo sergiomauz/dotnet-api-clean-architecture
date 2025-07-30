@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Commons.RequestParams;
 
 
 namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
 {
-    public class DeleteEnrollmentRoute
+    public class DeleteEnrollmentRoute : IdRequestParam
     {
-        [FromRoute(Name = "id")]
-        public string? Id { get; set; }
     }
 }
