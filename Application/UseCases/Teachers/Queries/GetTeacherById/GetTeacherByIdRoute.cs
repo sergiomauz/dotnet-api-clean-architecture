@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Teachers.Queries.GetTeacherById
 {
-    public class GetTeacherByIdRoute : IdsRequestParam
+    public class GetTeacherByIdRoute : IdRouteRequestParam
     {
     }
 }

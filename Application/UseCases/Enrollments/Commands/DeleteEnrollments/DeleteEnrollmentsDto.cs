@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
 {
-    public class DeleteEnrollmentsDto : IdsRequestParam
+    public class DeleteEnrollmentsDto : IdsBodyRequestParam
     {
     }
 }

@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Courses.Commands.DeleteCourses
 {
-    public class DeleteCoursesDto : IdsRequestParam
+    public class DeleteCoursesDto : IdsBodyRequestParam
     {
     }
 }

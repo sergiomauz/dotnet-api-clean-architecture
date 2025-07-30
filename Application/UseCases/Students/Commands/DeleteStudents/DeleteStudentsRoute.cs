@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Students.Commands.DeleteStudents
 {
-    public class DeleteStudentsRoute : IdsRequestParam
+    public class DeleteStudentsRoute : IdRouteRequestParam
     {
     }
 }
