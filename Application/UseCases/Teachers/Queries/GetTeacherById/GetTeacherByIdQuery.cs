@@ -8,7 +8,7 @@ using Application.Commons.Queries;
 namespace Application.UseCases.Teachers.Queries.GetTeacherById
 {
     public class GetTeacherByIdQuery :
-        IdQuery,
+        IdsQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<GetTeacherByIdRoute>,
         IRequest<GetTeacherByIdVm>

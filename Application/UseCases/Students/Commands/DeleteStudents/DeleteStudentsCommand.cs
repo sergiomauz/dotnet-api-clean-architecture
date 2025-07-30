@@ -8,9 +8,10 @@ using Application.Commons.Queries;
 namespace Application.UseCases.Students.Commands.DeleteStudents
 {
     public class DeleteStudentsCommand :
-        IdQuery,
+        IdsQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteStudentsRoute>,
+        IMapFrom<DeleteStudentsDto>,
         IRequest<DeleteStudentsVm>
     {
         public HttpRequest? Request { get; set; }
@@ -22,6 +23,9 @@ namespace Application.UseCases.Students.Commands.DeleteStudents
 
             profile.CreateMap<DeleteStudentsRoute, DeleteStudentsCommand>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
+
+            profile.CreateMap<DeleteStudentsDto, DeleteStudentsCommand>()
+                .ForMember(d => d.Ids, m => m.MapFrom(o => o.Ids));
         }
     }
 }

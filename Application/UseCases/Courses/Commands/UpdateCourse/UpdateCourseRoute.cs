@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Courses.Commands.UpdateCourse
 {
-    public class UpdateCourseRoute : IdRequestParam
+    public class UpdateCourseRoute : IdsRequestParam
     {
     }
 }

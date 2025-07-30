@@ -8,10 +8,10 @@ using Application.Commons.Queries;
 namespace Application.UseCases.Courses.Commands.UpdateCourse
 {
     public class UpdateCourseCommand :
-        IdQuery,
+        IdsQuery,
         IMapFrom<HttpRequest>,
-        IMapFrom<UpdateCourseDto>,
         IMapFrom<UpdateCourseRoute>,
+        IMapFrom<UpdateCourseDto>,
         IRequest<UpdateCourseVm>
     {
         public string? TeacherId { get; set; }

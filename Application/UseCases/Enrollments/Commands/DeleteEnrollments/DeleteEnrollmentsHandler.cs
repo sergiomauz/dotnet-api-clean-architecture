@@ -4,17 +4,17 @@ using MediatR;
 using Application.Infrastructure.Persistence;
 
 
-namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
+namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
 {
-    public class DeleteEnrollmentHandler :
-        IRequestHandler<DeleteEnrollmentCommand, DeleteEnrollmentVm>
+    public class DeleteEnrollmentsHandler :
+        IRequestHandler<DeleteEnrollmentsCommand, DeleteEnrollmentsVm>
     {
-        private readonly ILogger<DeleteEnrollmentHandler> _logger;
+        private readonly ILogger<DeleteEnrollmentsHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IEnrollmentsRepository _enrollmentsRepository;
 
-        public DeleteEnrollmentHandler(
-            ILogger<DeleteEnrollmentHandler> logger,
+        public DeleteEnrollmentsHandler(
+            ILogger<DeleteEnrollmentsHandler> logger,
             IMapper mapper,
             IEnrollmentsRepository enrollmentsRepository)
         {
@@ -23,7 +23,7 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
             _enrollmentsRepository = enrollmentsRepository;
         }
 
-        public async Task<DeleteEnrollmentVm> Handle(DeleteEnrollmentCommand command, CancellationToken cancellationToken)
+        public async Task<DeleteEnrollmentsVm> Handle(DeleteEnrollmentsCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
             var affected = await _enrollmentsRepository.DeleteAsync(Convert.ToInt32(command.Id));
@@ -31,14 +31,14 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
             // Map rows affected
             if (affected > 0)
             {
-                return new DeleteEnrollmentVm
+                return new DeleteEnrollmentsVm
                 {
                     WereDeleted = true,
                     TotalAffected = affected
                 };
             }
 
-            return new DeleteEnrollmentVm
+            return new DeleteEnrollmentsVm
             {
                 WereDeleted = false,
                 TotalAffected = 0

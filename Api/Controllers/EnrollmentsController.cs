@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.UseCases.Enrollments.Commands.CreateEnrollment;
-using Application.UseCases.Enrollments.Commands.DeleteEnrollment;
+using Application.UseCases.Enrollments.Commands.DeleteEnrollments;
 
 
 namespace Api.Controllers
@@ -20,9 +20,9 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<DeleteEnrollmentVm>> DeleteEnrollment([FromRoute] DeleteEnrollmentRoute route)
+        public async Task<ActionResult<DeleteEnrollmentsVm>> DeleteEnrollment([FromRoute] DeleteEnrollmentsRoute route)
         {
-            var command = Mapper.Map<DeleteEnrollmentCommand>(route);
+            var command = Mapper.Map<DeleteEnrollmentsCommand>(route);
             Mapper.Map(Request, command);
 
             var vm = await Mediator.Send(command);

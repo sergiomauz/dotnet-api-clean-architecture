@@ -5,26 +5,26 @@ using Application.Commons.Mapping;
 using Application.Commons.Queries;
 
 
-namespace Application.UseCases.Teachers.Commands.DeleteTeachers
+namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
 {
-    public class DeleteTeachersCommand :
+    public class DeleteEnrollmentsCommand :
         IdsQuery,
         IMapFrom<HttpRequest>,
-        IMapFrom<DeleteTeachersRoute>,
-        IMapFrom<DeleteTeachersDto>,
-        IRequest<DeleteTeachersVm>
+        IMapFrom<DeleteEnrollmentsRoute>,
+        IMapFrom<DeleteEnrollmentsDto>,
+        IRequest<DeleteEnrollmentsVm>
     {
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<HttpRequest, DeleteTeachersCommand>()
+            profile.CreateMap<HttpRequest, DeleteEnrollmentsCommand>()
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
-            profile.CreateMap<DeleteTeachersRoute, DeleteTeachersCommand>()
+            profile.CreateMap<DeleteEnrollmentsRoute, DeleteEnrollmentsCommand>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
 
-            profile.CreateMap<DeleteTeachersDto, DeleteTeachersCommand>()
+            profile.CreateMap<DeleteEnrollmentsDto, DeleteEnrollmentsCommand>()
                 .ForMember(d => d.Ids, m => m.MapFrom(o => o.Ids));
         }
     }

@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Teachers.Commands.UpdateTeacher
 {
-    public class UpdateTeacherRoute : IdRequestParam
+    public class UpdateTeacherRoute : IdsRequestParam
     {
     }
 }

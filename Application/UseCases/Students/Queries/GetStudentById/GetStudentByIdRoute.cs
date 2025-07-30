@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Students.Queries.GetStudentById
 {
-    public class GetStudentByIdRoute : IdRequestParam
+    public class GetStudentByIdRoute : IdsRequestParam
     {
     }
 }
