@@ -6,9 +6,9 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
     public class CreateEnrollmentDto
     {
         [JsonPropertyName("course_id")]
-        public int? CourseId { get; set; }
+        public string? CourseId { get; set; }
 
         [JsonPropertyName("student_id")]
-        public int? StudentId { get; set; }
+        public string? StudentId { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
         public async Task<UpdateStudentVm> Handle(UpdateStudentCommand command, CancellationToken cancellationToken)
         {
             // Verify if student exists
-            var existingStudent = await _studentsRepository.GetByIdAsync(command.Id);
+            var existingStudent = await _studentsRepository.GetByIdAsync(Convert.ToInt32(command.Id));
             if (existingStudent == null)
             {
                 throw new Exception("Error. Student does not exist.");

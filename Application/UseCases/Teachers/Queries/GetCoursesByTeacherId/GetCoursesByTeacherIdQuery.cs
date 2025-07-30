@@ -15,7 +15,7 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
         IMapFrom<GetCoursesByTeacherIdRequestParams>,
         IRequest<PaginatedVm<GetCoursesByTeacherIdVm>>
     {
-        public string? TeacherId { get; set; }
+        public int? TeacherId { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

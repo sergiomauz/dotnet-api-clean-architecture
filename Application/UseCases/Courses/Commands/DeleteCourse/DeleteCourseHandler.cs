@@ -26,7 +26,7 @@ namespace Application.UseCases.Courses.Commands.DeleteCourse
         public async Task<DeleteCourseVm> Handle(DeleteCourseCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
-            var affected = await _coursesRepository.DeleteAsync(command.Id);
+            var affected = await _coursesRepository.DeleteAsync(Convert.ToInt32(command.Id));
 
             // Map rows affected
             if (affected > 0)

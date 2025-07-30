@@ -11,7 +11,7 @@ namespace Application.UseCases.Teachers.Queries.GetTeacherById
         IMapFrom<GetTeacherByIdRoute>,
         IRequest<GetTeacherByIdVm>
     {
-        public string? Id { get; set; }
+        public int? Id { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

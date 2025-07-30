@@ -12,7 +12,7 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
         IMapFrom<UpdateStudentRoute>,
         IRequest<UpdateStudentVm>
     {
-        public int Id { get; set; }
+        public string? Id { get; set; }
         public string? Code { get; set; }
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }

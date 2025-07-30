@@ -11,7 +11,7 @@ namespace Application.UseCases.Courses.Commands.DeleteCourse
         IMapFrom<DeleteCourseRoute>,
         IRequest<DeleteCourseVm>
     {
-        public int Id { get; set; }
+        public string? Id { get; set; }
 
         public HttpRequest? Request { get; set; }
 

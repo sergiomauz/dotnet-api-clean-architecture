@@ -33,21 +33,21 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
         public async Task<CreateEnrollmentVm> Handle(CreateEnrollmentCommand command, CancellationToken cancellationToken)
         {
             // Verify if enrollment exists
-            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentsByStudentIdAsync(command.CourseId, command.StudentId);
+            var existingEnrollment = await _enrollmentsRepository.GetEnrollmentsByStudentIdAsync(command.CourseId.Value, command.StudentId.Value);
             if (existingEnrollment != null)
             {
                 throw new Exception("Error. Enrollment already exists.");
             }
 
             // Verify if course exists
-            var existingCourse = await _coursesRepository.GetByIdAsync(command.CourseId);
+            var existingCourse = await _coursesRepository.GetByIdAsync(command.CourseId.Value);
             if (existingCourse == null)
             {
                 throw new Exception("Error. Course does not exist.");
             }
 
             // Verify if student exists
-            var existingStudent = await _studentsRepository.GetByIdAsync(command.StudentId);
+            var existingStudent = await _studentsRepository.GetByIdAsync(command.StudentId.Value);
             if (existingStudent == null)
             {
                 throw new Exception("Error. Student does not exist.");

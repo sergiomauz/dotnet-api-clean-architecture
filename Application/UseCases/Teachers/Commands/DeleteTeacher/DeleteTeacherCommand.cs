@@ -11,7 +11,7 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeacher
         IMapFrom<DeleteTeacherRoute>,
         IRequest<DeleteTeacherVm>
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public HttpRequest? Request { get; set; }
 

@@ -26,7 +26,7 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
         public async Task<UpdateTeacherVm> Handle(UpdateTeacherCommand command, CancellationToken cancellationToken)
         {
             // Verify if teacher exists
-            var existingTeacher = await _teachersRepository.GetByIdAsync(command.Id);
+            var existingTeacher = await _teachersRepository.GetByIdAsync(command.Id.Value);
             if (existingTeacher == null)
             {
                 throw new Exception("Error. Teacher does not exist.");

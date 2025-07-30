@@ -29,7 +29,7 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
         public async Task<UpdateCourseVm> Handle(UpdateCourseCommand command, CancellationToken cancellationToken)
         {
             // Verify if course exists
-            var existingCourse = await _coursesRepository.GetByIdAsync(command.Id);
+            var existingCourse = await _coursesRepository.GetByIdAsync(Convert.ToInt32(command.Id));
             if (existingCourse == null)
             {
                 throw new Exception("Error. Course does not exist.");
@@ -49,15 +49,15 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
                 }
                 existingCourse.Code = command.Code;
             }
-            if (command.TeacherId.HasValue)
+            if (!string.IsNullOrEmpty(command.TeacherId))
             {
                 // Verify if teacher exists
-                var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
+                var existingTeacher = await _teachersRepository.GetByIdAsync(Convert.ToInt32(command.TeacherId));
                 if (existingTeacher == null)
                 {
                     throw new Exception("Error. Teacher does not exist.");
                 }
-                existingCourse.TeacherId = command.TeacherId;
+                existingCourse.TeacherId = Convert.ToInt32(command.TeacherId);
             }
             if (!string.IsNullOrEmpty(command.Name))
             {

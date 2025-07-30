@@ -11,7 +11,7 @@ namespace Application.UseCases.Students.Commands.DeleteStudent
         IMapFrom<DeleteStudentRoute>,
         IRequest<DeleteStudentVm>
     {
-        public int Id { get; set; }
+        public string? Id { get; set; }
 
         public HttpRequest? Request { get; set; }
 

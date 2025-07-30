@@ -26,7 +26,7 @@ namespace Application.UseCases.Teachers.Queries.GetTeacherById
         public async Task<GetTeacherByIdVm> Handle(GetTeacherByIdQuery query, CancellationToken cancellationToken)
         {
             // Get data by Code, if it fails throw exception
-            var data = await _teachersRepository.GetByIdAsync(Convert.ToInt32(query.Id));
+            var data = await _teachersRepository.GetByIdAsync(query.Id.Value);
             if (data == null)
             {
                 throw new Exception($"Teacher with ID '{query.Id}' does not exist");

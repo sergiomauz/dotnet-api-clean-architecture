@@ -11,7 +11,7 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollment
         IMapFrom<DeleteEnrollmentRoute>,
         IRequest<DeleteEnrollmentVm>
     {
-        public int Id { get; set; }
+        public string? Id { get; set; }
 
         public HttpRequest? Request { get; set; }
 

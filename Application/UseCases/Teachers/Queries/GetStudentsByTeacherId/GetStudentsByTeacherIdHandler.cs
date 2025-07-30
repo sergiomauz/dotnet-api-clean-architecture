@@ -32,10 +32,10 @@ namespace Application.UseCases.Teachers.Queries.GetStudentsByTeacherId
             if (query.PageSize == null) query.PageSize = 20;
 
             // Get results
-            var dataList = await _enrollmentsRepository.GetStudentsByTeacherIdAsync(Convert.ToInt32(query.TeacherId),
+            var dataList = await _enrollmentsRepository.GetStudentsByTeacherIdAsync(query.TeacherId.Value,
                                                                                      query.CurrentPage.Value,
                                                                                      query.PageSize.Value);
-            var totalCount = await _enrollmentsRepository.TotalCountStudentsByTeacherIdAsync(Convert.ToInt32(query.TeacherId));
+            var totalCount = await _enrollmentsRepository.TotalCountStudentsByTeacherIdAsync(query.TeacherId.Value);
 
             // Map result to response
             var items = _mapper.Map<IEnumerable<Enrollment>, IEnumerable<GetStudentsByTeacherIdVm>>(dataList);

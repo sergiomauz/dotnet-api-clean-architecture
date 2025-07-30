@@ -32,9 +32,9 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
             if (query.PageSize == null) query.PageSize = 20;
 
             // Get results
-            var dataList = await _coursesRepository.GetCoursesByTeacherIdAsync(Convert.ToInt32(query.TeacherId),
-                                                                     query.CurrentPage.Value,
-                                                                     query.PageSize.Value);
+            var dataList = await _coursesRepository.GetCoursesByTeacherIdAsync(query.TeacherId.Value,
+                                                                                 query.CurrentPage.Value,
+                                                                                 query.PageSize.Value);
             var totalCount = await _coursesRepository.TotalCoursesByTeacherIdAsync(Convert.ToInt32(query.TeacherId));
 
             // Map result to response
