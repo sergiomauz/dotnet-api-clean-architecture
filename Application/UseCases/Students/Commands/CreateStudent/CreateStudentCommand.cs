@@ -14,7 +14,7 @@ namespace Application.UseCases.Students.Commands.CreateStudent
         public string Code { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public DateOnly BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

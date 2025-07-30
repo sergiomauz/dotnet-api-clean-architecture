@@ -11,6 +11,6 @@ namespace Application.Infrastructure.Persistence
         Task<List<Student>> SearchStudentsByTextFilterAsync(string textFilter, int currentPage, int pageSize);
 
         Task<int> TotalCountStudentsByObjectAsync(StudentsQuery studentsQuery);
-        Task<IEnumerable<Student>> SearchStudentsByObjectAsync(StudentsPaginatedQuery studentsPaginatedQuery);
+        Task<IEnumerable<Student>> SearchStudentsByObjectAsync(StudentsPaginatedQuery studentsQuery);
     }
 }
