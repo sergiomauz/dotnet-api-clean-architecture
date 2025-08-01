@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net;
 using AutoMapper;
-using MediatR;
+using Microsoft.Extensions.Logging;
 using Domain.Entities;
+using MediatR;
+using Application.Commons.Exceptions;
 using Application.Infrastructure.Persistence;
 
 
@@ -33,7 +35,11 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             var existingCourse = await _coursesRepository.GetByCodeAsync(command.Code);
             if (existingCourse != null)
             {
-                throw new Exception("Error. Course already exists.");
+                throw new ConflictValidationException(
+                    HttpStatusCode.Conflict,
+                    "code",
+                    "V0012",
+                    $"Course with code '${command.Code}' already exists.");
             }
 
             // Verify if teacher exists

@@ -6,7 +6,7 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
     public class UpdateCourseDto
     {
         [JsonPropertyName("teacher_id")]
-        public string? TeacherId { get; set; }
+        public int? TeacherId { get; set; }
 
         [JsonPropertyName("code")]
         public string? Code { get; set; }

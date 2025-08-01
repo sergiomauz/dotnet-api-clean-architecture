@@ -6,7 +6,7 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
     public class CreateCourseDto
     {
         [JsonPropertyName("teacher_id")]
-        public string? TeacherId { get; set; }
+        public int? TeacherId { get; set; }
 
         [JsonPropertyName("code")]
         public string? Code { get; set; }

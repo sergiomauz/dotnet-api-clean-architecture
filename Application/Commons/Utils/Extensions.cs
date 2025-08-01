@@ -13,8 +13,8 @@ namespace Application.Commons.Utils
                     group => group.Key,
                     group => group.Select(failure => new Dictionary<string, string>
                     {
-                        { "code", failure.ErrorCode },
-                        { "error", failure.ErrorMessage }
+                        { "error_code", failure.ErrorCode },
+                        { "error_message", failure.ErrorMessage }
                     }).AsEnumerable()
                 );
         }

@@ -14,7 +14,7 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
         IMapFrom<UpdateCourseDto>,
         IRequest<UpdateCourseVm>
     {
-        public string? TeacherId { get; set; }
+        public int? TeacherId { get; set; }
         public string? Code { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }

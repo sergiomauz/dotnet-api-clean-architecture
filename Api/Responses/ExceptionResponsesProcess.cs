@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using AutoMapper;
 using MediatR;
@@ -64,6 +65,52 @@ namespace Api.Responses
             context.ExceptionHandled = true;
         }
 
+        private void HandleConflictValidationException(ExceptionContext context)
+        {
+            var exception = context.Exception as ConflictValidationException;
+            var details = new Dictionary<string, IEnumerable<Dictionary<string, string>>>
+            {
+                {
+                    exception.PropertyName, new List<Dictionary<string, string>>
+                    {
+                        new Dictionary<string, string>
+                        {
+                            { "error_code", exception.CodeError },
+                            { "error_message", exception.Message }
+                        }
+                    }
+                }
+            };
+            var response = new CustomExceptionResponse(
+                message: null,
+                exceptions: details
+            );
+
+            if (exception.StatusCode == HttpStatusCode.NotFound)
+            {
+                context.Result = new NotFoundObjectResult(response);
+            }
+            else if (exception.StatusCode == HttpStatusCode.Forbidden)
+            {
+                context.Result = new ObjectResult(response)
+                {
+                    StatusCode = StatusCodes.Status403Forbidden
+                };
+            }
+            else if (exception.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                context.Result = new ObjectResult(response)
+                {
+                    StatusCode = StatusCodes.Status401Unauthorized
+                };
+            }
+            else
+            {
+                context.Result = new ConflictObjectResult(response);
+            }
+            context.ExceptionHandled = true;
+        }
+
         public override void OnException(ExceptionContext context)
         {
             _mediator = context.HttpContext.RequestServices.GetService<IMediator>();
@@ -80,6 +127,9 @@ namespace Api.Responses
                     break;
                 case FormatValidationException:
                     HandleFormatValidationException(context);
+                    break;
+                case ConflictValidationException:
+                    HandleConflictValidationException(context);
                     break;
                 default:
                     HandleInternalServerException(context);

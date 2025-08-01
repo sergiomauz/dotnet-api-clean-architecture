@@ -49,10 +49,10 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
                 }
                 existingCourse.Code = command.Code;
             }
-            if (!string.IsNullOrEmpty(command.TeacherId))
+            if (command.TeacherId.HasValue)
             {
                 // Verify if teacher exists
-                var existingTeacher = await _teachersRepository.GetByIdAsync(Convert.ToInt32(command.TeacherId));
+                var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
                 if (existingTeacher == null)
                 {
                     throw new Exception("Error. Teacher does not exist.");
