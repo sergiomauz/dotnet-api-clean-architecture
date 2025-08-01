@@ -1,5 +1,9 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation;
+using MediatR;
+using Application.Commons.Behaviours;
 
 
 namespace Application
@@ -13,12 +17,23 @@ namespace Application
         /// <returns>Contract collection of service descriptor</returns>
         public static IServiceCollection AddAplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddMediatR(config =>
-            {
-                config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            });
+            //
+            var execAssembly = Assembly.GetExecutingAssembly();
 
+            //
+            services.AddValidatorsFromAssembly(execAssembly);
+            services.AddAutoMapper(config =>
+            {
+                config.AllowNullCollections = true;
+                config.ShouldMapField = fieldInfo => true;
+            }, execAssembly);
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(execAssembly));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+            //
+            services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
+
+            //
             return services;
         }
     }

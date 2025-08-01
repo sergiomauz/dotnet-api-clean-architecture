@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using AutoMapper;
 using MediatR;
+using Application.Commons.Exceptions;
+using Application.Commons.Utils;
 
 
 namespace Api.Responses
@@ -47,6 +49,21 @@ namespace Api.Responses
             context.ExceptionHandled = true;
         }
 
+        private void HandleFormatValidationException(ExceptionContext context)
+        {
+            var exception = context.Exception as FormatValidationException;
+            var errorsList = exception.Errors;
+            var hasErrorsList = errorsList.Any();
+            var details = hasErrorsList ? errorsList.GetValidationFormatFailures() : null;
+            var response = new CustomExceptionResponse(
+                message: null,
+                exceptions: details
+            );
+
+            context.Result = new BadRequestObjectResult(response);
+            context.ExceptionHandled = true;
+        }
+
         public override void OnException(ExceptionContext context)
         {
             _mediator = context.HttpContext.RequestServices.GetService<IMediator>();
@@ -60,6 +77,9 @@ namespace Api.Responses
                     break;
                 case NotImplementedException:
                     HandleNotImplementedException(context);
+                    break;
+                case FormatValidationException:
+                    HandleFormatValidationException(context);
                     break;
                 default:
                     HandleInternalServerException(context);

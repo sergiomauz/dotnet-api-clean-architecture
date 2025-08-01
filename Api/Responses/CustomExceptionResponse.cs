@@ -5,16 +5,16 @@ namespace Api.Responses
 {
     public class CustomExceptionResponse
     {
-        [JsonPropertyName("message")]
+        [JsonPropertyName("message"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Message { get; set; }
 
-        [JsonPropertyName("exception_details"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public Dictionary<string, object> ExceptionDetails { get; set; }
+        [JsonPropertyName("exceptions"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public Dictionary<string, IEnumerable<Dictionary<string, string>>> Exceptions { get; set; }
 
-        public CustomExceptionResponse(string message, Dictionary<string, object>? exceptionDetails = null)
+        public CustomExceptionResponse(string? message, Dictionary<string, IEnumerable<Dictionary<string, string>>>? exceptions = null)
         {
             Message = message;
-            ExceptionDetails = exceptionDetails;
+            Exceptions = exceptions;
         }
     }
 }
