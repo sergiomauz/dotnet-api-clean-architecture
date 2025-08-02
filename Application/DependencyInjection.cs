@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using MediatR;
@@ -15,7 +16,7 @@ namespace Application
         /// </summary>
         /// <param name="services">Contract collection of service descriptor</param>
         /// <returns>Contract collection of service descriptor</returns>
-        public static IServiceCollection AddAplication(this IServiceCollection services)
+        public static IServiceCollection AddAplication(this IServiceCollection services, IConfiguration configuration)
         {
             //
             var execAssembly = Assembly.GetExecutingAssembly();
