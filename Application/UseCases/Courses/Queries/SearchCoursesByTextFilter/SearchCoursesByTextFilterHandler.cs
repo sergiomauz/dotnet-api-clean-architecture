@@ -1,0 +1,54 @@
+﻿using Microsoft.Extensions.Logging;
+using AutoMapper;
+using MediatR;
+using Domain.Entities;
+using Application.Commons.VMs;
+using Application.Infrastructure.Persistence;
+
+
+namespace Application.UseCases.Courses.Queries.SearchCoursesByTextFilter
+{
+    public class SearchCoursesByTextFilterHandler :
+        IRequestHandler<SearchCoursesByTextFilterQuery, PaginatedVm<SearchCoursesByTextFilterVm>>
+    {
+        private readonly ILogger<SearchCoursesByTextFilterHandler> _logger;
+        private readonly IMapper _mapper;
+        private readonly ICoursesRepository _coursesRepository;
+
+        public SearchCoursesByTextFilterHandler(
+            ILogger<SearchCoursesByTextFilterHandler> logger,
+            IMapper mapper,
+            ICoursesRepository coursesRepository)
+        {
+            _logger = logger;
+            _mapper = mapper;
+            _coursesRepository = coursesRepository;
+        }
+
+        public async Task<PaginatedVm<SearchCoursesByTextFilterVm>> Handle(SearchCoursesByTextFilterQuery query, CancellationToken cancellationToken)
+        {
+            // Set default values for searching
+            if (query.CurrentPage == null) query.CurrentPage = 1;
+            if (query.PageSize == null) query.PageSize = 20;
+
+            // Get results
+            var dataList = await _coursesRepository.SearchCoursesByTextFilterAsync(query.TextFilter,
+                                                                                     query.CurrentPage.Value,
+                                                                                     query.PageSize.Value);
+            var totalCount = await _coursesRepository.TotalCountCoursesByTextFilterAsync(query.TextFilter);
+
+            // Map result to response
+            var items = _mapper.Map<IEnumerable<Course>, IEnumerable<SearchCoursesByTextFilterVm>>(dataList);
+
+            // Format search results
+            var response = new PaginatedVm<SearchCoursesByTextFilterVm>(
+                    items,
+                    totalCount,
+                    query.CurrentPage.Value,
+                    query.PageSize.Value
+                );
+
+            return response;
+        }
+    }
+}

@@ -1,0 +1,56 @@
+﻿using Microsoft.Extensions.Logging;
+using AutoMapper;
+using MediatR;
+using Application.Infrastructure.Persistence;
+
+
+namespace Application.UseCases.Courses.Commands.DeleteCourses
+{
+    public class DeleteCoursesHandler :
+        IRequestHandler<DeleteCoursesCommand, DeleteCoursesVm>
+    {
+        private readonly ILogger<DeleteCoursesHandler> _logger;
+        private readonly IMapper _mapper;
+        private readonly ICoursesRepository _coursesRepository;
+
+        public DeleteCoursesHandler(
+            ILogger<DeleteCoursesHandler> logger,
+            IMapper mapper,
+            ICoursesRepository coursesRepository)
+        {
+            _logger = logger;
+            _mapper = mapper;
+            _coursesRepository = coursesRepository;
+        }
+
+        public async Task<DeleteCoursesVm> Handle(DeleteCoursesCommand command, CancellationToken cancellationToken)
+        {
+            // Delete rows
+            var affectedRows = 0;
+            if (command.Id != null)
+            {
+                affectedRows = await _coursesRepository.DeleteAsync(command.Id.Value);
+            }
+            else if (command.Ids != null)
+            {
+                affectedRows = await _coursesRepository.DeleteAsync(command.Ids);
+            }
+
+            // Map rows affected
+            if (affectedRows > 0)
+            {
+                return new DeleteCoursesVm
+                {
+                    WereDeleted = true,
+                    TotalAffected = affectedRows
+                };
+            }
+
+            return new DeleteCoursesVm
+            {
+                WereDeleted = false,
+                TotalAffected = 0
+            };
+        }
+    }
+}
