@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Application.ErrorsCatalog;
+using Application.ErrorCatalog;
 
 
 namespace Application.UseCases.Courses.Commands.CreateCourse

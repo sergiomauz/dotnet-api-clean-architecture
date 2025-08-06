@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using MediatR;
 using Application.Commons.Behaviours;
-using Application.ErrorsCatalog;
+using Application.ErrorCatalog;
 
 
 namespace Application

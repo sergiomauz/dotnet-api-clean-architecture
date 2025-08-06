@@ -4,7 +4,7 @@ using AutoMapper;
 using MediatR;
 using Domain.Entities;
 using Application.Commons.Exceptions;
-using Application.ErrorsCatalog;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 

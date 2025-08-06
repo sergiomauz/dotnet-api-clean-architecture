@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using SQLitePCL;
 
 
-namespace Application.ErrorsCatalog
+namespace Application.ErrorCatalog
 {
     public interface IErrorsCatalogService
     {
