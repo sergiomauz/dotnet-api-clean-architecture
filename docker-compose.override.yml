@@ -1,5 +1,5 @@
 services:
-  talents_school_api:
+  talent_school_api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080

@@ -35,8 +35,8 @@ namespace Application
 
             // Error catalog service
             var errorsCatalogSection = configuration.GetSection("ErrorsCatalog");
-            services.Configure<ErrorsCatalogConfigurations>(errorsCatalogSection);
-            services.AddSingleton<IErrorsCatalogService, ErrorsCatalogService>();
+            services.Configure<ErrorCatalogConfigurations>(errorsCatalogSection);
+            services.AddSingleton<IErrorsCatalogService, ErrorCatalogService>();
 
             //
             return services;

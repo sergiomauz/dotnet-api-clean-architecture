@@ -1,20 +1,16 @@
 services:
-  talents_school_api:
-    image: ${DOCKER_REGISTRY-}talentsschoolapi
+  talent_school_api:
+    image: ${DOCKER_REGISTRY-}talentschoolapi
     build:
       context: .
       dockerfile: Api/Dockerfile
     depends_on:
-      talents_school_db:
+      talent_school_db:
         condition: service_healthy
-    networks:
-      - talents_school_net
 
-  talents_school_db:
+  talent_school_db:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: talents_school_db
-    networks:
-      - talents_school_net
+    container_name: talent_school_db
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MyPass*123456
@@ -27,9 +23,4 @@ services:
       test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "MyPass*123456", "-Q", "SELECT 1", "-C"]
       interval: 5s
       timeout: 3s
-      retries: 30 
-
-networks:  
-  talents_school_net:
-    name: talents_school_net
-    driver: bridge
+      retries: 30

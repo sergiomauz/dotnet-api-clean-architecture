@@ -10,11 +10,11 @@ namespace Application.ErrorCatalog
         ErrorModel? GetErrorByCode(CodePropertyNamePair codePropertyNamePair);
     }
 
-    public class ErrorsCatalogService : IErrorsCatalogService
+    public class ErrorCatalogService : IErrorsCatalogService
     {
         private readonly Dictionary<string, ErrorModel> _errors;
 
-        public ErrorsCatalogService(IOptions<ErrorsCatalogConfigurations> errorsCatalogConfigurations)
+        public ErrorCatalogService(IOptions<ErrorCatalogConfigurations> errorsCatalogConfigurations)
         {
             Batteries.Init();
             var configurations = errorsCatalogConfigurations.Value;

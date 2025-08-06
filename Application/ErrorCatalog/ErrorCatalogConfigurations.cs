@@ -1,6 +1,6 @@
 ﻿namespace Application.ErrorCatalog
 {
-    public class ErrorsCatalogConfigurations
+    public class ErrorCatalogConfigurations
     {
         public string SourceFile { get; set; }
     }
