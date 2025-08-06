@@ -5,12 +5,12 @@ using SQLitePCL;
 
 namespace Application.ErrorCatalog
 {
-    public interface IErrorsCatalogService
+    public interface IErrorCatalogService
     {
         ErrorModel? GetErrorByCode(CodePropertyNamePair codePropertyNamePair);
     }
 
-    public class ErrorCatalogService : IErrorsCatalogService
+    public class ErrorCatalogService : IErrorCatalogService
     {
         private readonly Dictionary<string, ErrorModel> _errors;
 

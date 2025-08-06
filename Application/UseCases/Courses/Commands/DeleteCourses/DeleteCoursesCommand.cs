@@ -16,8 +16,10 @@ namespace Application.UseCases.Courses.Commands.DeleteCourses
     {
         public HttpRequest? Request { get; set; }
 
-        public void Mapping(Profile profile)
+        public override void Mapping(Profile profile)
         {
+            base.Mapping(profile);
+
             profile.CreateMap<HttpRequest, DeleteCoursesCommand>()
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 

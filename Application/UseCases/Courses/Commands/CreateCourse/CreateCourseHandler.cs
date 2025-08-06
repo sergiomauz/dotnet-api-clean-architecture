@@ -13,14 +13,14 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
     public class CreateCourseHandler :
         IRequestHandler<CreateCourseCommand, CreateCourseVm>
     {
-        private readonly IErrorsCatalogService _errorsCatalogService;
+        private readonly IErrorCatalogService _errorsCatalogService;
         private readonly ILogger<CreateCourseHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICoursesRepository _coursesRepository;
         private readonly ITeachersRepository _teachersRepository;
 
         public CreateCourseHandler(
-            IErrorsCatalogService errorsCatalogService,
+            IErrorCatalogService errorsCatalogService,
             ILogger<CreateCourseHandler> logger,
             IMapper mapper,
             ICoursesRepository coursesRepository,
