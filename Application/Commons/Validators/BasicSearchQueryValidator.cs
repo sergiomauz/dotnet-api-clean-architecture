@@ -5,10 +5,11 @@ using Application.ErrorCatalog;
 
 namespace Application.Commons.Validators
 {
-    public class IdsQueryValidator : AbstractValidator<IdsQuery>
+    public class BasicSearchQueryValidator : AbstractValidator<BasicSearchQuery>
     {
-        public IdsQueryValidator(IErrorCatalogService errorCatalogService)
+        public BasicSearchQueryValidator(IErrorCatalogService errorCatalogService)
         {
+
         }
     }
 }

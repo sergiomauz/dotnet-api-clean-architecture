@@ -5,9 +5,9 @@ using Application.ErrorCatalog;
 
 namespace Application.Commons.Validators
 {
-    public class IdsQueryValidator : AbstractValidator<IdsQuery>
+    public class PaginatedQueryValidator : AbstractValidator<PaginatedQuery>
     {
-        public IdsQueryValidator(IErrorCatalogService errorCatalogService)
+        public PaginatedQueryValidator(IErrorCatalogService errorCatalogService)
         {
         }
     }
