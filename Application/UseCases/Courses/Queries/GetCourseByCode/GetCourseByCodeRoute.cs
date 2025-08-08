@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Commons.RequestParams;
 
 
 namespace Application.UseCases.Courses.Queries.GetCourseByCode
 {
-    public class GetCourseByCodeRoute
+    public class GetCourseByCodeRoute : CodeRouteRequestParam
     {
-        [FromRoute(Name = "code")]
-        public string? Code { get; set; }
     }
 }

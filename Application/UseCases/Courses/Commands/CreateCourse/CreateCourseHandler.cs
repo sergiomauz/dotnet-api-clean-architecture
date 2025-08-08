@@ -13,20 +13,20 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
     public class CreateCourseHandler :
         IRequestHandler<CreateCourseCommand, CreateCourseVm>
     {
-        private readonly IErrorCatalogService _errorsCatalogService;
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<CreateCourseHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICoursesRepository _coursesRepository;
         private readonly ITeachersRepository _teachersRepository;
 
         public CreateCourseHandler(
-            IErrorCatalogService errorsCatalogService,
+            IErrorCatalogService errorCatalogService,
             ILogger<CreateCourseHandler> logger,
             IMapper mapper,
             ICoursesRepository coursesRepository,
             ITeachersRepository teachersRepository)
         {
-            _errorsCatalogService = errorsCatalogService;
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _coursesRepository = coursesRepository;
@@ -39,7 +39,7 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             var existingCourse = await _coursesRepository.GetByCodeAsync(command.Code);
             if (existingCourse != null)
             {
-                var handledError = _errorsCatalogService.GetErrorByCode(ErrorConstants.CreateCourseErrorConflict00001);
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseErrorConflict00001);
                 var errorMessageArgs = new string[] { command.Code };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
                 throw new ContentValidationException(
@@ -53,7 +53,7 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
             if (existingTeacher == null)
             {
-                var handledError = _errorsCatalogService.GetErrorByCode(ErrorConstants.CreateCourseErrorConflict00002);
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseErrorConflict00002);
                 var errorMessage = handledError.ErrorMessage;
                 throw new ContentValidationException(
                             handledError.PropertyName,

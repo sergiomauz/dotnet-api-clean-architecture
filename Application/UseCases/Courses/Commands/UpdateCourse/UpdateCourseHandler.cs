@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 
@@ -9,17 +10,20 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
     public class UpdateCourseHandler :
         IRequestHandler<UpdateCourseCommand, UpdateCourseVm>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<UpdateCourseHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICoursesRepository _coursesRepository;
         private readonly ITeachersRepository _teachersRepository;
 
         public UpdateCourseHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<UpdateCourseHandler> logger,
             IMapper mapper,
             ICoursesRepository coursesRepository,
             ITeachersRepository teachersRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _coursesRepository = coursesRepository;
