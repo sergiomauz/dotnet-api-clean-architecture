@@ -1,10 +1,10 @@
-﻿using Application.Commons.Exceptions;
-using Application.ErrorCatalog;
-using Application.Infrastructure.Persistence;
+﻿using System.Net;
+using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
-using Microsoft.Extensions.Logging;
-using System.Net;
+using Application.Commons.Exceptions;
+using Application.ErrorCatalog;
+using Application.Infrastructure.Persistence;
 
 
 namespace Application.UseCases.Students.Queries.GetStudentById

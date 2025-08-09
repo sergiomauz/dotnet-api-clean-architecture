@@ -11,6 +11,13 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
         {
             RuleFor(x => x)
                 .SetValidator(new PaginatedQueryValidator(errorCatalogService));
+
+            //RuleFor(x => x.FilteringCriteria)
+            //    .NotNull();
+
+
+            //RuleFor(x => x.OrderingCriteria.Code)
+            //    .Must;
         }
     }
 }

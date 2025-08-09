@@ -158,9 +158,12 @@ namespace Persistence.Repositories
                 }
 
                 sqlOrders = $"ORDER BY {sqlOrders.TrimEnd(',', ' ')} ";
-
-                sql += sqlOrders;
             }
+            else
+            {
+                sqlOrders = "ORDER BY te.Lastname ";
+            }
+            sql += sqlOrders;
 
             sql += sqlCurrentPage;
             sql += sqlPageSize;
