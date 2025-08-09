@@ -2,8 +2,9 @@
 using AutoMapper;
 using MediatR;
 using Domain.Entities;
-using Application.Commons.VMs;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
+using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter
@@ -11,15 +12,18 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter
     public class SearchTeachersByTextFilterHandler :
         IRequestHandler<SearchTeachersByTextFilterQuery, PaginatedVm<SearchTeachersByTextFilterVm>>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<SearchTeachersByTextFilterHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ITeachersRepository _teachersRepository;
 
         public SearchTeachersByTextFilterHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<SearchTeachersByTextFilterHandler> logger,
             IMapper mapper,
             ITeachersRepository teachersRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _teachersRepository = teachersRepository;
@@ -48,6 +52,7 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByTextFilter
                     query.PageSize.Value
                 );
 
+            //
             return response;
         }
     }

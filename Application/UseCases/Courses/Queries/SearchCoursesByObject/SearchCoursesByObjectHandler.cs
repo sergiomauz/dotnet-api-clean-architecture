@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.QueryObjects;
 using Domain.QueryObjects.Utils;
 using Application.Commons.VMs;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 
@@ -13,15 +14,18 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
     public class SearchCoursesByObjectHandler :
         IRequestHandler<SearchCoursesByObjectQuery, PaginatedVm<SearchCoursesByObjectVm>>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<SearchCoursesByObjectHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICoursesRepository _coursesRepository;
 
         public SearchCoursesByObjectHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<SearchCoursesByObjectHandler> logger,
             IMapper mapper,
             ICoursesRepository coursesRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _coursesRepository = coursesRepository;
@@ -109,6 +113,7 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
                     query.PageSize.Value
                 );
 
+            //
             return response;
         }
     }

@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net;
+using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Application.Commons.Exceptions;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 
@@ -9,15 +12,18 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
     public class UpdateStudentHandler :
         IRequestHandler<UpdateStudentCommand, UpdateStudentVm>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<UpdateStudentHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IStudentsRepository _studentsRepository;
 
         public UpdateStudentHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<UpdateStudentHandler> logger,
             IMapper mapper,
             IStudentsRepository studentsRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _studentsRepository = studentsRepository;
@@ -29,7 +35,15 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
             var existingStudent = await _studentsRepository.GetByIdAsync(command.Id.Value);
             if (existingStudent == null)
             {
-                throw new Exception("Error. Student does not exist.");
+                // throw new Exception("Error. Student does not exist.");
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateStudentContent00001);
+                var errorMessageArgs = new string[] { command.Id.Value.ToString() };
+                var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                throw new ContentValidationException(
+                            handledError.PropertyName,
+                            handledError.ErrorCode,
+                            errorMessage,
+                            HttpStatusCode.NotFound);
             }
 
             // Verify which fields to update
@@ -41,7 +55,15 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
                 {
                     if (existingStudent.Id != existingStudentWithCode.Id)
                     {
-                        throw new Exception("Error. Student code already exists.");
+                        // throw new Exception("Error. Student code already exists.");
+                        var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateStudentContent00002);
+                        var errorMessageArgs = new string[] { command.Code };
+                        var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                        throw new ContentValidationException(
+                                    handledError.PropertyName,
+                                    handledError.ErrorCode,
+                                    errorMessage,
+                                    HttpStatusCode.Conflict);
                     }
                 }
                 existingStudent.Code = command.Code;
@@ -65,7 +87,7 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
             // Map newData to response
             var response = _mapper.Map<UpdateStudentVm>(newStudent);
 
-            // Return
+            //
             return response;
         }
     }

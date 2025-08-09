@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net;
+using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
 using Domain.Entities;
-using Application.Commons.VMs;
+using Application.Commons.Exceptions;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
+using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
@@ -11,22 +14,43 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
     public class GetCoursesByTeacherIdHandler :
         IRequestHandler<GetCoursesByTeacherIdQuery, PaginatedVm<GetCoursesByTeacherIdVm>>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<GetCoursesByTeacherIdHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICoursesRepository _coursesRepository;
+        private readonly ITeachersRepository _teacherRepository;
 
         public GetCoursesByTeacherIdHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<GetCoursesByTeacherIdHandler> logger,
             IMapper mapper,
-            ICoursesRepository coursesRepository)
+            ICoursesRepository coursesRepository,
+            ITeachersRepository teacherRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _coursesRepository = coursesRepository;
+            _teacherRepository = teacherRepository;
         }
 
         public async Task<PaginatedVm<GetCoursesByTeacherIdVm>> Handle(GetCoursesByTeacherIdQuery query, CancellationToken cancellationToken)
         {
+            // Verify if teacher exists
+            var dataStudent = await _teacherRepository.GetByIdAsync(query.TeacherId.Value);
+            if (dataStudent == null)
+            {
+                // throw new Exception($"Teacher with Id '{query.TeacherId}' does not exist");
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.GetCoursesByTeacherIdContent00001);
+                var errorMessageArgs = new string[] { query.TeacherId.Value.ToString() };
+                var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                throw new ContentValidationException(
+                            handledError.PropertyName,
+                            handledError.ErrorCode,
+                            errorMessage,
+                            HttpStatusCode.NotFound);
+            }
+
             // Set default values for searching
             if (query.CurrentPage == null) query.CurrentPage = 1;
             if (query.PageSize == null) query.PageSize = 20;
@@ -48,6 +72,7 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
                     query.PageSize.Value
                 );
 
+            //
             return response;
         }
     }

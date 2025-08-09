@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net;
+using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Application.Commons.Exceptions;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 
@@ -9,15 +12,18 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
     public class UpdateTeacherHandler :
         IRequestHandler<UpdateTeacherCommand, UpdateTeacherVm>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<UpdateTeacherHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ITeachersRepository _teachersRepository;
 
         public UpdateTeacherHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<UpdateTeacherHandler> logger,
             IMapper mapper,
             ITeachersRepository teachersRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _teachersRepository = teachersRepository;
@@ -29,7 +35,15 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
             var existingTeacher = await _teachersRepository.GetByIdAsync(command.Id.Value);
             if (existingTeacher == null)
             {
-                throw new Exception("Error. Teacher does not exist.");
+                // throw new Exception("Error. Teacher does not exist.");
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateTeacherContent00001);
+                var errorMessageArgs = new string[] { command.Id.Value.ToString() };
+                var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                throw new ContentValidationException(
+                            handledError.PropertyName,
+                            handledError.ErrorCode,
+                            errorMessage,
+                            HttpStatusCode.NotFound);
             }
 
             // Verify which fields to update
@@ -41,7 +55,15 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
                 {
                     if (existingTeacher.Id != existingTeacherWithCode.Id)
                     {
-                        throw new Exception("Error. Teacher code already exists.");
+                        // throw new Exception("Error. Teacher code already exists.");
+                        var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateTeacherContent00002);
+                        var errorMessageArgs = new string[] { command.Code };
+                        var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                        throw new ContentValidationException(
+                                    handledError.PropertyName,
+                                    handledError.ErrorCode,
+                                    errorMessage,
+                                    HttpStatusCode.Conflict);
                     }
                 }
                 existingTeacher.Code = command.Code;
@@ -61,7 +83,7 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
             // Map newData to response
             var response = _mapper.Map<UpdateTeacherVm>(newTeacher);
 
-            // Return
+            //
             return response;
         }
     }

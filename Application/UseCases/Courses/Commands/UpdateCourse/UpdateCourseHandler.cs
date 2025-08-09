@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net;
+using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Application.Commons.Exceptions;
 using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
@@ -33,10 +35,18 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
         public async Task<UpdateCourseVm> Handle(UpdateCourseCommand command, CancellationToken cancellationToken)
         {
             // Verify if course exists
-            var existingCourse = await _coursesRepository.GetByIdAsync(Convert.ToInt32(command.Id));
+            var existingCourse = await _coursesRepository.GetByIdAsync(command.Id.Value);
             if (existingCourse == null)
             {
-                throw new Exception("Error. Course does not exist.");
+                // throw new Exception("Error. Course does not exist.");
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateCourseContent00001);
+                var errorMessageArgs = new string[] { command.Id.Value.ToString() };
+                var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                throw new ContentValidationException(
+                            handledError.PropertyName,
+                            handledError.ErrorCode,
+                            errorMessage,
+                            HttpStatusCode.NotFound);
             }
 
             // Verify which fields to update
@@ -48,7 +58,15 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
                 {
                     if (existingCourse.Id != existingCourseWithCode.Id)
                     {
-                        throw new Exception("Error. Course code already exists.");
+                        // throw new Exception("Error. Course code already exists.");
+                        var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateCourseContent00002);
+                        var errorMessageArgs = new string[] { command.Code };
+                        var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                        throw new ContentValidationException(
+                                    handledError.PropertyName,
+                                    handledError.ErrorCode,
+                                    errorMessage,
+                                    HttpStatusCode.Conflict);
                     }
                 }
                 existingCourse.Code = command.Code;
@@ -59,7 +77,15 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
                 var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
                 if (existingTeacher == null)
                 {
-                    throw new Exception("Error. Teacher does not exist.");
+                    // throw new Exception("Error. Teacher does not exist.");
+                    var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateCourseContent00003);
+                    var errorMessageArgs = new string[] { command.TeacherId.Value.ToString() };
+                    var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                    throw new ContentValidationException(
+                                handledError.PropertyName,
+                                handledError.ErrorCode,
+                                errorMessage,
+                                HttpStatusCode.Conflict);
                 }
                 existingCourse.TeacherId = Convert.ToInt32(command.TeacherId);
             }
@@ -78,7 +104,7 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
             // Map newData to response
             var response = _mapper.Map<UpdateCourseVm>(newCourse);
 
-            // Return
+            //
             return response;
         }
     }

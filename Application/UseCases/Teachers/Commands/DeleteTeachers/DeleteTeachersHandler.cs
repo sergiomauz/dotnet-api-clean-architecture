@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 
@@ -9,15 +10,18 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeachers
     public class DeleteTeachersHandler :
         IRequestHandler<DeleteTeachersCommand, DeleteTeachersVm>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<DeleteTeachersHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ITeachersRepository _teachersRepository;
 
         public DeleteTeachersHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<DeleteTeachersHandler> logger,
             IMapper mapper,
             ITeachersRepository teachersRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _teachersRepository = teachersRepository;
@@ -46,6 +50,7 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeachers
                 };
             }
 
+            //
             return new DeleteTeachersVm
             {
                 WereDeleted = false,

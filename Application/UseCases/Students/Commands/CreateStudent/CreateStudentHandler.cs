@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net;
+using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
 using Domain.Entities;
+using Application.Commons.Exceptions;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 
@@ -10,15 +13,18 @@ namespace Application.UseCases.Students.Commands.CreateStudent
     public class CreateStudentHandler :
         IRequestHandler<CreateStudentCommand, CreateStudentVm>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<CreateStudentHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IStudentsRepository _studentsRepository;
 
         public CreateStudentHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<CreateStudentHandler> logger,
             IMapper mapper,
             IStudentsRepository studentsRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _studentsRepository = studentsRepository;
@@ -30,7 +36,15 @@ namespace Application.UseCases.Students.Commands.CreateStudent
             var existingStudent = await _studentsRepository.GetByCodeAsync(command.Code);
             if (existingStudent != null)
             {
-                throw new Exception("Error. Student already exists.");
+                // throw new Exception("Error. Student already exists.");
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateStudentContent00001);
+                var errorMessageArgs = new string[] { command.Code };
+                var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
+                throw new ContentValidationException(
+                            handledError.PropertyName,
+                            handledError.ErrorCode,
+                            errorMessage,
+                            HttpStatusCode.Conflict);
             }
 
             // Save student information
@@ -47,7 +61,7 @@ namespace Application.UseCases.Students.Commands.CreateStudent
             // Map newData to response
             var response = _mapper.Map<CreateStudentVm>(newTeacher);
 
-            // Return
+            //
             return response;
         }
     }

@@ -39,7 +39,8 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             var existingCourse = await _coursesRepository.GetByCodeAsync(command.Code);
             if (existingCourse != null)
             {
-                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseErrorConflict00001);
+                // throw new Exception("Error. course already exists.");
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseContent00001);
                 var errorMessageArgs = new string[] { command.Code };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
                 throw new ContentValidationException(
@@ -53,7 +54,8 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
             if (existingTeacher == null)
             {
-                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseErrorConflict00002);
+                // throw new Exception("Error. teacher does not exists.");
+                var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseContent00002);
                 var errorMessage = handledError.ErrorMessage;
                 throw new ContentValidationException(
                             handledError.PropertyName,
@@ -76,7 +78,7 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             // Map newData to response
             var response = _mapper.Map<CreateCourseVm>(newCourse);
 
-            // Return
+            //
             return response;
         }
     }

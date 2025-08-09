@@ -4,8 +4,9 @@ using MediatR;
 using Domain.Entities;
 using Domain.QueryObjects;
 using Domain.QueryObjects.Utils;
-using Application.Commons.VMs;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
+using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Queries.SearchTeachersByObject
@@ -13,15 +14,18 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByObject
     public class SearchTeachersByObjectHandler :
         IRequestHandler<SearchTeachersByObjectQuery, PaginatedVm<SearchTeachersByObjectVm>>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<SearchTeachersByObjectHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ITeachersRepository _teachersRepository;
 
         public SearchTeachersByObjectHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<SearchTeachersByObjectHandler> logger,
             IMapper mapper,
             ITeachersRepository teachersRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _teachersRepository = teachersRepository;
@@ -98,6 +102,7 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByObject
                     query.PageSize.Value
                 );
 
+            //
             return response;
         }
     }

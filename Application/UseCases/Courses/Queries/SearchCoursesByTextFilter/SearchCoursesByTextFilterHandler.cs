@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Domain.Entities;
 using Application.Commons.VMs;
+using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
 
 
@@ -11,15 +12,18 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByTextFilter
     public class SearchCoursesByTextFilterHandler :
         IRequestHandler<SearchCoursesByTextFilterQuery, PaginatedVm<SearchCoursesByTextFilterVm>>
     {
+        private readonly IErrorCatalogService _errorCatalogService;
         private readonly ILogger<SearchCoursesByTextFilterHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICoursesRepository _coursesRepository;
 
         public SearchCoursesByTextFilterHandler(
+            IErrorCatalogService errorCatalogService,
             ILogger<SearchCoursesByTextFilterHandler> logger,
             IMapper mapper,
             ICoursesRepository coursesRepository)
         {
+            _errorCatalogService = errorCatalogService;
             _logger = logger;
             _mapper = mapper;
             _coursesRepository = coursesRepository;
@@ -48,6 +52,7 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByTextFilter
                     query.PageSize.Value
                 );
 
+            //
             return response;
         }
     }
