@@ -13,10 +13,9 @@ namespace Commons.Enums
                 var attr = field.GetCustomAttribute<DescriptionAttribute>();
                 if (attr?.Description == description)
                 {
-                    return (TEnum)field.GetValue(null)!;
+                    return Enum.Parse<TEnum>(field.Name);
                 }
             }
-
             return null;
         }
     }

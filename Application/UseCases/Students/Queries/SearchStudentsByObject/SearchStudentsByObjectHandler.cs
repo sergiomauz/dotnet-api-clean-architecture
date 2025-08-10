@@ -33,10 +33,6 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
 
         public async Task<PaginatedVm<SearchStudentsByObjectVm>> Handle(SearchStudentsByObjectQuery query, CancellationToken cancellationToken)
         {
-            // Set default values for searching
-            if (query.CurrentPage == null) query.CurrentPage = 1;
-            if (query.PageSize == null) query.PageSize = 20;
-
             // Get results
             var dataList = await _studentsRepository.SearchStudentsByObjectAsync(
                 new StudentsPaginatedQuery

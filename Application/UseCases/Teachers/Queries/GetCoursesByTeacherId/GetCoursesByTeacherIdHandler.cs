@@ -51,10 +51,6 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
                             HttpStatusCode.NotFound);
             }
 
-            // Set default values for searching
-            if (query.CurrentPage == null) query.CurrentPage = 1;
-            if (query.PageSize == null) query.PageSize = 20;
-
             // Get results
             var dataList = await _coursesRepository.GetCoursesByTeacherIdAsync(query.TeacherId.Value,
                                                                                  query.CurrentPage.Value,

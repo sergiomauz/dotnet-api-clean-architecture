@@ -31,10 +31,6 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByTextFilter
 
         public async Task<PaginatedVm<SearchCoursesByTextFilterVm>> Handle(SearchCoursesByTextFilterQuery query, CancellationToken cancellationToken)
         {
-            // Set default values for searching
-            if (query.CurrentPage == null) query.CurrentPage = 1;
-            if (query.PageSize == null) query.PageSize = 20;
-
             // Get results
             var dataList = await _coursesRepository.SearchCoursesByTextFilterAsync(query.TextFilter,
                                                                                      query.CurrentPage.Value,

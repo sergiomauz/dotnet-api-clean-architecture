@@ -31,75 +31,63 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
             _coursesRepository = coursesRepository;
         }
 
+        private CoursesQueryFilter? _buildCourseFilteringCriteria(SearchCoursesByObjectQuery query)
+        {
+            return query.FilteringCriteria != null ? new CoursesQueryFilter
+            {
+                Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
+                {
+                    Operator = query.FilteringCriteria.Code.Operator,
+                    Value = query.FilteringCriteria.Code.Value
+                } : null,
+                Name = query.FilteringCriteria.Name != null ? new FilteringCriterion
+                {
+                    Operator = query.FilteringCriteria.Name.Operator,
+                    Value = query.FilteringCriteria.Name.Value
+                } : null,
+                Description = query.FilteringCriteria.Description != null ? new FilteringCriterion
+                {
+                    Operator = query.FilteringCriteria.Description.Operator,
+                    Value = query.FilteringCriteria.Description.Value
+                } : null,
+                CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
+                {
+                    Operator = query.FilteringCriteria.CreatedAt.Operator,
+                    Value = query.FilteringCriteria.CreatedAt.Value
+                } : null
+            } : null;
+        }
+
+        private CoursesQueryOrder? _buildCourseOrderingCriteria(SearchCoursesByObjectQuery query)
+        {
+            return query.OrderingCriteria != null ? new CoursesQueryOrder
+            {
+                Code = query.OrderingCriteria.Code,
+                Name = query.OrderingCriteria.Name,
+                Description = query.OrderingCriteria.Description,
+                CreatedAt = query.OrderingCriteria.CreatedAt
+            } : null;
+        }
+
         public async Task<PaginatedVm<SearchCoursesByObjectVm>> Handle(SearchCoursesByObjectQuery query, CancellationToken cancellationToken)
         {
-            // Set default values for searching
-            if (query.CurrentPage == null) query.CurrentPage = 1;
-            if (query.PageSize == null) query.PageSize = 20;
+            // Build query
+            var courseFilteringCriteria = _buildCourseFilteringCriteria(query);
+            var courseOrderingCriteria = _buildCourseOrderingCriteria(query);
 
-            // Get results
+            // Get results                            
             var dataList = await _coursesRepository.SearchCoursesByObjectAsync(
                 new CoursesPaginatedQuery
                 {
-                    FilteringCriteria = query.FilteringCriteria != null ? new CoursesQueryFilter
-                    {
-                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Code.Operator,
-                            Value = query.FilteringCriteria.Code.Value
-                        } : null,
-                        Name = query.FilteringCriteria.Name != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Name.Operator,
-                            Value = query.FilteringCriteria.Name.Value
-                        } : null,
-                        Description = query.FilteringCriteria.Description != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Description.Operator,
-                            Value = query.FilteringCriteria.Description.Value
-                        } : null,
-                        CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.CreatedAt.Operator,
-                            Value = query.FilteringCriteria.CreatedAt.Value
-                        } : null
-                    } : null,
-                    OrderingCriteria = query.OrderingCriteria != null ? new CoursesQueryOrder
-                    {
-                        Code = query.OrderingCriteria.Code,
-                        Name = query.OrderingCriteria.Name,
-                        Description = query.OrderingCriteria.Description,
-                        CreatedAt = query.OrderingCriteria.CreatedAt
-                    } : null,
+                    FilteringCriteria = courseFilteringCriteria,
+                    OrderingCriteria = courseOrderingCriteria,
                     CurrentPage = query.CurrentPage,
                     PageSize = query.PageSize
                 });
             var totalCount = await _coursesRepository.TotalCountCoursesByObjectAsync(
                 new CoursesQuery
                 {
-                    FilteringCriteria = query.FilteringCriteria != null ? new CoursesQueryFilter
-                    {
-                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Code.Operator,
-                            Value = query.FilteringCriteria.Code.Value
-                        } : null,
-                        Name = query.FilteringCriteria.Name != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Name.Operator,
-                            Value = query.FilteringCriteria.Name.Value
-                        } : null,
-                        Description = query.FilteringCriteria.Description != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Description.Operator,
-                            Value = query.FilteringCriteria.Description.Value
-                        } : null,
-                        CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.CreatedAt.Operator,
-                            Value = query.FilteringCriteria.CreatedAt.Value
-                        } : null
-                    } : null
+                    FilteringCriteria = courseFilteringCriteria
                 });
 
             // Map result to response

@@ -9,7 +9,12 @@ namespace Application.Commons.Validators
     {
         public CodeQueryValidator(IErrorCatalogService errorCatalogService)
         {
-
+            RuleFor(x => x.Code)
+                .Length(3, 25)
+                .When(x => !string.IsNullOrEmpty(x.Code))
+                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CodeFormat00001).ErrorCode)
+                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CodeFormat00001).ErrorMessage)
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CodeFormat00001).PropertyName);
         }
     }
 }

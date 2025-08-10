@@ -9,13 +9,13 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
         public CreateCourseCommandValidator(IErrorCatalogService errorCatalogService)
         {
             RuleFor(x => x.Name)
-                .NotNull()
+                .NotEmpty()
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00001).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00001).ErrorMessage)
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00001).PropertyName);
             RuleFor(x => x.Name)
                 .Length(3, 100)
-                .When(x => x.Name != null)
+                .When(x => !string.IsNullOrEmpty(x.Name))
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00002).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00002).ErrorMessage)
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00002).PropertyName);
@@ -33,25 +33,25 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00004).PropertyName);
 
             RuleFor(x => x.Code)
-                .NotNull()
+                .NotEmpty()
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00005).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00005).ErrorMessage)
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00005).PropertyName);
             RuleFor(x => x.Code)
                 .Length(6)
-                .When(x => x.Code != null)
+                .When(x => !string.IsNullOrEmpty(x.Code))
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00006).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00006).ErrorMessage)
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00006).PropertyName);
 
             RuleFor(x => x.Description)
-                .NotNull()
+                .NotEmpty()
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00007).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00007).ErrorMessage)
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00007).PropertyName);
             RuleFor(x => x.Description)
                 .Length(3, 400)
-                .When(x => x.Description != null)
+                .When(x => !string.IsNullOrEmpty(x.Description))
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00008).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00008).ErrorMessage)
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseFormat00008).PropertyName);

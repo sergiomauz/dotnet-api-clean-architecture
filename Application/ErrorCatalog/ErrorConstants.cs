@@ -6,6 +6,20 @@
         public static string Generic00000 = "G00000";
 
 
+        // Paginated
+        public static ErrorTuple PaginatedFormat00001 = new("Paginated-F00001", "current_page");
+        public static ErrorTuple PaginatedFormat00002 = new("Paginated-F00002", "current_page");
+        public static ErrorTuple PaginatedFormat00003 = new("Paginated-F00003", "page_size");
+        public static ErrorTuple PaginatedFormat00004 = new("Paginated-F00004", "page_size");
+
+        // BasicSearch
+        public static ErrorTuple BasicSearchFormat00001 = new("BasicSearch-F00001", "text_filter");
+
+
+        // Code
+        public static ErrorTuple CodeFormat00001 = new("Code-F00001", "code");
+
+
         // CreateCourse
         public static ErrorTuple CreateCourseFormat00001 = new("CreateCourse-F00001", "name");
         public static ErrorTuple CreateCourseFormat00002 = new("CreateCourse-F00002", "name");

@@ -24,10 +24,10 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<SearchStudentsByObjectDto, SearchStudentsByObjectQuery>()
-                .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize))
-                .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage))
                 .ForMember(d => d.FilteringCriteria, m => m.MapFrom(o => o.FilteringCriteria))
-                .ForMember(d => d.OrderingCriteria, m => m.MapFrom(o => o.OrderingCriteria));
+                .ForMember(d => d.OrderingCriteria, m => m.MapFrom(o => o.OrderingCriteria))
+                .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage ?? 1))
+                .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize ?? 20));
         }
     }
 }

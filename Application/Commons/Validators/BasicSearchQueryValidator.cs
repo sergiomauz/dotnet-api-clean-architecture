@@ -9,7 +9,15 @@ namespace Application.Commons.Validators
     {
         public BasicSearchQueryValidator(IErrorCatalogService errorCatalogService)
         {
+            RuleFor(x => x)
+                .SetValidator(new PaginatedQueryValidator(errorCatalogService));
 
+            RuleFor(x => x.TextFilter)
+                .Length(3, 100)
+                .When(x => x.TextFilter != null)
+                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.BasicSearchFormat00001).ErrorCode)
+                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.BasicSearchFormat00001).ErrorMessage)
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.BasicSearchFormat00001).PropertyName);
         }
     }
 }

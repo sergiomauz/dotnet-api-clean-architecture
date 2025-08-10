@@ -31,10 +31,6 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByTextFilter
 
         public async Task<PaginatedVm<SearchStudentsByTextFilterVm>> Handle(SearchStudentsByTextFilterQuery query, CancellationToken cancellationToken)
         {
-            // Set default values for searching
-            if (query.CurrentPage == null) query.CurrentPage = 1;
-            if (query.PageSize == null) query.PageSize = 20;
-
             // Get results
             var dataList = await _studentsRepository.SearchStudentsByTextFilterAsync(query.TextFilter,
                                                                                      query.CurrentPage.Value,

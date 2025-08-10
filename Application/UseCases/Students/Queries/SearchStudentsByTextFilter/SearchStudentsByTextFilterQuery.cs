@@ -22,9 +22,9 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByTextFilter
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<SearchStudentsByTextFilterRequestParams, SearchStudentsByTextFilterQuery>()
-                .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage))
-                .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize))
-                .ForMember(d => d.TextFilter, m => m.MapFrom(o => o.TextFilter));
+                .ForMember(d => d.TextFilter, m => m.MapFrom(o => o.TextFilter))
+                .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage ?? 1))
+                .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize ?? 20));
         }
     }
 }
