@@ -1,6 +1,16 @@
-﻿namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
+﻿using FluentValidation;
+using Application.Commons.Validators;
+using Application.ErrorCatalog;
+
+
+namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
 {
-    public class DeleteEnrollmentsCommandValidator
+    public class DeleteEnrollmentsCommandValidator : AbstractValidator<DeleteEnrollmentsCommand>
     {
+        public DeleteEnrollmentsCommandValidator(IErrorCatalogService errorCatalogService)
+        {
+            RuleFor(x => x)
+                .SetValidator(new IdsQueryValidator(errorCatalogService));
+        }
     }
 }

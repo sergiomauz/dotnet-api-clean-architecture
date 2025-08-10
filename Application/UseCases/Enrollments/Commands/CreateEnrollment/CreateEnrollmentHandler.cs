@@ -42,7 +42,6 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             var existingEnrollment = await _enrollmentsRepository.GetEnrollmentsByStudentIdAsync(command.CourseId.Value, command.StudentId.Value);
             if (existingEnrollment != null)
             {
-                // throw new Exception("Error. Enrollment already exists.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateEnrollmentContent00001);
                 var errorMessageArgs = new string[] { command.CourseId.Value.ToString(),
                                                         command.StudentId.Value.ToString(),
@@ -59,7 +58,6 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             var existingCourse = await _coursesRepository.GetByIdAsync(command.CourseId.Value);
             if (existingCourse == null)
             {
-                // throw new Exception("Error. Course does not exist.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateEnrollmentContent00002);
                 var errorMessageArgs = new string[] { command.CourseId.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
@@ -74,7 +72,6 @@ namespace Application.UseCases.Enrollments.Commands.CreateEnrollment
             var existingStudent = await _studentsRepository.GetByIdAsync(command.StudentId.Value);
             if (existingStudent == null)
             {
-                // throw new Exception("Error. Student does not exist.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateEnrollmentContent00003);
                 var errorMessageArgs = new string[] { command.StudentId.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

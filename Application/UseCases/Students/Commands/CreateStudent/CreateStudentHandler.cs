@@ -36,7 +36,6 @@ namespace Application.UseCases.Students.Commands.CreateStudent
             var existingStudent = await _studentsRepository.GetByCodeAsync(command.Code);
             if (existingStudent != null)
             {
-                // throw new Exception("Error. Student already exists.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateStudentContent00001);
                 var errorMessageArgs = new string[] { command.Code };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

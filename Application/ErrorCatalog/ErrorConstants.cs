@@ -8,9 +8,8 @@
 
         // Paginated
         public static ErrorTuple PaginatedFormat00001 = new("Paginated-F00001", "current_page");
-        public static ErrorTuple PaginatedFormat00002 = new("Paginated-F00002", "current_page");
-        public static ErrorTuple PaginatedFormat00003 = new("Paginated-F00003", "page_size");
-        public static ErrorTuple PaginatedFormat00004 = new("Paginated-F00004", "page_size");
+        public static ErrorTuple PaginatedFormat00002 = new("Paginated-F00002", "page_size");
+
 
         // BasicSearch
         public static ErrorTuple BasicSearchFormat00001 = new("BasicSearch-F00001", "text_filter");
@@ -18,6 +17,15 @@
 
         // Code
         public static ErrorTuple CodeFormat00001 = new("Code-F00001", "code");
+
+
+        // Ids
+        public static ErrorTuple IdsFormat00001 = new("Ids-F00001", "id");
+        public static ErrorTuple IdsFormat00002 = new("Ids-F00002", "id");
+        public static ErrorTuple IdsFormat00003 = new("Ids-F00003", "id");
+        public static ErrorTuple IdsFormat00004 = new("Ids-F00004", "ids");
+        public static ErrorTuple IdsFormat00005 = new("Ids-F00005", "ids");
+        public static ErrorTuple IdsFormat00006 = new("Ids-F00006", "ids");
 
 
         // CreateCourse
@@ -64,6 +72,9 @@
 
 
         // GetCoursesByStudentId
+        public static ErrorTuple GetCoursesByStudentIdFormat00001 = new("GetCoursesByStudentId-F00001", "student_id");
+        public static ErrorTuple GetCoursesByStudentIdFormat00002 = new("GetCoursesByStudentId-F00002", "student_id");
+
         public static ErrorTuple GetCoursesByStudentIdContent00001 = new("GetCoursesByStudentId-C00001", "student_id");
 
 
@@ -85,10 +96,16 @@
 
 
         // GetCoursesByTeacherId
+        public static ErrorTuple GetCoursesByTeacherIdFormat00001 = new("GetCoursesByTeacherId-F00001", "teacher_id");
+        public static ErrorTuple GetCoursesByTeacherIdFormat00002 = new("GetCoursesByTeacherId-F00002", "teacher_id");
+
         public static ErrorTuple GetCoursesByTeacherIdContent00001 = new("GetCoursesByTeacherId-C00001", "teacher_id");
 
 
         // GetStudentsByTeacherId
+        public static ErrorTuple GetStudentsByTeacherIdFormat00001 = new("GetStudentsByTeacherId-F00001", "teacher_id");
+        public static ErrorTuple GetStudentsByTeacherIdFormat00002 = new("GetStudentsByTeacherId-F00002", "teacher_id");
+
         public static ErrorTuple GetStudentsByTeacherIdContent00001 = new("GetStudentsByTeacherId-C00001", "teacher_id");
 
 

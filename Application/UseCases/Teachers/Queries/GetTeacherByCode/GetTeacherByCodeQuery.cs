@@ -2,16 +2,17 @@
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
+using Application.Commons.Queries;
 
 
 namespace Application.UseCases.Teachers.Queries.GetTeacherByCode
 {
     public class GetTeacherByCodeQuery :
+        CodeQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<GetTeacherByCodeRoute>,
         IRequest<GetTeacherByCodeVm>
     {
-        public string? Code { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)

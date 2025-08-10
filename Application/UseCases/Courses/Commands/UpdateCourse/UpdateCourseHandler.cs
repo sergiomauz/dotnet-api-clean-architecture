@@ -38,7 +38,6 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
             var existingCourse = await _coursesRepository.GetByIdAsync(command.Id.Value);
             if (existingCourse == null)
             {
-                // throw new Exception("Error. Course does not exist.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateCourseContent00001);
                 var errorMessageArgs = new string[] { command.Id.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
@@ -58,7 +57,6 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
                 {
                     if (existingCourse.Id != existingCourseWithCode.Id)
                     {
-                        // throw new Exception("Error. Course code already exists.");
                         var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateCourseContent00002);
                         var errorMessageArgs = new string[] { command.Code };
                         var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
@@ -77,7 +75,6 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
                 var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
                 if (existingTeacher == null)
                 {
-                    // throw new Exception("Error. Teacher does not exist.");
                     var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateCourseContent00003);
                     var errorMessageArgs = new string[] { command.TeacherId.Value.ToString() };
                     var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

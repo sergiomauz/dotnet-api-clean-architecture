@@ -36,7 +36,6 @@ namespace Application.UseCases.Teachers.Commands.CreateTeacher
             var existingTeacher = await _teachersRepository.GetByCodeAsync(command.Code);
             if (existingTeacher != null)
             {
-                // throw new Exception("Error. Teacher already exists.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateTeacherContent00001);
                 var errorMessageArgs = new string[] { command.Code };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

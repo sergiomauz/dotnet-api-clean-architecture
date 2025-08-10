@@ -27,8 +27,8 @@ namespace Application.UseCases.Students.Queries.GetCoursesByStudentId
                 .ForMember(d => d.StudentId, m => m.MapFrom(o => o.StudentId));
 
             profile.CreateMap<GetCoursesByStudentIdRequestParams, GetCoursesByStudentIdQuery>()
-                .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage))
-                .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize));
+                .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage ?? 1))
+                .ForMember(d => d.PageSize, m => m.MapFrom(o => o.PageSize ?? 20));
         }
     }
 }

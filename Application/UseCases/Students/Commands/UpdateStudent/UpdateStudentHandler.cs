@@ -35,7 +35,6 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
             var existingStudent = await _studentsRepository.GetByIdAsync(command.Id.Value);
             if (existingStudent == null)
             {
-                // throw new Exception("Error. Student does not exist.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateStudentContent00001);
                 var errorMessageArgs = new string[] { command.Id.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
@@ -55,7 +54,6 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
                 {
                     if (existingStudent.Id != existingStudentWithCode.Id)
                     {
-                        // throw new Exception("Error. Student code already exists.");
                         var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateStudentContent00002);
                         var errorMessageArgs = new string[] { command.Code };
                         var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

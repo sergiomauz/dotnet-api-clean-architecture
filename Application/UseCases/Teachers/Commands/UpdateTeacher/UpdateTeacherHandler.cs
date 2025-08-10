@@ -35,7 +35,6 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
             var existingTeacher = await _teachersRepository.GetByIdAsync(command.Id.Value);
             if (existingTeacher == null)
             {
-                // throw new Exception("Error. Teacher does not exist.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateTeacherContent00001);
                 var errorMessageArgs = new string[] { command.Id.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
@@ -55,7 +54,6 @@ namespace Application.UseCases.Teachers.Commands.UpdateTeacher
                 {
                     if (existingTeacher.Id != existingTeacherWithCode.Id)
                     {
-                        // throw new Exception("Error. Teacher code already exists.");
                         var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.UpdateTeacherContent00002);
                         var errorMessageArgs = new string[] { command.Code };
                         var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

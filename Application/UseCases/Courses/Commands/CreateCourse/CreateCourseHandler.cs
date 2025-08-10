@@ -39,7 +39,6 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             var existingCourse = await _coursesRepository.GetByCodeAsync(command.Code);
             if (existingCourse != null)
             {
-                // throw new Exception("Error. course already exists.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseContent00001);
                 var errorMessageArgs = new string[] { command.Code };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
@@ -54,7 +53,6 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
             var existingTeacher = await _teachersRepository.GetByIdAsync(command.TeacherId.Value);
             if (existingTeacher == null)
             {
-                // throw new Exception("Error. teacher does not exists.");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.CreateCourseContent00002);
                 var errorMessage = handledError.ErrorMessage;
                 throw new ContentValidationException(

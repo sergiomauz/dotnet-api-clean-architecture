@@ -35,7 +35,6 @@ namespace Application.UseCases.Students.Queries.GetStudentById
             var data = await _studentsRepository.GetByIdAsync(query.Id.Value);
             if (data == null)
             {
-                // throw new Exception($"Student with Id '{query.Id}' does not exist");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.GetStudentByIdContent00001);
                 var errorMessageArgs = new string[] { query.Id.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

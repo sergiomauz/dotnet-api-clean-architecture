@@ -40,7 +40,6 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
             var dataStudent = await _teacherRepository.GetByIdAsync(query.TeacherId.Value);
             if (dataStudent == null)
             {
-                // throw new Exception($"Teacher with Id '{query.TeacherId}' does not exist");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.GetCoursesByTeacherIdContent00001);
                 var errorMessageArgs = new string[] { query.TeacherId.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);

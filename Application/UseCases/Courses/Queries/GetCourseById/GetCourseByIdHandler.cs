@@ -35,7 +35,6 @@ namespace Application.UseCases.Courses.Queries.GetCourseById
             var data = await _coursesRepository.GetByIdAsync(query.Id.Value);
             if (data == null)
             {
-                // throw new Exception($"Course with ID '{query.Id}' does not exist");
                 var handledError = _errorCatalogService.GetErrorByCode(ErrorConstants.GetCourseByIdContent00001);
                 var errorMessageArgs = new string[] { query.Id.Value.ToString() };
                 var errorMessage = string.Format(handledError.ErrorMessage, errorMessageArgs);
