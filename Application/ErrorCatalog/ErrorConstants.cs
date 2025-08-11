@@ -56,6 +56,17 @@
         public static ErrorTuple GetCourseByIdContent00001 = new("GetCourseById-C00001", "id");
 
 
+        // SearchCoursesByObjectQuery
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00001 = new("SearchCoursesByObjectQuery-F00001", "code");
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00002 = new("SearchCoursesByObjectQuery-F00002", "name");
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00003 = new("SearchCoursesByObjectQuery-F00003", "description");
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00004 = new("SearchCoursesByObjectQuery-F00004", "created_at");
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00005 = new("SearchCoursesByObjectQuery-F00005", "code");
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00006 = new("SearchCoursesByObjectQuery-F00006", "name");
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00007 = new("SearchCoursesByObjectQuery-F00007", "description");
+        public static ErrorTuple SearchCoursesByObjectQueryFormat00008 = new("SearchCoursesByObjectQuery-F00008", "created_at");
+
+
         // CreateEnrollment
         public static ErrorTuple CreateEnrollmentContent00001 = new("CreateEnrollment-C00001", "id");
         public static ErrorTuple CreateEnrollmentContent00002 = new("CreateEnrollment-C00002", "course_id");
