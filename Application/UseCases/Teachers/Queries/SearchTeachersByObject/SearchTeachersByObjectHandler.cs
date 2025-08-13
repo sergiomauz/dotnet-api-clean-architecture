@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Commons.Enums;
 using Domain.Entities;
 using Domain.QueryObjects;
 using Domain.QueryObjects.Utils;
+using Application.Commons.VMs;
 using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
-using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Queries.SearchTeachersByObject
@@ -31,60 +32,57 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByObject
             _teachersRepository = teachersRepository;
         }
 
+        private TeachersQueryFilter? _buildTeacherFilteringCriteria(SearchTeachersByObjectQuery query)
+        {
+            return query.FilteringCriteria != null ? new TeachersQueryFilter
+            {
+                Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Code.Operator).Value,
+                    Value = query.FilteringCriteria.Code.Operand
+                } : null,
+                Firstname = query.FilteringCriteria.Firstname != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Firstname.Operator).Value,
+                    Value = query.FilteringCriteria.Firstname.Operand
+                } : null,
+                Lastname = query.FilteringCriteria.Lastname != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Lastname.Operator).Value,
+                    Value = query.FilteringCriteria.Lastname.Operand
+                } : null
+            } : null;
+        }
+
+        private TeachersQueryOrder? _buildTeacherOrderingCriteria(SearchTeachersByObjectQuery query)
+        {
+            return query.OrderingCriteria != null ? new TeachersQueryOrder
+            {
+                Code = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Code),
+                Firstname = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Firstname),
+                Lastname = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Lastname)
+            } : null;
+        }
+
         public async Task<PaginatedVm<SearchTeachersByObjectVm>> Handle(SearchTeachersByObjectQuery query, CancellationToken cancellationToken)
         {
+            // Build query
+            var teacherFilteringCriteria = _buildTeacherFilteringCriteria(query);
+            var teacherOrderingCriteria = _buildTeacherOrderingCriteria(query);
+
             // Get results
             var dataList = await _teachersRepository.SearchTeachersByObjectAsync(
                 new TeachersPaginatedQuery
                 {
-                    FilteringCriteria = query.FilteringCriteria != null ? new TeachersQueryFilter
-                    {
-                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Code.Operator,
-                            Value = query.FilteringCriteria.Code.Value
-                        } : null,
-                        Firstname = query.FilteringCriteria.Firstname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Firstname.Operator,
-                            Value = query.FilteringCriteria.Firstname.Value
-                        } : null,
-                        Lastname = query.FilteringCriteria.Lastname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Lastname.Operator,
-                            Value = query.FilteringCriteria.Lastname.Value
-                        } : null
-                    } : null,
-                    OrderingCriteria = query.OrderingCriteria != null ? new TeachersQueryOrder
-                    {
-                        Code = query.OrderingCriteria.Code,
-                        Firstname = query.OrderingCriteria.Firstname,
-                        Lastname = query.OrderingCriteria.Lastname
-                    } : null,
+                    FilteringCriteria = teacherFilteringCriteria,
+                    OrderingCriteria = teacherOrderingCriteria,
                     CurrentPage = query.CurrentPage,
                     PageSize = query.PageSize
                 });
             var totalCount = await _teachersRepository.TotalCountTeachersByObjectAsync(
                 new TeachersQuery
                 {
-                    FilteringCriteria = query.FilteringCriteria != null ? new TeachersQueryFilter
-                    {
-                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Code.Operator,
-                            Value = query.FilteringCriteria.Code.Value
-                        } : null,
-                        Firstname = query.FilteringCriteria.Firstname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Firstname.Operator,
-                            Value = query.FilteringCriteria.Firstname.Value
-                        } : null,
-                        Lastname = query.FilteringCriteria.Lastname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Lastname.Operator,
-                            Value = query.FilteringCriteria.Lastname.Value
-                        } : null
-                    } : null
+                    FilteringCriteria = teacherFilteringCriteria
                 });
 
             // Map result to response

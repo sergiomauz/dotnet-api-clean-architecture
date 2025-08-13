@@ -167,27 +167,31 @@ namespace Persistence.Repositories
                 {
                     sqlOrders += $"st.Code {studentsQuery.OrderingCriteria.Code.Value.GetEnumDescription()}, ";
                 }
-
                 if (studentsQuery.OrderingCriteria.Firstname.HasValue)
                 {
                     sqlOrders += $"st.Firstname {studentsQuery.OrderingCriteria.Firstname.Value.GetEnumDescription()}, ";
                 }
-
                 if (studentsQuery.OrderingCriteria.Lastname.HasValue)
                 {
                     sqlOrders += $"st.Lastname {studentsQuery.OrderingCriteria.Lastname.Value.GetEnumDescription()}, ";
                 }
-
                 if (studentsQuery.OrderingCriteria.BirthDate.HasValue)
                 {
                     sqlOrders += $"st.BirthDate {studentsQuery.OrderingCriteria.BirthDate.Value.GetEnumDescription()}, ";
                 }
+                if (studentsQuery.OrderingCriteria.CreatedAt.HasValue)
+                {
+                    sqlOrders += $"st.CreatedAt {studentsQuery.OrderingCriteria.CreatedAt.Value.GetEnumDescription()}, ";
+                }
 
                 sqlOrders = $"ORDER BY {sqlOrders.TrimEnd(',', ' ')} ";
-
-                sql += sqlOrders;
+            }
+            else
+            {
+                sqlOrders = "ORDER BY st.CreatedAt ";
             }
 
+            sql += sqlOrders;
             sql += sqlCurrentPage;
             sql += sqlPageSize;
 

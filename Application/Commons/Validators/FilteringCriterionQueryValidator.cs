@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Collections;
 using Commons.Enums;
 using Application.Commons.Queries;
 
@@ -8,143 +7,91 @@ namespace Application.Commons.Validators
 {
     public static class FilteringCriterionQueryValidator
     {
-        private static object? _convertFromJsonElement(JsonElement element)
-        {
-            switch (element.ValueKind)
-            {
-                case JsonValueKind.String:
-                    return element.GetString();
-                case JsonValueKind.Number:
-                    if (element.TryGetInt64(out long l))
-                        return l;
-                    if (element.TryGetDouble(out double d))
-                        return d;
-                    return null;
-                case JsonValueKind.True:
-                case JsonValueKind.False:
-                    return element.GetBoolean();
-                case JsonValueKind.Array:
-                    return element.EnumerateArray().Select(_convertFromJsonElement).ToList();
-                case JsonValueKind.Null:
-                case JsonValueKind.Undefined:
-                    return null;
-                default:
-                    return element.ToString();
-            }
-        }
-
-        private static bool _isNumber(object valueParam)
-        {
-            return valueParam is sbyte || valueParam is byte ||
-                   valueParam is short || valueParam is ushort ||
-                   valueParam is int || valueParam is uint ||
-                   valueParam is long || valueParam is ulong ||
-                   valueParam is float || valueParam is double ||
-                   valueParam is decimal;
-        }
-
         public static bool IsValid(FilteringCriterionQuery filteringCriterion)
         {
             if (filteringCriterion == null)
                 return true;
 
             // Operator must not be null or invalid
-            if (!Enum.IsDefined(typeof(FilterOperator), filteringCriterion.Operator))
+            if (!EnumHelper.IsValidDescription<FilterOperator>(filteringCriterion.Operator))
                 return false;
 
             // Value can be null
-            if (filteringCriterion.Value == null)
+            if (filteringCriterion.Operand == null)
                 return true;
 
-            var val = filteringCriterion.Value;
 
             // Try to get the real value if it is a JsonElement
-            if (val is JsonElement jsonElement)
-            {
-                val = _convertFromJsonElement(jsonElement);
-            }
-
-            var valueType = val.GetType();
-
+            var val = filteringCriterion.Operand.Value;
+            var valueType = val.ValueKind;
+            var filterOperator = EnumHelper.FromDescription<FilterOperator>(filteringCriterion.Operator);
             // Is a boolean?
-            if (valueType == typeof(bool))
+            if (valueType == JsonValueKind.True || valueType == JsonValueKind.False)
             {
-                return filteringCriterion.Operator == FilterOperator.Equals ||
-                       filteringCriterion.Operator == FilterOperator.NotEquals;
+                return filterOperator == FilterOperator.Equals ||
+                       filterOperator == FilterOperator.NotEquals;
             }
 
             // Is a number?
-            if (_isNumber(val))
+            if (valueType == JsonValueKind.Number)
             {
-                return filteringCriterion.Operator == FilterOperator.Equals ||
-                       filteringCriterion.Operator == FilterOperator.NotEquals ||
-                       filteringCriterion.Operator == FilterOperator.GreaterThan ||
-                       filteringCriterion.Operator == FilterOperator.LessThan ||
-                       filteringCriterion.Operator == FilterOperator.GreaterThanOrEqual ||
-                       filteringCriterion.Operator == FilterOperator.LessThanOrEqual;
+                return filterOperator == FilterOperator.Equals ||
+                       filterOperator == FilterOperator.NotEquals ||
+                       filterOperator == FilterOperator.GreaterThan ||
+                       filterOperator == FilterOperator.LessThan ||
+                       filterOperator == FilterOperator.GreaterThanOrEqual ||
+                       filterOperator == FilterOperator.LessThanOrEqual;
             }
 
             // Is a string?
-            if (valueType == typeof(string))
+            if (valueType == JsonValueKind.String)
             {
-                string strVal = (string)val;
+                string strVal = val.GetString();
 
                 // Check if it is a valid date or datetime
                 if (DateTime.TryParse(strVal, out _))
                 {
-                    return filteringCriterion.Operator == FilterOperator.Equals ||
-                           filteringCriterion.Operator == FilterOperator.NotEquals ||
-                           filteringCriterion.Operator == FilterOperator.GreaterThan ||
-                           filteringCriterion.Operator == FilterOperator.LessThan ||
-                           filteringCriterion.Operator == FilterOperator.GreaterThanOrEqual ||
-                           filteringCriterion.Operator == FilterOperator.LessThanOrEqual;
+                    return filterOperator == FilterOperator.Equals ||
+                           filterOperator == FilterOperator.NotEquals ||
+                           filterOperator == FilterOperator.GreaterThan ||
+                           filterOperator == FilterOperator.LessThan ||
+                           filterOperator == FilterOperator.GreaterThanOrEqual ||
+                           filterOperator == FilterOperator.LessThanOrEqual;
                 }
                 else
                 {
                     // Regular string
-                    return filteringCriterion.Operator == FilterOperator.Equals ||
-                           filteringCriterion.Operator == FilterOperator.NotEquals ||
-                           filteringCriterion.Operator == FilterOperator.Contains ||
-                           filteringCriterion.Operator == FilterOperator.StartsWith ||
-                           filteringCriterion.Operator == FilterOperator.EndsWith;
+                    return filterOperator == FilterOperator.Equals ||
+                           filterOperator == FilterOperator.NotEquals ||
+                           filterOperator == FilterOperator.Contains ||
+                           filterOperator == FilterOperator.StartsWith ||
+                           filterOperator == FilterOperator.EndsWith;
                 }
             }
 
-            // Is a DateTime?
-            if (valueType == typeof(DateTime))
-            {
-                return filteringCriterion.Operator == FilterOperator.Equals ||
-                       filteringCriterion.Operator == FilterOperator.NotEquals ||
-                       filteringCriterion.Operator == FilterOperator.GreaterThan ||
-                       filteringCriterion.Operator == FilterOperator.LessThan ||
-                       filteringCriterion.Operator == FilterOperator.GreaterThanOrEqual ||
-                       filteringCriterion.Operator == FilterOperator.LessThanOrEqual;
-            }
-
             // Is an array?
-            if (val is IEnumerable enumerable && !(val is string))
+            if (valueType == JsonValueKind.Array)
             {
-                var list = enumerable.Cast<object>().ToList();
-
-                if (list.Count > 0)
+                var list = val.EnumerateArray();
+                if (list.Count() > 0)
                 {
-                    var firstElementType = list.First()?.GetType();
+                    var firstElementType = list.First().ValueKind;
 
                     // All elements must be the same type
-                    if (!list.All(x => x?.GetType() == firstElementType))
+                    if (!list.All(x => x.ValueKind == firstElementType))
                         return false;
 
                     // Special case: all elements are strings and valid dates
-                    if (firstElementType == typeof(string))
+                    if (firstElementType == JsonValueKind.String)
                     {
-                        var allAreValidDates = list.All(x => DateTime.TryParse(x?.ToString(), out _));
+                        var allAreValidDates = list.All(x => DateTime.TryParse(x.GetString(), out _));
                         if (allAreValidDates)
-                            return filteringCriterion.Operator == FilterOperator.In;
+                            return filterOperator == FilterOperator.In;
                     }
                 }
 
                 // Only "In" is valid for any array
-                return filteringCriterion.Operator == FilterOperator.In;
+                return filterOperator == FilterOperator.In;
             }
 
             // If none of the cases apply, the object is invalid

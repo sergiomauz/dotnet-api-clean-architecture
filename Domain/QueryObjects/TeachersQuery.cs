@@ -16,6 +16,7 @@ namespace Domain.QueryObjects
         public OrderOperator? Code { get; set; }
         public OrderOperator? Firstname { get; set; }
         public OrderOperator? Lastname { get; set; }
+        public OrderOperator? CreatedAt { get; set; }
     }
 
     public class TeachersQuery : QueryTemplate<TeachersQueryFilter, TeachersQueryOrder>

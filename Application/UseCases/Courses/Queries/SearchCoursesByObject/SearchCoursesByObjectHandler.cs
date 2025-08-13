@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Commons.Enums;
 using Domain.Entities;
 using Domain.QueryObjects;
 using Domain.QueryObjects.Utils;
@@ -37,23 +38,23 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
             {
                 Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
                 {
-                    Operator = query.FilteringCriteria.Code.Operator,
-                    Value = query.FilteringCriteria.Code.Value
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Code.Operator).Value,
+                    Value = query.FilteringCriteria.Code.Operand
                 } : null,
                 Name = query.FilteringCriteria.Name != null ? new FilteringCriterion
                 {
-                    Operator = query.FilteringCriteria.Name.Operator,
-                    Value = query.FilteringCriteria.Name.Value
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Name.Operator).Value,
+                    Value = query.FilteringCriteria.Name.Operand
                 } : null,
                 Description = query.FilteringCriteria.Description != null ? new FilteringCriterion
                 {
-                    Operator = query.FilteringCriteria.Description.Operator,
-                    Value = query.FilteringCriteria.Description.Value
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Description.Operator).Value,
+                    Value = query.FilteringCriteria.Description.Operand
                 } : null,
                 CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
                 {
-                    Operator = query.FilteringCriteria.CreatedAt.Operator,
-                    Value = query.FilteringCriteria.CreatedAt.Value
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.CreatedAt.Operator).Value,
+                    Value = query.FilteringCriteria.CreatedAt.Operand
                 } : null
             } : null;
         }
@@ -62,10 +63,10 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
         {
             return query.OrderingCriteria != null ? new CoursesQueryOrder
             {
-                Code = query.OrderingCriteria.Code,
-                Name = query.OrderingCriteria.Name,
-                Description = query.OrderingCriteria.Description,
-                CreatedAt = query.OrderingCriteria.CreatedAt
+                Code = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Code),
+                Name = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Name),
+                Description = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Description),
+                CreatedAt = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.CreatedAt)
             } : null;
         }
 

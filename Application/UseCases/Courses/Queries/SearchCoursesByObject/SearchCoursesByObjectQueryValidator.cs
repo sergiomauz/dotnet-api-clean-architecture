@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Commons.Enums;
+using Commons.Helpers;
 using Application.Commons.Validators;
 using Application.ErrorCatalog;
 
@@ -17,32 +18,64 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
                 .ChildRules(fc =>
                 {
                     fc.RuleFor(c => c.Code)
-                        .Must(c => FilteringCriterionQueryValidator.IsValid(c))
-                        .When(c => c.Code != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00001).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00001).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00001).PropertyName);
+                        .Must(v => FilteringCriterionQueryValidator.IsValid(v))
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00001).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00001).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00001).PropertyName)
+                        .DependentRules(() =>
+                        {
+                            fc.RuleFor(c => c.Code.Operand)
+                                .Must(v => JsonElementValidators.IsValidString(v, max: 10))
+                                .When(c => c.Code?.Operand != null)
+                                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00002).ErrorCode)
+                                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00002).ErrorMessage)
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00002).PropertyName);
+                        });
 
                     fc.RuleFor(c => c.Name)
-                        .Must(c => FilteringCriterionQueryValidator.IsValid(c))
-                        .When(c => c.Name != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00002).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00002).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00002).PropertyName);
+                        .Must(v => FilteringCriterionQueryValidator.IsValid(v))
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00003).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00003).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00003).PropertyName)
+                        .DependentRules(() =>
+                        {
+                            fc.RuleFor(c => c.Name.Operand)
+                                .Must(v => JsonElementValidators.IsValidString(v, max: 150))
+                                .When(c => c.Name?.Operand != null)
+                                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00004).ErrorCode)
+                                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00004).ErrorMessage)
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00004).PropertyName);
+                        });
 
                     fc.RuleFor(c => c.Description)
-                        .Must(c => FilteringCriterionQueryValidator.IsValid(c))
-                        .When(c => c.Description != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00003).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00003).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00003).PropertyName);
+                        .Must(v => FilteringCriterionQueryValidator.IsValid(v))
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00005).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00005).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00005).PropertyName)
+                        .DependentRules(() =>
+                        {
+                            fc.RuleFor(c => c.Description.Operand)
+                                .Must(v => JsonElementValidators.IsValidString(v, max: 400))
+                                .When(c => c.Description?.Operand != null)
+                                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00006).ErrorCode)
+                                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00006).ErrorMessage)
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00006).PropertyName);
+                        });
 
                     fc.RuleFor(c => c.CreatedAt)
-                        .Must(c => FilteringCriterionQueryValidator.IsValid(c))
-                        .When(c => c.CreatedAt != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00004).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00004).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00004).PropertyName);
+                        .Must(v => FilteringCriterionQueryValidator.IsValid(v))
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00007).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00007).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00007).PropertyName)
+                        .DependentRules(() =>
+                        {
+                            fc.RuleFor(c => c.CreatedAt.Operand)
+                                .Must(v => JsonElementValidators.IsValidDateTime(v))
+                                .When(c => c.CreatedAt?.Operand != null)
+                                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00008).ErrorCode)
+                                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00008).ErrorMessage)
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00008).PropertyName);
+                        });
                 })
                 .When(x => x.FilteringCriteria != null);
 
@@ -50,32 +83,32 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
                 .ChildRules(oc =>
                 {
                     oc.RuleFor(c => c.Code)
-                        .Must(c => Enum.IsDefined(typeof(OrderOperator), c))
+                        .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
                         .When(c => c.Code != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00005).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00005).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00005).PropertyName);
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00009).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00009).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00009).PropertyName);
 
                     oc.RuleFor(c => c.Name)
-                        .Must(c => Enum.IsDefined(typeof(OrderOperator), c))
+                        .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
                         .When(c => c.Name != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00006).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00006).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00006).PropertyName);
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00010).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00010).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00010).PropertyName);
 
                     oc.RuleFor(c => c.Description)
-                        .Must(c => Enum.IsDefined(typeof(OrderOperator), c))
+                        .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
                         .When(c => c.Description != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00007).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00007).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00007).PropertyName);
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00011).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00011).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00011).PropertyName);
 
                     oc.RuleFor(c => c.CreatedAt)
-                        .Must(c => Enum.IsDefined(typeof(OrderOperator), c))
+                        .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
                         .When(c => c.CreatedAt != null)
-                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00008).ErrorCode)
-                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00008).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectQueryFormat00008).PropertyName);
+                        .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00012).ErrorCode)
+                        .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00012).ErrorMessage)
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchCoursesByObjectFormat00012).PropertyName);
                 })
                 .When(x => x.OrderingCriteria != null);
         }

@@ -202,27 +202,26 @@ namespace Persistence.Repositories
                 {
                     sqlOrders += $"co.Code {coursesQuery.OrderingCriteria.Code.Value.GetEnumDescription()}, ";
                 }
-
                 if (coursesQuery.OrderingCriteria.Name.HasValue)
                 {
                     sqlOrders += $"co.Name {coursesQuery.OrderingCriteria.Name.Value.GetEnumDescription()}, ";
                 }
-
                 if (coursesQuery.OrderingCriteria.Description.HasValue)
                 {
                     sqlOrders += $"co.Description {coursesQuery.OrderingCriteria.Description.Value.GetEnumDescription()}, ";
                 }
-
                 if (coursesQuery.OrderingCriteria.CreatedAt.HasValue)
                 {
                     sqlOrders += $"co.CreatedAt {coursesQuery.OrderingCriteria.CreatedAt.Value.GetEnumDescription()}, ";
                 }
-
                 sqlOrders = $"ORDER BY {sqlOrders.TrimEnd(',', ' ')} ";
-
-                sql += sqlOrders;
+            }
+            else
+            {
+                sqlOrders = "ORDER BY co.CreatedAt ";
             }
 
+            sql += sqlOrders;
             sql += sqlCurrentPage;
             sql += sqlPageSize;
 

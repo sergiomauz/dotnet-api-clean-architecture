@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
+using Commons.Enums;
 using Domain.Entities;
 using Domain.QueryObjects;
 using Domain.QueryObjects.Utils;
@@ -31,70 +32,63 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
             _studentsRepository = studentsRepository;
         }
 
+        private StudentsQueryFilter? _buildStudentFilteringCriteria(SearchStudentsByObjectQuery query)
+        {
+            return query.FilteringCriteria != null ? new StudentsQueryFilter
+            {
+                Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Code.Operator).Value,
+                    Value = query.FilteringCriteria.Code.Operand
+                } : null,
+                Firstname = query.FilteringCriteria.Firstname != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Firstname.Operator).Value,
+                    Value = query.FilteringCriteria.Firstname.Operand
+                } : null,
+                Lastname = query.FilteringCriteria.Lastname != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Lastname.Operator).Value,
+                    Value = query.FilteringCriteria.Lastname.Operand
+                } : null,
+                BirthDate = query.FilteringCriteria.BirthDate != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.BirthDate.Operator).Value,
+                    Value = query.FilteringCriteria.BirthDate.Operand
+                } : null
+            } : null;
+        }
+
+        private StudentsQueryOrder? _buildStudentOrderingCriteria(SearchStudentsByObjectQuery query)
+        {
+            return query.OrderingCriteria != null ? new StudentsQueryOrder
+            {
+                Code = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Code),
+                Firstname = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Firstname),
+                Lastname = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Lastname),
+                BirthDate = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.BirthDate)
+            } : null;
+        }
+
         public async Task<PaginatedVm<SearchStudentsByObjectVm>> Handle(SearchStudentsByObjectQuery query, CancellationToken cancellationToken)
         {
+            // Build query
+            var studentFilteringCriteria = _buildStudentFilteringCriteria(query);
+            var studentOrderingCriteria = _buildStudentOrderingCriteria(query);
+
             // Get results
             var dataList = await _studentsRepository.SearchStudentsByObjectAsync(
                 new StudentsPaginatedQuery
                 {
-                    FilteringCriteria = query.FilteringCriteria != null ? new StudentsQueryFilter
-                    {
-                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Code.Operator,
-                            Value = query.FilteringCriteria.Code.Value
-                        } : null,
-                        Firstname = query.FilteringCriteria.Firstname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Firstname.Operator,
-                            Value = query.FilteringCriteria.Firstname.Value
-                        } : null,
-                        Lastname = query.FilteringCriteria.Lastname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Lastname.Operator,
-                            Value = query.FilteringCriteria.Lastname.Value
-                        } : null,
-                        BirthDate = query.FilteringCriteria.BirthDate != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.BirthDate.Operator,
-                            Value = query.FilteringCriteria.BirthDate.Value
-                        } : null
-                    } : null,
-                    OrderingCriteria = query.OrderingCriteria != null ? new StudentsQueryOrder
-                    {
-                        Code = query.OrderingCriteria.Code,
-                        Firstname = query.OrderingCriteria.Firstname,
-                        Lastname = query.OrderingCriteria.Lastname
-                    } : null,
+                    FilteringCriteria = studentFilteringCriteria,
+                    OrderingCriteria = studentOrderingCriteria,
                     CurrentPage = query.CurrentPage,
                     PageSize = query.PageSize
                 });
             var totalCount = await _studentsRepository.TotalCountStudentsByObjectAsync(
                 new StudentsQuery
                 {
-                    FilteringCriteria = query.FilteringCriteria != null ? new StudentsQueryFilter
-                    {
-                        Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Code.Operator,
-                            Value = query.FilteringCriteria.Code.Value
-                        } : null,
-                        Firstname = query.FilteringCriteria.Firstname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Firstname.Operator,
-                            Value = query.FilteringCriteria.Firstname.Value
-                        } : null,
-                        Lastname = query.FilteringCriteria.Lastname != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.Lastname.Operator,
-                            Value = query.FilteringCriteria.Lastname.Value
-                        } : null,
-                        BirthDate = query.FilteringCriteria.BirthDate != null ? new FilteringCriterion
-                        {
-                            Operator = query.FilteringCriteria.BirthDate.Operator,
-                            Value = query.FilteringCriteria.BirthDate.Value
-                        } : null
-                    } : null
+                    FilteringCriteria = studentFilteringCriteria
                 });
 
             // Map result to response
