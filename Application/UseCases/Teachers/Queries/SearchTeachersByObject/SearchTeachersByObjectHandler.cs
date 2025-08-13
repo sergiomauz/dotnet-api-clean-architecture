@@ -50,6 +50,11 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByObject
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Lastname.Operator).Value,
                     Value = query.FilteringCriteria.Lastname.Operand
+                } : null,
+                CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
+                {
+                    Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.CreatedAt.Operator).Value,
+                    Value = query.FilteringCriteria.CreatedAt.Operand
                 } : null
             } : null;
         }
@@ -60,7 +65,8 @@ namespace Application.UseCases.Teachers.Queries.SearchTeachersByObject
             {
                 Code = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Code),
                 Firstname = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Firstname),
-                Lastname = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Lastname)
+                Lastname = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.Lastname),
+                CreatedAt = EnumHelper.FromDescription<OrderOperator>(query.OrderingCriteria.CreatedAt)
             } : null;
         }
 

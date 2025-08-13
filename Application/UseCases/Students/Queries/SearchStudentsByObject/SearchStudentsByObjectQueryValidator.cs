@@ -34,7 +34,6 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
 
                     fc.RuleFor(c => c.Firstname)
                         .Must(v => FilteringCriterionQueryValidator.IsValid(v))
-                        .When(c => c.Firstname != null)
                         .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00003).ErrorCode)
                         .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00003).ErrorMessage)
                         .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00003).PropertyName)

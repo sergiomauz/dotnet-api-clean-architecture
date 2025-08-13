@@ -10,6 +10,7 @@ namespace Domain.QueryObjects
         public FilteringCriterion? Firstname { get; set; }
         public FilteringCriterion? Lastname { get; set; }
         public FilteringCriterion? BirthDate { get; set; }
+        public FilteringCriterion? CreatedAt { get; set; }
     }
 
     public class StudentsQueryOrder

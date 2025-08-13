@@ -12,16 +12,16 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByTextFilter
         IMapFrom<Student>
     {
         [JsonPropertyName("code")]
-        public string? Code { get; set; }
+        public string Code { get; set; }
 
         [JsonPropertyName("firstname")]
-        public string? Firstname { get; set; }
+        public string Firstname { get; set; }
 
         [JsonPropertyName("lastname")]
-        public string? Lastname { get; set; }
+        public string Lastname { get; set; }
 
         [JsonPropertyName("birth_date")]
-        public string? BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         public void Mapping(Profile profile)
         {
