@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Globalization;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
@@ -53,7 +54,7 @@ namespace Application.UseCases.Students.Commands.CreateStudent
                     Code = command.Code,
                     Firstname = command.Firstname,
                     Lastname = command.Lastname,
-                    BirthDate = command.BirthDate
+                    BirthDate = DateTime.ParseExact(command.BirthDate, "yyyy-MM-dd", CultureInfo.InvariantCulture)
                 }
             );
 

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Globalization;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using MediatR;
@@ -74,9 +75,9 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
             {
                 existingStudent.Lastname = command.Lastname;
             }
-            if (command.BirthDate.HasValue)
+            if (!string.IsNullOrEmpty(command.BirthDate))
             {
-                existingStudent.BirthDate = command.BirthDate.Value;
+                existingStudent.BirthDate = DateTime.ParseExact(command.BirthDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
 
             // Save student information

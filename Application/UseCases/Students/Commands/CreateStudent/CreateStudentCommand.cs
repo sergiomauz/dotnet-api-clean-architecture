@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using MediatR;
 using Application.Commons.Mapping;
@@ -15,7 +14,7 @@ namespace Application.UseCases.Students.Commands.CreateStudent
         public string Code { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)
@@ -27,7 +26,7 @@ namespace Application.UseCases.Students.Commands.CreateStudent
                 .ForMember(d => d.Code, m => m.MapFrom(o => o.Code))
                 .ForMember(d => d.Firstname, m => m.MapFrom(o => o.Firstname))
                 .ForMember(d => d.Lastname, m => m.MapFrom(o => o.Lastname))
-                .ForMember(d => d.BirthDate, m => m.MapFrom(o => DateTime.ParseExact(o.BirthDate, "yyyy-MM-dd", CultureInfo.InvariantCulture)));
+                .ForMember(d => d.BirthDate, m => m.MapFrom(o => o.BirthDate));
         }
     }
 }

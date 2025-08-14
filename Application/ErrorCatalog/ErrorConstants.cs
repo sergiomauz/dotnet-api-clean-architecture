@@ -36,6 +36,10 @@
         public static ErrorTuple CreateCourseContent00002 = new("CreateCourse-C00002", "teacher_id");
 
         // UpdateCourse
+        public static ErrorTuple UpdateCourseFormat00001 = new("UpdateCourse-F00001", "name");
+        public static ErrorTuple UpdateCourseFormat00002 = new("UpdateCourse-F00002", "teacher_id");
+        public static ErrorTuple UpdateCourseFormat00003 = new("UpdateCourse-F00003", "code");
+        public static ErrorTuple UpdateCourseFormat00004 = new("UpdateCourse-F00004", "description");
         public static ErrorTuple UpdateCourseContent00001 = new("UpdateCourse-C00001", "id");
         public static ErrorTuple UpdateCourseContent00002 = new("UpdateCourse-C00002", "code");
         public static ErrorTuple UpdateCourseContent00003 = new("UpdateCourse-C00003", "teacher_id");
@@ -61,14 +65,30 @@
         public static ErrorTuple SearchCoursesByObjectFormat00012 = new("SearchCoursesByObject-F00012", "created_at");
 
         // CreateEnrollment
+        public static ErrorTuple CreateEnrollmentFormat00001 = new("CreateEnrollment-F00001", "course_id");
+        public static ErrorTuple CreateEnrollmentFormat00002 = new("CreateEnrollment-F00002", "course_id");
+        public static ErrorTuple CreateEnrollmentFormat00003 = new("CreateEnrollment-F00003", "student_id");
+        public static ErrorTuple CreateEnrollmentFormat00004 = new("CreateEnrollment-F00004", "student_id");
         public static ErrorTuple CreateEnrollmentContent00001 = new("CreateEnrollment-C00001", "id");
         public static ErrorTuple CreateEnrollmentContent00002 = new("CreateEnrollment-C00002", "course_id");
         public static ErrorTuple CreateEnrollmentContent00003 = new("CreateEnrollment-C00003", "student_id");
 
         // CreateStudent
+        public static ErrorTuple CreateStudentFormat00001 = new("CreateStudent-F00001", "code");
+        public static ErrorTuple CreateStudentFormat00002 = new("CreateStudent-F00002", "code");
+        public static ErrorTuple CreateStudentFormat00003 = new("CreateStudent-F00003", "firstname");
+        public static ErrorTuple CreateStudentFormat00004 = new("CreateStudent-F00004", "firstname");
+        public static ErrorTuple CreateStudentFormat00005 = new("CreateStudent-F00005", "lastname");
+        public static ErrorTuple CreateStudentFormat00006 = new("CreateStudent-F00006", "lastname");
+        public static ErrorTuple CreateStudentFormat00007 = new("CreateStudent-F00007", "birth_date");
+        public static ErrorTuple CreateStudentFormat00008 = new("CreateStudent-F00008", "birth_date");
         public static ErrorTuple CreateStudentContent00001 = new("CreateStudent-C00001", "code");
 
         // UpdateStudent
+        public static ErrorTuple UpdateStudentFormat00001 = new("UpdateStudent-F00001", "code");
+        public static ErrorTuple UpdateStudentFormat00002 = new("UpdateStudent-F00002", "firstname");
+        public static ErrorTuple UpdateStudentFormat00003 = new("UpdateStudent-F00003", "lastname");
+        public static ErrorTuple UpdateStudentFormat00004 = new("UpdateStudent-F00004", "birth_date");
         public static ErrorTuple UpdateStudentContent00001 = new("UpdateStudent-C00001", "id");
         public static ErrorTuple UpdateStudentContent00002 = new("UpdateStudent-C00002", "code");
 
@@ -101,9 +121,18 @@
         public static ErrorTuple SearchStudentsByObjectFormat00015 = new("SearchStudentsByObject-F00015", "created_at");
 
         // CreateTeacher
+        public static ErrorTuple CreateTeacherFormat00001 = new("CreateTeacher-F00001", "code");
+        public static ErrorTuple CreateTeacherFormat00002 = new("CreateTeacher-F00002", "code");
+        public static ErrorTuple CreateTeacherFormat00003 = new("CreateTeacher-F00003", "firstname");
+        public static ErrorTuple CreateTeacherFormat00004 = new("CreateTeacher-F00004", "firstname");
+        public static ErrorTuple CreateTeacherFormat00005 = new("CreateTeacher-F00005", "lastname");
+        public static ErrorTuple CreateTeacherFormat00006 = new("CreateTeacher-F00006", "lastname");
         public static ErrorTuple CreateTeacherContent00001 = new("CreateTeacher-C00001", "code");
 
         // UpdateTeacher
+        public static ErrorTuple UpdateTeacherFormat00001 = new("UpdateTeacher-F00001", "code");
+        public static ErrorTuple UpdateTeacherFormat00002 = new("UpdateTeacher-F00002", "firstname");
+        public static ErrorTuple UpdateTeacherFormat00003 = new("UpdateTeacher-F00003", "lastname");
         public static ErrorTuple UpdateTeacherContent00001 = new("UpdateTeacher-C00001", "id");
         public static ErrorTuple UpdateTeacherContent00002 = new("UpdateTeacher-C00002", "code");
 

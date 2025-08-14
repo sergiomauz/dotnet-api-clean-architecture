@@ -4,9 +4,9 @@ using AutoMapper;
 using MediatR;
 using Domain.Entities;
 using Application.Commons.Exceptions;
+using Application.Commons.VMs;
 using Application.ErrorCatalog;
 using Application.Infrastructure.Persistence;
-using Application.Commons.VMs;
 
 
 namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId

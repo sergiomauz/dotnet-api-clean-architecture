@@ -12,9 +12,9 @@ namespace Application.UseCases.Courses.Commands.CreateCourse
         IRequest<CreateCourseVm>
     {
         public int? TeacherId { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Code { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
         public HttpRequest? Request { get; set; }
 
         public void Mapping(Profile profile)
