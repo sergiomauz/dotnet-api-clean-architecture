@@ -24,7 +24,7 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<GetCoursesByTeacherIdRoute, GetCoursesByTeacherIdQuery>()
-                .ForMember(d => d.TeacherId, m => m.MapFrom(o => o.TeacherId));
+                .ForMember(d => d.TeacherId, m => m.MapFrom(o => o.Id));
 
             profile.CreateMap<GetCoursesByTeacherIdRequestParams, GetCoursesByTeacherIdQuery>()
                 .ForMember(d => d.CurrentPage, m => m.MapFrom(o => o.CurrentPage ?? 1))

@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Commons.RequestParams;
 
 
 namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
 {
-    public class GetCoursesByTeacherIdRoute
+    public class GetCoursesByTeacherIdRoute : IdRouteRequestParam
     {
-        [FromRoute(Name = "teacher_id")]
-        public int? TeacherId { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace Application.UseCases.Teachers.Commands.DeleteTeachers
         public DeleteTeachersCommandValidator(IErrorCatalogService errorCatalogService)
         {
             RuleFor(x => x)
-                .SetValidator(new IdsQueryValidator(errorCatalogService));
+                .SetValidator(new IdsQueryValidator(errorCatalogService))
+                .When();
         }
     }
 }

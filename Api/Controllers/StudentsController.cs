@@ -59,7 +59,7 @@ namespace Api.Controllers
             return Ok(vm);
         }
 
-        [HttpGet("{student_id}/get-courses")]
+        [HttpGet("{id}/get-courses")]
         public async Task<ActionResult<PaginatedVm<GetCoursesByStudentIdVm>>> GetCoursesByStudentId([FromRoute] GetCoursesByStudentIdRoute studentRoute, [FromQuery] GetCoursesByStudentIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetCoursesByStudentIdQuery>(studentRoute);

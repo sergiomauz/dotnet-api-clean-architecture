@@ -60,7 +60,7 @@ namespace Api.Controllers
             return Ok(vm);
         }
 
-        [HttpGet("{teacher_id}/get-courses")]
+        [HttpGet("{id}/get-courses")]
         public async Task<ActionResult<PaginatedVm<GetCoursesByTeacherIdVm>>> GetCoursesByTeacherId([FromRoute] GetCoursesByTeacherIdRoute route, [FromQuery] GetCoursesByTeacherIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetCoursesByTeacherIdQuery>(route);
@@ -72,7 +72,7 @@ namespace Api.Controllers
             return Ok(vm);
         }
 
-        [HttpGet("{teacher_id}/get-students")]
+        [HttpGet("{id}/get-students")]
         public async Task<ActionResult<PaginatedVm<GetStudentsByTeacherIdVm>>> GetStudentsByTeacherId([FromRoute] GetStudentsByTeacherIdRoute route, [FromQuery] GetStudentsByTeacherIdRequestParams queryParams)
         {
             var query = Mapper.Map<GetStudentsByTeacherIdQuery>(route);

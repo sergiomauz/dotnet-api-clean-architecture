@@ -9,51 +9,32 @@ namespace Application.Commons.Validators
     {
         public IdsQueryValidator(IErrorCatalogService errorCatalogService)
         {
-            // Almost one of them is null
-            RuleFor(x => x)
-                .Must(x => x.Id.HasValue || (x.Ids != null && x.Ids.Any()))
-                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00001).ErrorCode)
-                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00001).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00001).PropertyName);
-
-            // Almost one of them has a not null value
-            RuleFor(x => x)
-                .Must(x => !(x.Id.HasValue && x.Ids != null && x.Ids.Any()))
-                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00002).ErrorCode)
-                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00002).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00002).PropertyName);
-
-            // Id must be greater than zero
-            RuleFor(x => x.Id)
-                .GreaterThan(0)
-                .When(x => x.Id.HasValue)
-                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00003).ErrorCode)
-                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00003).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00003).PropertyName);
-
-            // Ids must have more than one element if it is not null
             RuleFor(x => x.Ids)
-                .NotEmpty()
-                .When(x => !x.Id.HasValue)
+                .NotNull()
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00001).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00001).ErrorMessage)
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00001).PropertyName);
 
-            // Every element of Ids must be greater than zero
-            RuleForEach(x => x.Ids)
-                .GreaterThan(0)
-                .When(x => !x.Id.HasValue && x.Ids != null)
+            RuleFor(x => x.Ids)
+                .NotEmpty()
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00002).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00002).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00002).PropertyName);
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00002).PropertyName)
+                .When(x => x.Ids != null);
 
-            // Ids must avoid duplicate elements
-            RuleFor(x => x.Ids)
-                .Must(ids => ids == null || ids.Count() == ids.Distinct().Count())
-                .When(x => !x.Id.HasValue && x.Ids != null && x.Ids.Any())
+            RuleForEach(x => x.Ids)
+                .GreaterThan(0)
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00003).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00003).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00003).PropertyName);
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00003).PropertyName)
+                .When(x => x.Ids != null && x.Ids.Count > 0);
+
+            RuleFor(x => x.Ids)
+                .Must(x => x.Count() == x.Distinct().Count())
+                .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00004).ErrorCode)
+                .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00004).ErrorMessage)
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdsFormat00004).PropertyName)
+                .When(x => x.Ids != null && x.Ids.Count > 0);
         }
     }
 }

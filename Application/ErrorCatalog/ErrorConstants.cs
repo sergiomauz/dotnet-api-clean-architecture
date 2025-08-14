@@ -15,13 +15,15 @@
         // Code
         public static ErrorTuple CodeFormat00001 = new("Code-F00001", "code");
 
-        // Ids
+        // Id
         public static ErrorTuple IdFormat00001 = new("Id-F00001", "id");
         public static ErrorTuple IdFormat00002 = new("Id-F00002", "id");
-        public static ErrorTuple IdFormat00003 = new("Id-F00003", "id");
+
+        // Ids
         public static ErrorTuple IdsFormat00001 = new("Ids-F00001", "ids");
         public static ErrorTuple IdsFormat00002 = new("Ids-F00002", "ids");
         public static ErrorTuple IdsFormat00003 = new("Ids-F00003", "ids");
+        public static ErrorTuple IdsFormat00004 = new("Ids-F00004", "ids");
 
         // CreateCourse
         public static ErrorTuple CreateCourseFormat00001 = new("CreateCourse-F00001", "name");

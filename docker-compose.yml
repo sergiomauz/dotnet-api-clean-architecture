@@ -1,6 +1,7 @@
 services:
   talent_school_api:
     image: ${DOCKER_REGISTRY-}talentschoolapi
+    container_name: talent_school_api
     build:
       context: .
       dockerfile: Api/Dockerfile
