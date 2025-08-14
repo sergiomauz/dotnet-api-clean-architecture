@@ -50,6 +50,11 @@
         // GetCourseById
         public static ErrorTuple GetCourseByIdContent00001 = new("GetCourseById-C00001", "id");
 
+        // GetStudentsByCourseId
+        public static ErrorTuple GetStudentsByCourseIdFormat00001 = new("GetStudentsByCourseId-F00001", "course_id");
+        public static ErrorTuple GetStudentsByCourseIdFormat00002 = new("GetStudentsByCourseId-F00002", "course_id");
+        public static ErrorTuple GetStudentsByCourseIdContent00001 = new("GetStudentsByCourseId-C00001", "id");
+
         // SearchCoursesByObject
         public static ErrorTuple SearchCoursesByObjectFormat00001 = new("SearchCoursesByObject-F00001", "code");
         public static ErrorTuple SearchCoursesByObjectFormat00002 = new("SearchCoursesByObject-F00002", "code");

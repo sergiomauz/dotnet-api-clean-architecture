@@ -3,7 +3,7 @@
 
 namespace Domain.Entities
 {
-    public class Teacher : BaseEntityWithCode
+    public class Teacher : BaseEntityWithIdAndCode
     {
         #region ====== RELATIONSHIPS: ONE TO MANY - HAS MANY ======
         public IEnumerable<Course> Courses { get; set; }

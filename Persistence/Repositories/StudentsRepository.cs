@@ -19,6 +19,40 @@ namespace Persistence.Repositories
             _sqlServerDbContext = sqlServerDbContext;
         }
 
+        public async Task<int> TotalStudentsByCourseIdAsync(int courseId)
+        {
+            var count = await (from en in _sqlServerDbContext.Set<Enrollment>()
+                               where en.CourseId == courseId
+                               select en)
+                              .CountAsync();
+
+            return count;
+        }
+
+        public async Task<List<Enrollment>> GetStudentsByCourseIdAsync(int courseId, int currentPage, int pageSize)
+        {
+            var courses = await (from en in _sqlServerDbContext.Set<Enrollment>()
+                                 join st in _sqlServerDbContext.Set<Student>() on en.StudentId equals st.Id
+                                 where en.CourseId == courseId
+                                 orderby en.CreatedAt descending
+                                 select new Enrollment
+                                 {
+                                     Id = en.Id,
+                                     CreatedAt = en.CreatedAt,
+                                     Student = new Student
+                                     {
+                                         Code = st.Code,
+                                         Firstname = st.Firstname,
+                                         Lastname = st.Lastname
+                                     }
+                                 })
+                                .Skip(Convert.ToInt32(pageSize) * (Convert.ToInt32(currentPage) - 1))
+                                .Take(Convert.ToInt32(pageSize))
+                                .ToListAsync();
+
+            return courses;
+        }
+
         public async Task<int> TotalCountStudentsByTextFilterAsync(string textFilter)
         {
             var count = await (from st in _sqlServerDbContext.Set<Student>()

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities.Bases
 {
-    public abstract class BaseEntityWithCode : BaseEntityWithId
+    public abstract class BaseEntityWithGuidAndCode : BaseEntityWithGuid
     {
         public string? Code { get; set; }
     }

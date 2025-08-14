@@ -4,6 +4,7 @@ using Application.UseCases.Courses.Commands.CreateCourse;
 using Application.UseCases.Courses.Commands.DeleteCourses;
 using Application.UseCases.Courses.Commands.UpdateCourse;
 using Application.UseCases.Courses.Queries.GetCourseById;
+using Application.UseCases.Courses.Queries.GetStudentsByCourseId;
 using Application.UseCases.Courses.Queries.SearchCoursesByTextFilter;
 using Application.UseCases.Courses.Queries.SearchCoursesByObject;
 
@@ -51,6 +52,18 @@ namespace Api.Controllers
         public async Task<ActionResult<GetCourseByIdVm>> GetCourseById([FromRoute] GetCourseByIdRoute route)
         {
             var query = Mapper.Map<GetCourseByIdQuery>(route);
+            Mapper.Map(Request, query);
+
+            var vm = await Mediator.Send(query);
+
+            return Ok(vm);
+        }
+
+        [HttpGet("{course_id}/get-students")]
+        public async Task<ActionResult<PaginatedVm<GetStudentsByCourseIdVm>>> GetStudentsByTeacherId([FromRoute] GetStudentsByCourseIdRoute route, [FromQuery] GetStudentsByCourseIdRequestParams queryParams)
+        {
+            var query = Mapper.Map<GetStudentsByCourseIdQuery>(route);
+            Mapper.Map(queryParams, query);
             Mapper.Map(Request, query);
 
             var vm = await Mediator.Send(query);

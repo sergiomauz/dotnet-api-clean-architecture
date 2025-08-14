@@ -12,5 +12,8 @@ namespace Application.Infrastructure.Persistence
 
         Task<int> TotalCountStudentsByObjectAsync(StudentsQuery studentsQuery);
         Task<IEnumerable<Student>> SearchStudentsByObjectAsync(StudentsPaginatedQuery studentsQuery);
+
+        Task<int> TotalStudentsByCourseIdAsync(int courseId);
+        Task<List<Enrollment>> GetStudentsByCourseIdAsync(int courseId, int currentPage, int pageSize);
     }
 }

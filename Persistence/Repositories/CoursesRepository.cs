@@ -21,9 +21,9 @@ namespace Persistence.Repositories
 
         public async Task<int> TotalCoursesByTeacherIdAsync(int teacherId)
         {
-            var count = await (from en in _sqlServerDbContext.Set<Course>()
-                               where en.TeacherId == teacherId
-                               select en)
+            var count = await (from co in _sqlServerDbContext.Set<Course>()
+                               where co.TeacherId == teacherId
+                               select co)
                               .CountAsync();
 
             return count;
