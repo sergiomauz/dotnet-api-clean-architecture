@@ -26,10 +26,10 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                         {
                             fc.RuleFor(c => c.Code.Operand)
                                 .Must(v => JsonElementValidators.IsValidString(v, max: 10))
-                                .When(c => c.Code?.Operand != null)
                                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00002).ErrorCode)
                                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00002).ErrorMessage)
-                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00002).PropertyName);
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00002).PropertyName)
+                                .When(c => c.Code?.Operand != null);
                         });
 
                     fc.RuleFor(c => c.Firstname)
@@ -41,10 +41,10 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                         {
                             fc.RuleFor(c => c.Firstname.Operand)
                                 .Must(v => JsonElementValidators.IsValidString(v, max: 10))
-                                .When(c => c.Firstname?.Operand != null)
                                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00004).ErrorCode)
                                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00004).ErrorMessage)
-                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00004).PropertyName);
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00004).PropertyName)
+                                .When(c => c.Firstname?.Operand != null);
                         });
 
                     fc.RuleFor(c => c.Lastname)
@@ -56,10 +56,10 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                         {
                             fc.RuleFor(c => c.Lastname.Operand)
                                 .Must(v => JsonElementValidators.IsValidString(v, max: 10))
-                                .When(c => c.Lastname?.Operand != null)
                                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00006).ErrorCode)
                                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00006).ErrorMessage)
-                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00006).PropertyName);
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00006).PropertyName)
+                                .When(c => c.Lastname?.Operand != null);
                         });
 
                     fc.RuleFor(c => c.BirthDate)
@@ -71,10 +71,10 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                         {
                             fc.RuleFor(c => c.BirthDate.Operand)
                                 .Must(v => JsonElementValidators.IsValidDateTime(v))
-                                .When(c => c.BirthDate?.Operand != null)
                                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00008).ErrorCode)
                                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00008).ErrorMessage)
-                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00008).PropertyName);
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00008).PropertyName)
+                                .When(c => c.BirthDate?.Operand != null);
                         });
 
                     fc.RuleFor(c => c.CreatedAt)
@@ -86,10 +86,10 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                         {
                             fc.RuleFor(c => c.CreatedAt.Operand)
                                 .Must(v => JsonElementValidators.IsValidDateTime(v))
-                                .When(c => c.CreatedAt?.Operand != null)
                                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00010).ErrorCode)
                                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00010).ErrorMessage)
-                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00010).PropertyName);
+                                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00010).PropertyName)
+                                .When(c => c.CreatedAt?.Operand != null);
                         });
                 })
                 .When(x => x.FilteringCriteria != null);
@@ -99,38 +99,38 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                 {
                     oc.RuleFor(c => c.Code)
                         .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
-                        .When(c => c.Code != null)
                         .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00011).ErrorCode)
                         .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00011).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00011).PropertyName);
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00011).PropertyName)
+                        .When(c => c.Code != null);
 
                     oc.RuleFor(c => c.Firstname)
                         .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
-                        .When(c => c.Firstname != null)
                         .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00012).ErrorCode)
                         .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00012).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00012).PropertyName);
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00012).PropertyName)
+                        .When(c => c.Firstname != null);
 
                     oc.RuleFor(c => c.Lastname)
                         .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
-                        .When(c => c.Lastname != null)
                         .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00013).ErrorCode)
                         .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00013).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00013).PropertyName);
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00013).PropertyName)
+                        .When(c => c.Lastname != null);
 
                     oc.RuleFor(c => c.BirthDate)
                         .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
-                        .When(c => c.BirthDate != null)
                         .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00014).ErrorCode)
                         .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00014).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00014).PropertyName);
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00014).PropertyName)
+                        .When(c => c.BirthDate != null);
 
                     oc.RuleFor(c => c.CreatedAt)
                         .Must(v => EnumHelper.IsValidDescription<OrderOperator>(v))
-                        .When(c => c.CreatedAt != null)
                         .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00015).ErrorCode)
                         .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00015).ErrorMessage)
-                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00015).PropertyName);
+                        .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.SearchStudentsByObjectFormat00015).PropertyName)
+                        .When(c => c.CreatedAt != null);
                 })
                 .When(x => x.OrderingCriteria != null);
         }

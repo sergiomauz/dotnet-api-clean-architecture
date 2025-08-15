@@ -4,7 +4,7 @@ using Application.Infrastructure.Persistence.Bases;
 
 namespace Application.Infrastructure.Persistence
 {
-    public interface IEnrollmentsRepository : IBaseWithIdRepository<Enrollment>
+    public interface IEnrollmentsRepository : IBaseWithGuidRepository<Enrollment>
     {
         Task<Enrollment?> GetEnrollmentsByStudentIdAsync(int courseId, int studentId);
         Task<List<Enrollment>> GetCoursesByStudentIdAsync(int studentId, int currentPage, int pageSize);

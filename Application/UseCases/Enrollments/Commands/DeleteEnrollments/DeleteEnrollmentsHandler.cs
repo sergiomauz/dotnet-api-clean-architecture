@@ -30,7 +30,7 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
         public async Task<DeleteEnrollmentsVm> Handle(DeleteEnrollmentsCommand command, CancellationToken cancellationToken)
         {
             // Delete rows
-            var affectedRows = await _enrollmentsRepository.DeleteAsync(command.Ids);
+            var affectedRows = await _enrollmentsRepository.DeleteAsync(command.Ids.Select(x => Guid.Parse(x)));
 
             // Map rows affected
             if (affectedRows > 0)

@@ -3,11 +3,11 @@
 
 namespace Application.Infrastructure.Persistence.Bases
 {
-    public interface IBaseWithIdRepository<T> where T : BaseEntityWithId
+    public interface IBaseWithGuidRepository<T> where T : BaseEntityWithGuid
     {
         Task<T?> CreateAsync(T entity);
-        Task<int> DeleteAsync(List<int> ids);
+        Task<int> DeleteAsync(IEnumerable<Guid> ids);
         Task<T?> UpdateAsync(T entity);
-        Task<T?> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(Guid id);
     }
 }

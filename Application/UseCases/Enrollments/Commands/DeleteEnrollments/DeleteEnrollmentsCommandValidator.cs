@@ -10,7 +10,7 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
         public DeleteEnrollmentsCommandValidator(IErrorCatalogService errorCatalogService)
         {
             RuleFor(x => x)
-                .SetValidator(new IdsQueryValidator(errorCatalogService));
+                .SetValidator(new GuidsQueryValidator(errorCatalogService));
         }
     }
 }

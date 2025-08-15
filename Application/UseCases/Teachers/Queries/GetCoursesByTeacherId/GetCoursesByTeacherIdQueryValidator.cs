@@ -19,10 +19,10 @@ namespace Application.UseCases.Teachers.Queries.GetCoursesByTeacherId
                 .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.GetCoursesByTeacherIdFormat00001).PropertyName);
             RuleFor(x => x.TeacherId)
                 .GreaterThan(0)
-                .When(x => x.TeacherId != null)
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.GetCoursesByTeacherIdFormat00002).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.GetCoursesByTeacherIdFormat00002).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.GetCoursesByTeacherIdFormat00002).PropertyName);
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.GetCoursesByTeacherIdFormat00002).PropertyName)
+                .When(x => x.TeacherId != null);
         }
     }
 }

@@ -11,10 +11,10 @@ namespace Application.Commons.Validators
         {
             RuleFor(x => x.Code)
                 .Length(3, 25)
-                .When(x => !string.IsNullOrEmpty(x.Code))
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.CodeFormat00001).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.CodeFormat00001).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CodeFormat00001).PropertyName);
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.CodeFormat00001).PropertyName)
+                .When(x => !string.IsNullOrEmpty(x.Code));
         }
     }
 }

@@ -3,7 +3,7 @@
 
 namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
 {
-    public class DeleteEnrollmentsRoute : IdRouteRequestParam
+    public class DeleteEnrollmentsRoute : GuidRouteRequestParam
     {
     }
 }

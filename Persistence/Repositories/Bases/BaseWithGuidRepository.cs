@@ -9,12 +9,12 @@ using Application.Infrastructure.Persistence.Bases;
 
 namespace Persistence.Repositories.Bases
 {
-    public abstract class BaseWithIdRepository<T> :
-        IBaseWithIdRepository<T> where T : BaseEntityWithId
+    public class BaseWithGuidRepository<T> :
+        IBaseWithGuidRepository<T> where T : BaseEntityWithGuid
     {
         private readonly SqlServerDbContext _sqlServerDbContext;
 
-        public BaseWithIdRepository(SqlServerDbContext sqlServerDbContext)
+        public BaseWithGuidRepository(SqlServerDbContext sqlServerDbContext)
         {
             _sqlServerDbContext = sqlServerDbContext;
         }
@@ -102,7 +102,7 @@ namespace Persistence.Repositories.Bases
 
         public virtual async Task<T?> CreateAsync(T entity)
         {
-            if (entity is BaseEntityWithId tracked)
+            if (entity is BaseEntityWithGuid tracked)
             {
                 tracked.CreatedAt = DateTime.UtcNow;
             }
@@ -112,7 +112,7 @@ namespace Persistence.Repositories.Bases
             return entry.Entity;
         }
 
-        public virtual async Task<int> DeleteAsync(List<int> ids)
+        public virtual async Task<int> DeleteAsync(IEnumerable<Guid> ids)
         {
             var entities = await _sqlServerDbContext.Set<T>().Where(e => ids.Contains(e.Id.Value)).ToListAsync();
             _sqlServerDbContext.Set<T>().RemoveRange(entities);
@@ -127,7 +127,7 @@ namespace Persistence.Repositories.Bases
             if (existingEntity == null)
                 return null;
 
-            if (entity is BaseEntityWithId tracked)
+            if (entity is BaseEntityWithGuid tracked)
             {
                 tracked.ModifiedAt = DateTime.UtcNow;
             }
@@ -137,7 +137,7 @@ namespace Persistence.Repositories.Bases
             return existingEntity;
         }
 
-        public virtual async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(Guid id)
         {
             var entity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == id);
 

@@ -17,10 +17,10 @@ namespace Application.Commons.Validators
 
             RuleFor(x => x.Id)
                 .GreaterThan(0)
-                .When(x => x.Id != null)
                 .WithErrorCode(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00002).ErrorCode)
                 .WithMessage(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00002).ErrorMessage)
-                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00002).PropertyName);
+                .OverridePropertyName(errorCatalogService.GetErrorByCode(ErrorConstants.IdFormat00002).PropertyName)
+                .When(x => x.Id != null);
         }
     }
 }

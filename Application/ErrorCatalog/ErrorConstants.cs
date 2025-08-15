@@ -25,6 +25,16 @@
         public static ErrorTuple IdsFormat00003 = new("Ids-F00003", "ids");
         public static ErrorTuple IdsFormat00004 = new("Ids-F00004", "ids");
 
+        // Guid
+        public static ErrorTuple GuidFormat00001 = new("Guid-F00001", "id");
+        public static ErrorTuple GuidFormat00002 = new("Guid-F00002", "id");
+
+        // Guids
+        public static ErrorTuple GuidsFormat00001 = new("Guids-F00001", "ids");
+        public static ErrorTuple GuidsFormat00002 = new("Guids-F00002", "ids");
+        public static ErrorTuple GuidsFormat00003 = new("Guids-F00003", "ids");
+        public static ErrorTuple GuidsFormat00004 = new("Guids-F00004", "ids");
+
         // CreateCourse
         public static ErrorTuple CreateCourseFormat00001 = new("CreateCourse-F00001", "name");
         public static ErrorTuple CreateCourseFormat00002 = new("CreateCourse-F00002", "name");

@@ -6,7 +6,7 @@ using Application.Infrastructure.Persistence;
 
 namespace Persistence.Repositories
 {
-    public class EnrollmentsRepository : BaseWithIdRepository<Enrollment>, IEnrollmentsRepository
+    public class EnrollmentsRepository : BaseWithGuidRepository<Enrollment>, IEnrollmentsRepository
     {
         private readonly SqlServerDbContext _sqlServerDbContext;
 

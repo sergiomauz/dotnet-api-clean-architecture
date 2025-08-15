@@ -8,7 +8,7 @@ using Application.Commons.Queries;
 namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
 {
     public class DeleteEnrollmentsCommand :
-        IdsQuery,
+        GuidsQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<DeleteEnrollmentsRoute>,
         IMapFrom<DeleteEnrollmentsDto>,

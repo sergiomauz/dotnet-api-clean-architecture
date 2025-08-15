@@ -3,7 +3,7 @@
 
 namespace Domain.Entities
 {
-    public class Enrollment : BaseEntityWithId
+    public class Enrollment : BaseEntityWithGuid
     {
         #region ====== RELATIONSHIPS: BELONGS TO ======
         public int? CourseId { get; set; }
