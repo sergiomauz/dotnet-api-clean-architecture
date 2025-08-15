@@ -10,7 +10,7 @@ namespace Application.UseCases.Courses.Queries.GetCourseById
         public GetCourseByIdQueryValidator(IErrorCatalogService errorCatalogService)
         {
             RuleFor(x => x)
-                .SetValidator(new IdsQueryValidator(errorCatalogService));
+                .SetValidator(new IdQueryValidator(errorCatalogService));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Application.UseCases.Courses.Commands.DeleteCourses
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<DeleteCoursesRoute, DeleteCoursesCommand>()
-                .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
+                .ForMember(d => d.Ids, m => m.MapFrom(o => new[] { o.Id }));
 
             profile.CreateMap<DeleteCoursesDto, DeleteCoursesCommand>()
                 .ForMember(d => d.Ids, m => m.MapFrom(o => o.Ids));

@@ -11,7 +11,7 @@ namespace Application.UseCases.Students.Commands.UpdateStudent
         public UpdateStudentCommandValidator(IErrorCatalogService errorCatalogService)
         {
             RuleFor(x => x)
-                .SetValidator(new IdsQueryValidator(errorCatalogService));
+                .SetValidator(new IdQueryValidator(errorCatalogService));
 
             RuleFor(x => x.Code)
                 .Length(3, 10)

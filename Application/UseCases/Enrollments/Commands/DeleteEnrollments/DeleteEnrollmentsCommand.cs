@@ -22,7 +22,7 @@ namespace Application.UseCases.Enrollments.Commands.DeleteEnrollments
                 .ForMember(d => d.Request, m => m.MapFrom(o => o));
 
             profile.CreateMap<DeleteEnrollmentsRoute, DeleteEnrollmentsCommand>()
-                .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));
+                .ForMember(d => d.Ids, m => m.MapFrom(o => new[] { o.Id }));
 
             profile.CreateMap<DeleteEnrollmentsDto, DeleteEnrollmentsCommand>()
                 .ForMember(d => d.Ids, m => m.MapFrom(o => o.Ids));

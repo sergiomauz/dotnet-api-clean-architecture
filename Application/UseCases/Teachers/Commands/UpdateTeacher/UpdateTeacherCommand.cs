@@ -8,7 +8,7 @@ using Application.Commons.Queries;
 namespace Application.UseCases.Teachers.Commands.UpdateTeacher
 {
     public class UpdateTeacherCommand :
-        IdsQuery,
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<UpdateTeacherDto>,
         IMapFrom<UpdateTeacherRoute>,

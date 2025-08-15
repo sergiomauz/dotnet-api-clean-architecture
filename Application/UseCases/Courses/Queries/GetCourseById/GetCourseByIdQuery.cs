@@ -8,7 +8,7 @@ using Application.Commons.Queries;
 namespace Application.UseCases.Courses.Queries.GetCourseById
 {
     public class GetCourseByIdQuery :
-        IdsQuery,
+        IdQuery,
         IMapFrom<HttpRequest>,
         IMapFrom<GetCourseByIdRoute>,
         IRequest<GetCourseByIdVm>

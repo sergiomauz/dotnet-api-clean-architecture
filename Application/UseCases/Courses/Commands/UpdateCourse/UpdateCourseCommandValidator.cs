@@ -10,7 +10,7 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
         public UpdateCourseCommandValidator(IErrorCatalogService errorCatalogService)
         {
             RuleFor(x => x)
-                .SetValidator(new IdsQueryValidator(errorCatalogService));
+                .SetValidator(new IdQueryValidator(errorCatalogService));
 
             RuleFor(x => x.Name)
                 .Length(3, 100)
