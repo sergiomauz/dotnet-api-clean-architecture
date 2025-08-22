@@ -121,22 +121,6 @@ namespace Persistence.Repositories.Bases
             return affectedRows;
         }
 
-        //public virtual async Task<T?> UpdateAsync(T entity)
-        //{
-        //    var existingEntity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == entity.Id);
-        //    if (existingEntity == null)
-        //        return null;
-
-        //    if (entity is BaseEntityWithId tracked)
-        //    {
-        //        tracked.ModifiedAt = DateTime.UtcNow;
-        //    }
-        //    _sqlServerDbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
-        //    await _sqlServerDbContext.SaveChangesAsync();
-
-        //    return existingEntity;
-        //}
-
         public virtual async Task<T?> UpdateAsync(T existingEntity)
         {
             existingEntity.ModifiedAt = DateTime.UtcNow;
