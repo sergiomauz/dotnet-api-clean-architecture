@@ -90,9 +90,9 @@ namespace Application.UseCases.Courses.Commands.UpdateCourse
             {
                 existingCourse.Name = command.Name;
             }
-            if (!string.IsNullOrEmpty(command.Name))
+            if (!string.IsNullOrEmpty(command.Description))
             {
-                existingCourse.Name = command.Name;
+                existingCourse.Description = command.Description;
             }
 
             // Save course information
