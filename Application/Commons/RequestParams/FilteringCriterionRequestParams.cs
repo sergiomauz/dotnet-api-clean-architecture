@@ -8,7 +8,7 @@ namespace Application.Commons.RequestParams
         [JsonPropertyName("operator")]
         public string Operator { get; set; }
 
-        [JsonPropertyName("value")]
+        [JsonPropertyName("operand")]
         public object? Operand { get; set; }
     }
 }

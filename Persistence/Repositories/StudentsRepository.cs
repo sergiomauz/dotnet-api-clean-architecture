@@ -98,7 +98,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.Code != null)
                 {
                     var codeOperator = studentsQuery.FilteringCriteria.Code.Operator;
-                    var codeValue = studentsQuery.FilteringCriteria.Code.Value;
+                    var codeValue = studentsQuery.FilteringCriteria.Code.Operand;
                     sqlFilters += @$"st.Code 
                                     {ConvertOperatorToSQL(codeOperator)} 
                                     {ConvertValueToSQL(codeOperator, codeValue)} AND ";
@@ -107,7 +107,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.Firstname != null)
                 {
                     var firstnameOperator = studentsQuery.FilteringCriteria.Firstname.Operator;
-                    var firstnameValue = studentsQuery.FilteringCriteria.Firstname.Value;
+                    var firstnameValue = studentsQuery.FilteringCriteria.Firstname.Operand;
                     sqlFilters += @$"st.Firstname 
                                     {ConvertOperatorToSQL(firstnameOperator)} 
                                     {ConvertValueToSQL(firstnameOperator, firstnameValue)} AND ";
@@ -116,7 +116,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.Lastname != null)
                 {
                     var lastnameOperator = studentsQuery.FilteringCriteria.Lastname.Operator;
-                    var lastnameValue = studentsQuery.FilteringCriteria.Lastname.Value;
+                    var lastnameValue = studentsQuery.FilteringCriteria.Lastname.Operand;
                     sqlFilters += @$"st.Lastname 
                                     {ConvertOperatorToSQL(lastnameOperator)} 
                                     {ConvertValueToSQL(lastnameOperator, lastnameValue)} AND ";
@@ -125,7 +125,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.BirthDate != null)
                 {
                     var createdAtOperator = studentsQuery.FilteringCriteria.BirthDate.Operator;
-                    var createdAtValue = studentsQuery.FilteringCriteria.BirthDate.Value;
+                    var createdAtValue = studentsQuery.FilteringCriteria.BirthDate.Operand;
                     sqlFilters += @$"st.BirthDate 
                                     {ConvertOperatorToSQL(createdAtOperator)} 
                                     {ConvertValueToSQL(createdAtOperator, createdAtValue)} AND ";
@@ -157,7 +157,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.Code != null)
                 {
                     var codeOperator = studentsQuery.FilteringCriteria.Code.Operator;
-                    var codeValue = studentsQuery.FilteringCriteria.Code.Value;
+                    var codeValue = studentsQuery.FilteringCriteria.Code.Operand;
                     sqlFilters += @$"st.Code 
                                     {ConvertOperatorToSQL(codeOperator)} 
                                     {ConvertValueToSQL(codeOperator, codeValue)} AND ";
@@ -166,7 +166,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.Firstname != null)
                 {
                     var firstnameOperator = studentsQuery.FilteringCriteria.Firstname.Operator;
-                    var firstnameValue = studentsQuery.FilteringCriteria.Firstname.Value;
+                    var firstnameValue = studentsQuery.FilteringCriteria.Firstname.Operand;
                     sqlFilters += @$"st.Firstname 
                                     {ConvertOperatorToSQL(firstnameOperator)} 
                                     {ConvertValueToSQL(firstnameOperator, firstnameValue)} AND ";
@@ -175,7 +175,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.Lastname != null)
                 {
                     var lastnameOperator = studentsQuery.FilteringCriteria.Lastname.Operator;
-                    var lastnameValue = studentsQuery.FilteringCriteria.Lastname.Value;
+                    var lastnameValue = studentsQuery.FilteringCriteria.Lastname.Operand;
                     sqlFilters += @$"st.Lastname 
                                     {ConvertOperatorToSQL(lastnameOperator)} 
                                     {ConvertValueToSQL(lastnameOperator, lastnameValue)} AND ";
@@ -184,7 +184,7 @@ namespace Persistence.Repositories
                 if (studentsQuery.FilteringCriteria.BirthDate != null)
                 {
                     var birthDateOperator = studentsQuery.FilteringCriteria.BirthDate.Operator;
-                    var birthDateValue = studentsQuery.FilteringCriteria.BirthDate.Value;
+                    var birthDateValue = studentsQuery.FilteringCriteria.BirthDate.Operand;
                     sqlFilters += @$"co.BirthDate 
                                     {ConvertOperatorToSQL(birthDateOperator)} 
                                     {ConvertValueToSQL(birthDateOperator, birthDateValue)} AND ";

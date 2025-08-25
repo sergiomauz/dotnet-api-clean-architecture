@@ -39,22 +39,22 @@ namespace Application.UseCases.Courses.Queries.SearchCoursesByObject
                 Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Code.Operator).Value,
-                    Value = query.FilteringCriteria.Code.Operand
+                    Operand = query.FilteringCriteria.Code.Operand
                 } : null,
                 Name = query.FilteringCriteria.Name != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Name.Operator).Value,
-                    Value = query.FilteringCriteria.Name.Operand
+                    Operand = query.FilteringCriteria.Name.Operand
                 } : null,
                 Description = query.FilteringCriteria.Description != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Description.Operator).Value,
-                    Value = query.FilteringCriteria.Description.Operand
+                    Operand = query.FilteringCriteria.Description.Operand
                 } : null,
                 CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.CreatedAt.Operator).Value,
-                    Value = query.FilteringCriteria.CreatedAt.Operand
+                    Operand = query.FilteringCriteria.CreatedAt.Operand
                 } : null
             } : null;
         }

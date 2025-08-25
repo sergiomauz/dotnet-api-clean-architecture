@@ -101,7 +101,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.Code != null)
                 {
                     var codeOperator = coursesQuery.FilteringCriteria.Code.Operator;
-                    var codeValue = coursesQuery.FilteringCriteria.Code.Value;
+                    var codeValue = coursesQuery.FilteringCriteria.Code.Operand;
                     sqlFilters += @$"co.Code 
                                     {ConvertOperatorToSQL(codeOperator)} 
                                     {ConvertValueToSQL(codeOperator, codeValue)} AND ";
@@ -110,7 +110,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.Name != null)
                 {
                     var nameOperator = coursesQuery.FilteringCriteria.Name.Operator;
-                    var nameValue = coursesQuery.FilteringCriteria.Name.Value;
+                    var nameValue = coursesQuery.FilteringCriteria.Name.Operand;
                     sqlFilters += @$"co.Name 
                                     {ConvertOperatorToSQL(nameOperator)} 
                                     {ConvertValueToSQL(nameOperator, nameValue)} AND ";
@@ -119,7 +119,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.Description != null)
                 {
                     var descriptionOperator = coursesQuery.FilteringCriteria.Description.Operator;
-                    var descriptionValue = coursesQuery.FilteringCriteria.Description.Value;
+                    var descriptionValue = coursesQuery.FilteringCriteria.Description.Operand;
                     sqlFilters += @$"co.Description 
                                     {ConvertOperatorToSQL(descriptionOperator)} 
                                     {ConvertValueToSQL(descriptionOperator, descriptionValue)} AND ";
@@ -128,7 +128,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.CreatedAt != null)
                 {
                     var createdAtOperator = coursesQuery.FilteringCriteria.CreatedAt.Operator;
-                    var createdAtValue = coursesQuery.FilteringCriteria.CreatedAt.Value;
+                    var createdAtValue = coursesQuery.FilteringCriteria.CreatedAt.Operand;
                     sqlFilters += @$"co.CreatedAt 
                                     {ConvertOperatorToSQL(createdAtOperator)} 
                                     {ConvertValueToSQL(createdAtOperator, createdAtValue)} AND ";
@@ -158,7 +158,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.Code != null)
                 {
                     var codeOperator = coursesQuery.FilteringCriteria.Code.Operator;
-                    var codeValue = coursesQuery.FilteringCriteria.Code.Value;
+                    var codeValue = coursesQuery.FilteringCriteria.Code.Operand;
                     sqlFilters += @$"co.Code 
                                     {ConvertOperatorToSQL(codeOperator)} 
                                     {ConvertValueToSQL(codeOperator, codeValue)} AND ";
@@ -167,7 +167,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.Name != null)
                 {
                     var nameOperator = coursesQuery.FilteringCriteria.Name.Operator;
-                    var nameValue = coursesQuery.FilteringCriteria.Name.Value;
+                    var nameValue = coursesQuery.FilteringCriteria.Name.Operand;
                     sqlFilters += @$"co.Name 
                                     {ConvertOperatorToSQL(nameOperator)} 
                                     {ConvertValueToSQL(nameOperator, nameValue)} AND ";
@@ -176,7 +176,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.Description != null)
                 {
                     var descriptionOperator = coursesQuery.FilteringCriteria.Description.Operator;
-                    var descriptionValue = coursesQuery.FilteringCriteria.Description.Value;
+                    var descriptionValue = coursesQuery.FilteringCriteria.Description.Operand;
                     sqlFilters += @$"co.Description 
                                     {ConvertOperatorToSQL(descriptionOperator)} 
                                     {ConvertValueToSQL(descriptionOperator, descriptionValue)} AND ";
@@ -185,7 +185,7 @@ namespace Persistence.Repositories
                 if (coursesQuery.FilteringCriteria.CreatedAt != null)
                 {
                     var createdAtOperator = coursesQuery.FilteringCriteria.CreatedAt.Operator;
-                    var createdAtValue = coursesQuery.FilteringCriteria.CreatedAt.Value;
+                    var createdAtValue = coursesQuery.FilteringCriteria.CreatedAt.Operand;
                     sqlFilters += @$"co.CreatedAt 
                                     {ConvertOperatorToSQL(createdAtOperator)} 
                                     {ConvertValueToSQL(createdAtOperator, createdAtValue)} AND ";

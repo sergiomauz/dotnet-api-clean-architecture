@@ -39,27 +39,27 @@ namespace Application.UseCases.Students.Queries.SearchStudentsByObject
                 Code = query.FilteringCriteria.Code != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Code.Operator).Value,
-                    Value = query.FilteringCriteria.Code.Operand
+                    Operand = query.FilteringCriteria.Code.Operand
                 } : null,
                 Firstname = query.FilteringCriteria.Firstname != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Firstname.Operator).Value,
-                    Value = query.FilteringCriteria.Firstname.Operand
+                    Operand = query.FilteringCriteria.Firstname.Operand
                 } : null,
                 Lastname = query.FilteringCriteria.Lastname != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.Lastname.Operator).Value,
-                    Value = query.FilteringCriteria.Lastname.Operand
+                    Operand = query.FilteringCriteria.Lastname.Operand
                 } : null,
                 BirthDate = query.FilteringCriteria.BirthDate != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.BirthDate.Operator).Value,
-                    Value = query.FilteringCriteria.BirthDate.Operand
+                    Operand = query.FilteringCriteria.BirthDate.Operand
                 } : null,
                 CreatedAt = query.FilteringCriteria.CreatedAt != null ? new FilteringCriterion
                 {
                     Operator = EnumHelper.FromDescription<FilterOperator>(query.FilteringCriteria.CreatedAt.Operator).Value,
-                    Value = query.FilteringCriteria.CreatedAt.Operand
+                    Operand = query.FilteringCriteria.CreatedAt.Operand
                 } : null
             } : null;
         }

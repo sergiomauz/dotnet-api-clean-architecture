@@ -63,7 +63,7 @@ namespace Persistence.Repositories
                 if (teachersQuery.FilteringCriteria.Code != null)
                 {
                     var codeOperator = teachersQuery.FilteringCriteria.Code.Operator;
-                    var codeValue = teachersQuery.FilteringCriteria.Code.Value;
+                    var codeValue = teachersQuery.FilteringCriteria.Code.Operand;
                     sqlFilters += @$"te.Code 
                                     {ConvertOperatorToSQL(codeOperator)} 
                                     {ConvertValueToSQL(codeOperator, codeValue)} AND ";
@@ -72,7 +72,7 @@ namespace Persistence.Repositories
                 if (teachersQuery.FilteringCriteria.Firstname != null)
                 {
                     var firstnameOperator = teachersQuery.FilteringCriteria.Firstname.Operator;
-                    var firstnameValue = teachersQuery.FilteringCriteria.Firstname.Value;
+                    var firstnameValue = teachersQuery.FilteringCriteria.Firstname.Operand;
                     sqlFilters += @$"te.Firstname 
                                     {ConvertOperatorToSQL(firstnameOperator)} 
                                     {ConvertValueToSQL(firstnameOperator, firstnameValue)} AND ";
@@ -81,7 +81,7 @@ namespace Persistence.Repositories
                 if (teachersQuery.FilteringCriteria.Lastname != null)
                 {
                     var lastnameOperator = teachersQuery.FilteringCriteria.Lastname.Operator;
-                    var lastnameValue = teachersQuery.FilteringCriteria.Lastname.Value;
+                    var lastnameValue = teachersQuery.FilteringCriteria.Lastname.Operand;
                     sqlFilters += @$"te.Lastname 
                                     {ConvertOperatorToSQL(lastnameOperator)} 
                                     {ConvertValueToSQL(lastnameOperator, lastnameValue)} AND ";
@@ -111,7 +111,7 @@ namespace Persistence.Repositories
                 if (teachersQuery.FilteringCriteria.Code != null)
                 {
                     var codeOperator = teachersQuery.FilteringCriteria.Code.Operator;
-                    var codeValue = teachersQuery.FilteringCriteria.Code.Value;
+                    var codeValue = teachersQuery.FilteringCriteria.Code.Operand;
                     sqlFilters += @$"te.Code 
                                     {ConvertOperatorToSQL(codeOperator)} 
                                     {ConvertValueToSQL(codeOperator, codeValue)} AND ";
@@ -120,7 +120,7 @@ namespace Persistence.Repositories
                 if (teachersQuery.FilteringCriteria.Firstname != null)
                 {
                     var firstnameOperator = teachersQuery.FilteringCriteria.Firstname.Operator;
-                    var firstnameValue = teachersQuery.FilteringCriteria.Firstname.Value;
+                    var firstnameValue = teachersQuery.FilteringCriteria.Firstname.Operand;
                     sqlFilters += @$"te.Firstname 
                                     {ConvertOperatorToSQL(firstnameOperator)} 
                                     {ConvertValueToSQL(firstnameOperator, firstnameValue)} AND ";
@@ -129,7 +129,7 @@ namespace Persistence.Repositories
                 if (teachersQuery.FilteringCriteria.Lastname != null)
                 {
                     var lastnameOperator = teachersQuery.FilteringCriteria.Lastname.Operator;
-                    var lastnameValue = teachersQuery.FilteringCriteria.Lastname.Value;
+                    var lastnameValue = teachersQuery.FilteringCriteria.Lastname.Operand;
                     sqlFilters += @$"te.Lastname 
                                     {ConvertOperatorToSQL(lastnameOperator)} 
                                     {ConvertValueToSQL(lastnameOperator, lastnameValue)} AND ";
