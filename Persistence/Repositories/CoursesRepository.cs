@@ -135,7 +135,6 @@ namespace Persistence.Repositories
                 }
 
                 sqlFilters = $"WHERE {sqlFilters.Substring(0, sqlFilters.Length - 5)} ";
-
                 sql += sqlFilters;
             }
 
@@ -192,7 +191,6 @@ namespace Persistence.Repositories
                 }
 
                 sqlFilters = $"WHERE {sqlFilters.Substring(0, sqlFilters.Length - 5)} ";
-
                 sql += sqlFilters;
             }
 
