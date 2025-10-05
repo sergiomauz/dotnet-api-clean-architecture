@@ -20,11 +20,11 @@ namespace Application.Commons.Validators
             if (filteringCriterion.Operand == null)
                 return true;
 
-
             // Try to get the real value if it is a JsonElement
             var val = filteringCriterion.Operand.Value;
             var valueType = val.ValueKind;
             var filterOperator = EnumHelper.FromDescription<FilterOperator>(filteringCriterion.Operator);
+
             // Is a boolean?
             if (valueType == JsonValueKind.True || valueType == JsonValueKind.False)
             {
